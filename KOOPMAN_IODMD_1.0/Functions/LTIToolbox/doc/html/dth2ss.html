@@ -1,0 +1,211 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>DTH2SS</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="dth2ss"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>DTH2SS</h1>
+         <introduction>
+            <p>Converts a parameter vector into a discrete-time LTI state-space model.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#6">Description</a></li>
+               <li><a href="#7">Inputs</a></li>
+               <li><a href="#10">Outputs</a></li>
+               <li><a href="#13">Remarks</a></li>
+               <li><a href="#14">Algorithm</a></li>
+               <li><a href="#16">Used By</a></li>
+               <li><a href="#17">See Also</a></li>
+               <li><a href="#18">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>[A,C] = dth2ss(theta,params)</tt></p>
+         <p><tt>[A,B,C] = dth2ss(theta,params)</tt></p>
+         <p><tt>[A,B,C,D] = dth2ss(theta,params)</tt></p>
+         <p><tt>[A,B,C,D,x0] = dth2ss(theta,params)</tt></p>
+         <p><tt>[A,B,C,D,x0,K] = dth2ss(theta,params)</tt></p>
+         <h2>Description<a name="6"></a></h2>
+         <p>his function converts a parameter vector that describes a continuous-time state space model into the state space matrices
+            of that model.
+         </p>
+         <p><img vspace="5" hspace="5" src="dth2ss_eq16271.png"> </p>
+         <p><img vspace="5" hspace="5" src="dth2ss_eq12741.png"> </p>
+         <h2>Inputs<a name="7"></a></h2>
+         <p><tt>theta</tt> is the parameter vector describing the system.
+         </p>
+         <p><tt>params</tt> is a structure that contains the dimension parameters of the system, such as the order, the number of inputs and whether
+            <tt>D</tt>, <tt>x0</tt> or <tt>K</tt> is present.
+         </p>
+         <p><tt>T</tt> is the transformation matrix between the input state space system and the state space system in the form described by <tt>theta</tt>.
+         </p>
+         <h2>Outputs<a name="10"></a></h2>
+         <p><tt>A,B,C,D</tt> are system matrices describing the state space system. If <tt>theta</tt> does not contain  parameters for <tt>D</tt>, this matrix will be returned as an empty matrix.
+         </p>
+         <p><tt>x0</tt> is the initial state. If <tt>theta</tt> does not contain parameters for <tt>x0</tt>, this vector will be returned as an empty matrix.
+         </p>
+         <p><tt>K</tt> is the Kalman gain. If <tt>theta</tt> does not contain parameters for <tt>K</tt>, this vector will be returned as an empty matrix.
+         </p>
+         <h2>Remarks<a name="13"></a></h2>
+         <p>This function is based on the SMI Toolbox 2.0 function <tt>dth2ss</tt>, copyright 1996 Johan Bruls. Support for the omission of <tt>D</tt>, <tt>x0</tt> and/or <tt>K</tt> has been added, as well as support for the full parametrization.
+         </p>
+         <h2>Algorithm<a name="14"></a></h2>
+         <p>The model parametrization for the output normal form and the tridiagonal parametrization is carried out according to [1].
+            The full model parametrization is a simple vectorization of the system matrices. In its most general form, the parameter vector
+            is given by
+         </p>
+         <p><img vspace="5" hspace="5" src="param.jpg"> </p>
+         <h2>Used By<a name="16"></a></h2>
+         <p><a href="doptlti.html"><tt>doptlti</tt></a>, <a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="foptlti.html"><tt>foptlti</tt></a>, <a href="ffunlti.html"><tt>ffunlti</tt></a></p>
+         <h2>See Also<a name="17"></a></h2>
+         <p><a href="css2th.html"><tt>css2th</tt></a>, <a href="dss2th.html"><tt>dss2th</tt></a></p>
+         <h2>References<a name="18"></a></h2>
+         <p>[1] B. Haverkamp, <i>Subspace Method Identification, Theory and Practice.</i> PhD thesis, Delft University of Technology, Delft, The Netherlands, 2000.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% DTH2SS
+% Converts a parameter vector into a discrete-time LTI state-space model.
+
+%% Syntax
+% |[A,C] = dth2ss(theta,params)|
+%%
+% |[A,B,C] = dth2ss(theta,params)|
+%%
+% |[A,B,C,D] = dth2ss(theta,params)|
+%%
+% |[A,B,C,D,x0] = dth2ss(theta,params)|
+%%
+% |[A,B,C,D,x0,K] = dth2ss(theta,params)| 
+
+%% Description
+% his function converts a parameter vector that describes a continuous-time
+% state space model into the state space matrices of that model.
+%
+% $$x(k+1) = Ax(k) + Bu(k) + Ke(k)$$
+%
+% $$y(k) = Cx(k) + Du(k) + e(k)$$
+%
+
+%% Inputs
+% |theta| is the parameter vector describing the system.
+%%
+% |params| is a structure that contains the dimension parameters of the
+% system, such as the order, the number of inputs and whether |D|, |x0| or
+% |K| is present.
+%%
+% |T| is the transformation matrix between the input state space system and
+% the state space system in the form described by |theta|.
+
+%% Outputs
+% |A,B,C,D| are system matrices describing the state space system. If
+% |theta| does not contain  parameters for |D|, this matrix will be
+% returned as an empty matrix.
+%%
+% |x0| is the initial state. If |theta| does not contain parameters for
+% |x0|, this vector will be returned as an empty matrix.
+%%
+% |K| is the Kalman gain. If |theta| does not contain parameters for |K|,
+% this vector will be returned as an empty matrix.
+
+%% Remarks
+% This function is based on the SMI Toolbox 2.0 function |dth2ss|,
+% copyright 1996 Johan Bruls. Support for the omission of |D|, |x0| and/or
+% |K| has been added, as well as support for the full parametrization.
+
+%% Algorithm
+% The model parametrization for the output normal form and the tridiagonal
+% parametrization is carried out according to [1]. The full model
+% parametrization is a simple vectorization of the system matrices. In its
+% most general form, the parameter vector is given by
+%%
+% <<param.jpg>>
+
+%% Used By
+% <doptlti.html |doptlti|>, <dfunlti.html |dfunlti|>, <foptlti.html
+% |foptlti|>, <ffunlti.html |ffunlti|>
+
+%% See Also
+% <css2th.html |css2th|>, <dss2th.html |dss2th|>
+
+%% References
+% [1] B. Haverkamp, _Subspace Method Identification, Theory and Practice._
+% PhD thesis, Delft University of Technology, Delft, The Netherlands, 2000.
+##### SOURCE END #####
+-->
+   </body>
+</html>

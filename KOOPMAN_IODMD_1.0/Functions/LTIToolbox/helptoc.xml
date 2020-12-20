@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+
+<toc version="1.0">
+
+<tocitem target="ltitoolbox_product_page.html" image="$toolbox/matlab/icons/book_mat.gif">LTI System Identification
+
+<tocitem target="doc/html/lti_gettingstarted.html" 
+ image="$toolbox/matlab/icons/greencircleicon.gif">Getting Started</tocitem>
+
+<tocitem target="doc/html/lti_install.html" 
+ image="$toolbox/matlab/icons/pagesicon.gif">Installation</tocitem>
+
+<tocitem target="doc/html/lti_func_cat.html" 
+ image="$toolbox/matlab/icons/reficon.gif">Functions -- By Category</tocitem>
+
+<tocitem target="doc/html/lti_func_alpha.html" 
+ image="$toolbox/matlab/icons/reficon.gif">Functions -- Alphabetical List</tocitem>
+
+<tocitem target="doc/html/lti_releasenotes.html" 
+ image="$toolbox/matlab/icons/notesicon.gif">Release Notes</tocitem>
+
+<tocitem target="doc/companion.pdf" 
+ image="$toolbox/matlab/icons/pdficon.gif">Printable Documentation (PDF)</tocitem>
+
+<tocitem target="http://www.cambridge.org/9780521875127" 
+ image="$toolbox/matlab/icons/webicon.gif">Product Page (Web)</tocitem>
+
+</tocitem>
+
+</toc>

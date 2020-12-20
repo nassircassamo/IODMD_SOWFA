@@ -1,0 +1,26 @@
+<productinfo
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="optional">
+<?xml-stylesheet type="text/xsl" href="optional"?>
+
+<matlabrelease>R2006b</matlabrelease>
+<name>LTI System Identification</name>
+<type>toolbox</type>
+<icon>$toolbox/matlab/icons/unknownicon.gif</icon>
+<help_location>.</help_location>
+
+<list>
+  <listitem>
+    <label>Help</label>
+    <callback>doc ltitoolbox</callback>
+    <icon>$toolbox/matlab/icons/book_mat.gif</icon>
+  </listitem>
+  <listitem>
+     <label>Product Page (Web)</label>
+     <callback>web http://www.cambridge.org/9780521875127</callback>
+     <icon>$toolbox/matlab/icons/webicon.gif</icon>
+  </listitem>
+</list>
+
+</productinfo>
+

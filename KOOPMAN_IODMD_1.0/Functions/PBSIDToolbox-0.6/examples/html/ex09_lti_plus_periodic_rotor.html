@@ -1,0 +1,500 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex09_lti_plus_periodic_rotor</title><meta name="generator" content="MATLAB 7.9"><meta name="date" content="2010-10-28"><meta name="m-file" content="ex09_lti_plus_periodic_rotor"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#2">With Rotor speed of 370 RPM</a></li><li><a href="#3">With Rotor speed of 430 RPM</a></li><li><a href="#4">spectral analysis</a></li><li><a href="#5">linear subspace estimate (PBSIDopt)</a></li></ul></div><pre class="codeinput"><span class="comment">% Example 9: PBSIDopt identification of Smart Rotor with periodic effects</span>
+close <span class="string">all</span>; clc; clear <span class="string">all</span>;
+</pre><h2>With Rotor speed of 370 RPM<a name="2"></a></h2><pre class="codeinput"><span class="comment">% Data files</span>
+load <span class="string">smartrotor370.mat</span> <span class="string">u</span> <span class="string">y</span>
+RPM = 370;
+Ts = 0.01;
+u = detrend(u);
+y = detrend(y);
+N = size(y,1);
+tt = 0:Ts:Ts*(N-1);
+dp = [sin(RPM/60*2*pi*tt); cos(RPM/60*2*pi*tt);<span class="keyword">...</span>
+    sin(2*RPM/60*2*pi*tt); cos(2*RPM/60*2*pi*tt)]';
+ud = [u dp];
+w = logspace(0.4,log10(1/(2*Ts)),2000)*2*pi;
+[us,Du,ys,Dy] = sigscale(u,y); us=us';ys=ys';
+[usd,Dud,ysd,Dyd] = sigscale(ud,y); usd=usd';ysd=ysd';
+
+<span class="comment">% spectral analysis</span>
+[Ga,ws] = spaavf(u,y,Ts,10,[],[],<span class="string">'hamming'</span>);
+[Gad,wsd] = spaavf(ud,y,Ts,10,[],[],<span class="string">'hamming'</span>);
+Ga = frd(Ga,ws);
+Gad = frd(Gad,wsd);
+
+<span class="comment">% linear subspace estimate (PBSIDopt)</span>
+n = 12;
+p = 20;
+f = 20;
+
+[S,X] = dordvarx(us,ys,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure(2), semilogy(S,<span class="string">'c*'</span>)
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di] = dx2abcdk(x,us,ys,f,p);
+Ci=Dy*Ci; Di=Dy*Di/Du; Bi=Bi/Du;
+sys_idp=ss(Ai,Bi,Ci,Di,Ts);
+
+[Sd,Xd] = dordvarx(usd,ysd,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure(2), hold <span class="string">on</span>, semilogy(Sd,<span class="string">'c+'</span>), hold <span class="string">off</span>;
+x = dmodx(Xd,n);
+[Aid,Bid,Cid,Did] = dx2abcdk(x,usd,ysd,f,p);
+Cid=Dyd*Cid; Did=Dyd*Did/Dud; Bid=Bid/Dud;
+sys_idpd=ss(Aid,Bid,Cid,Did,Ts);
+
+<span class="comment">% plotting</span>
+figure(100)
+[MAG1, PHASE1,ww1]=bode(sys_idp(1:2,1:2),w);
+[MAG2, PHASE2,ww2]=bode(sys_idpd(1:2,1:2),w);
+[MAGd1, PHASEd1,wwd1]=bode(Ga(1:2,1:2),w);
+[MAGd2, PHASEd2,wwd2]=bode(Gad(1:2,1:2),w);
+
+h1=subplot(2,2,1)
+loglog(ww1/2/pi,squeeze(MAG1(1,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(1,1,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(1,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(1,1,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+ylabel(<span class="string">'MFC blade 1 [V]'</span>)
+title(<span class="string">'From Flap blade 1 [V]'</span>)
+
+h1=subplot(2,2,2)
+loglog(ww1/2/pi,squeeze(MAG1(1,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(1,2,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(1,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(1,2,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+title(<span class="string">'From Flap blade 2 [V]'</span>)
+
+h1=subplot(2,2,3)
+loglog(ww1/2/pi,squeeze(MAG1(2,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(2,1,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(2,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(2,1,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+ylabel(<span class="string">'MFC blade 2 [V]'</span>)
+xlabel(<span class="string">'Frequency [Hz]'</span>)
+
+h1=subplot(2,2,4)
+loglog(ww1/2/pi,squeeze(MAG1(2,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(2,2,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(2,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(2,2,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+xlabel(<span class="string">'Frequency [Hz]'</span>)
+</pre><pre class="codeoutput">
+h1 =
+
+  343.0194
+
+
+h1 =
+
+  350.0194
+
+
+h1 =
+
+  356.0194
+
+
+h1 =
+
+  363.0194
+
+</pre><img vspace="5" hspace="5" src="ex09_lti_plus_periodic_rotor_01.png" alt=""> <img vspace="5" hspace="5" src="ex09_lti_plus_periodic_rotor_02.png" alt=""> <h2>With Rotor speed of 430 RPM<a name="3"></a></h2><pre class="codeinput"><span class="comment">% Data files</span>
+load <span class="string">smartrotor430.mat</span>
+RPM = 430;
+Ts = 0.01;
+u = detrend(u);
+y = detrend(y);
+N = size(y,1);
+tt = 0:Ts:Ts*(N-1);
+dp = [sin(RPM/60*2*pi*tt); cos(RPM/60*2*pi*tt);<span class="keyword">...</span>
+    sin(2*RPM/60*2*pi*tt); cos(2*RPM/60*2*pi*tt)]';
+ud = [u dp];
+w=logspace(0.4,log10(1/(2*Ts)),2000)*2*pi;
+[us,Du,ys,Dy] = sigscale(u,y); us=us';ys=ys';
+[usd,Dud,ysd,Dyd] = sigscale(ud,y); usd=usd';ysd=ysd';
+</pre><h2>spectral analysis<a name="4"></a></h2><pre class="codeinput">[Ga,ws] = spaavf(u,y,Ts,10,[],[],<span class="string">'hamming'</span>);
+[Gad,wsd] = spaavf(ud,y,Ts,10,[],[],<span class="string">'hamming'</span>);
+Ga = frd(Ga,ws);
+Gad = frd(Gad,wsd);
+</pre><h2>linear subspace estimate (PBSIDopt)<a name="5"></a></h2><pre class="codeinput">n = 12;
+p = 20;
+f = 20;
+
+[S,X] = dordvarx(us,ys,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure(2), semilogy(S,<span class="string">'c*'</span>)
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di] = dx2abcdk(x,us,ys,f,p);
+Ci=Dy*Ci; Di=Dy*Di/Du; Bi=Bi/Du;
+sys_idp=ss(Ai,Bi,Ci,Di,Ts);
+
+[Sd,Xd] = dordvarx(usd,ysd,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure(2), hold <span class="string">on</span>, semilogy(Sd,<span class="string">'c+'</span>), hold <span class="string">off</span>;
+x = dmodx(Xd,n);
+[Aid,Bid,Cid,Did] = dx2abcdk(x,usd,ysd,f,p);
+Cid=Dyd*Cid; Did=Dyd*Did/Dud; Bid=Bid/Dud;
+sys_idpd=ss(Aid,Bid,Cid,Did,Ts);
+
+<span class="comment">% plotting</span>
+figure(100)
+[MAG1, PHASE1,ww1]=bode(sys_idp(1:2,1:2),w);
+[MAG2, PHASE2,ww2]=bode(sys_idpd(1:2,1:2),w);
+[MAGd1, PHASEd1,wwd1]=bode(Ga(1:2,1:2),w);
+[MAGd2, PHASEd2,wwd2]=bode(Gad(1:2,1:2),w);
+
+h1=subplot(2,2,1)
+loglog(ww1/2/pi,squeeze(MAG1(1,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(1,1,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(1,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(1,1,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+ylabel(<span class="string">'MFC blade 1 [V]'</span>)
+title(<span class="string">'From Flap blade 1 [V]'</span>)
+
+h1=subplot(2,2,2)
+loglog(ww1/2/pi,squeeze(MAG1(1,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(1,2,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(1,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(1,2,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+title(<span class="string">'From Flap blade 2 [V]'</span>)
+
+h1=subplot(2,2,3)
+loglog(ww1/2/pi,squeeze(MAG1(2,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(2,1,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(2,1,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(2,1,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+ylabel(<span class="string">'MFC blade 2 [V]'</span>)
+xlabel(<span class="string">'Frequency [Hz]'</span>)
+
+h1=subplot(2,2,4)
+loglog(ww1/2/pi,squeeze(MAG1(2,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8]); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAG2(2,2,:)),<span class="string">'color'</span>,[0,0,0]); hold <span class="string">on</span>
+loglog(ww1/2/pi,squeeze(MAGd1(2,2,:)),<span class="string">'color'</span>,[0.8,0.8,0.8],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+loglog(ww2/2/pi,squeeze(MAGd2(2,2,:)),<span class="string">'color'</span>,[0,0,0],<span class="string">'linestyle'</span>,<span class="string">'-.'</span>); hold <span class="string">on</span>
+axis([2.5 50 1e-4 0.03 ])
+set(h1,<span class="string">'YTick'</span>,[1e-4  1e-3 1e-2 ])
+set(h1,<span class="string">'XTick'</span>,[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,<span class="string">'YTickLabel'</span>,[ {<span class="string">'{-4}'</span>}  {<span class="string">'{-3}'</span>} {<span class="string">'{-2}'</span>} {<span class="string">'{2}'</span>}])
+set(h1,<span class="string">'XTickLabel'</span>,[ {<span class="string">''</span>} {<span class="string">''</span>} 4 {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>} {<span class="string">''</span>}])
+xlabel(<span class="string">'Frequency [Hz]'</span>)
+</pre><pre class="codeoutput">
+h1 =
+
+  343.0194
+
+
+h1 =
+
+  350.0194
+
+
+h1 =
+
+  356.0194
+
+
+h1 =
+
+  363.0194
+
+</pre><img vspace="5" hspace="5" src="ex09_lti_plus_periodic_rotor_03.png" alt=""> <img vspace="5" hspace="5" src="ex09_lti_plus_periodic_rotor_04.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.9<br></p></div><!--
+##### SOURCE BEGIN #####
+% Example 9: PBSIDopt identification of Smart Rotor with periodic effects
+close all; clc; clear all; 
+
+%% With Rotor speed of 370 RPM
+
+% Data files
+load smartrotor370.mat u y
+RPM = 370;
+Ts = 0.01;
+u = detrend(u);
+y = detrend(y);
+N = size(y,1);
+tt = 0:Ts:Ts*(N-1);
+dp = [sin(RPM/60*2*pi*tt); cos(RPM/60*2*pi*tt);...
+    sin(2*RPM/60*2*pi*tt); cos(2*RPM/60*2*pi*tt)]';
+ud = [u dp];
+w = logspace(0.4,log10(1/(2*Ts)),2000)*2*pi;
+[us,Du,ys,Dy] = sigscale(u,y); us=us';ys=ys';
+[usd,Dud,ysd,Dyd] = sigscale(ud,y); usd=usd';ysd=ysd';
+
+% spectral analysis
+[Ga,ws] = spaavf(u,y,Ts,10,[],[],'hamming');
+[Gad,wsd] = spaavf(ud,y,Ts,10,[],[],'hamming');
+Ga = frd(Ga,ws); 
+Gad = frd(Gad,wsd); 
+
+% linear subspace estimate (PBSIDopt)
+n = 12;
+p = 20;
+f = 20;
+
+[S,X] = dordvarx(us,ys,f,p,'tikh','gcv');
+figure(2), semilogy(S,'c*')
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di] = dx2abcdk(x,us,ys,f,p);
+Ci=Dy*Ci; Di=Dy*Di/Du; Bi=Bi/Du;
+sys_idp=ss(Ai,Bi,Ci,Di,Ts);
+
+[Sd,Xd] = dordvarx(usd,ysd,f,p,'tikh','gcv');
+figure(2), hold on, semilogy(Sd,'c+'), hold off;
+x = dmodx(Xd,n);
+[Aid,Bid,Cid,Did] = dx2abcdk(x,usd,ysd,f,p); 
+Cid=Dyd*Cid; Did=Dyd*Did/Dud; Bid=Bid/Dud;
+sys_idpd=ss(Aid,Bid,Cid,Did,Ts);
+
+% plotting
+figure(100)
+[MAG1, PHASE1,ww1]=bode(sys_idp(1:2,1:2),w);
+[MAG2, PHASE2,ww2]=bode(sys_idpd(1:2,1:2),w);
+[MAGd1, PHASEd1,wwd1]=bode(Ga(1:2,1:2),w);
+[MAGd2, PHASEd2,wwd2]=bode(Gad(1:2,1:2),w);
+
+h1=subplot(2,2,1)
+loglog(ww1/2/pi,squeeze(MAG1(1,1,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(1,1,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(1,1,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(1,1,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+ylabel('MFC blade 1 [V]')
+title('From Flap blade 1 [V]')
+
+h1=subplot(2,2,2)
+loglog(ww1/2/pi,squeeze(MAG1(1,2,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(1,2,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(1,2,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(1,2,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+title('From Flap blade 2 [V]')
+
+h1=subplot(2,2,3)
+loglog(ww1/2/pi,squeeze(MAG1(2,1,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(2,1,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(2,1,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(2,1,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+ylabel('MFC blade 2 [V]')
+xlabel('Frequency [Hz]')
+
+h1=subplot(2,2,4)
+loglog(ww1/2/pi,squeeze(MAG1(2,2,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(2,2,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(2,2,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(2,2,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+xlabel('Frequency [Hz]')
+
+%% With Rotor speed of 430 RPM
+
+% Data files
+load smartrotor430.mat
+RPM = 430;
+Ts = 0.01;
+u = detrend(u);
+y = detrend(y);
+N = size(y,1);
+tt = 0:Ts:Ts*(N-1);
+dp = [sin(RPM/60*2*pi*tt); cos(RPM/60*2*pi*tt);...
+    sin(2*RPM/60*2*pi*tt); cos(2*RPM/60*2*pi*tt)]';
+ud = [u dp];
+w=logspace(0.4,log10(1/(2*Ts)),2000)*2*pi;
+[us,Du,ys,Dy] = sigscale(u,y); us=us';ys=ys';
+[usd,Dud,ysd,Dyd] = sigscale(ud,y); usd=usd';ysd=ysd';
+
+%% spectral analysis
+[Ga,ws] = spaavf(u,y,Ts,10,[],[],'hamming');
+[Gad,wsd] = spaavf(ud,y,Ts,10,[],[],'hamming');
+Ga = frd(Ga,ws); 
+Gad = frd(Gad,wsd); 
+
+%% linear subspace estimate (PBSIDopt)
+n = 12;
+p = 20;
+f = 20;
+
+[S,X] = dordvarx(us,ys,f,p,'tikh','gcv');
+figure(2), semilogy(S,'c*')
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di] = dx2abcdk(x,us,ys,f,p);
+Ci=Dy*Ci; Di=Dy*Di/Du; Bi=Bi/Du;
+sys_idp=ss(Ai,Bi,Ci,Di,Ts);
+
+[Sd,Xd] = dordvarx(usd,ysd,f,p,'tikh','gcv');
+figure(2), hold on, semilogy(Sd,'c+'), hold off;
+x = dmodx(Xd,n);
+[Aid,Bid,Cid,Did] = dx2abcdk(x,usd,ysd,f,p); 
+Cid=Dyd*Cid; Did=Dyd*Did/Dud; Bid=Bid/Dud;
+sys_idpd=ss(Aid,Bid,Cid,Did,Ts);
+
+% plotting
+figure(100)
+[MAG1, PHASE1,ww1]=bode(sys_idp(1:2,1:2),w);
+[MAG2, PHASE2,ww2]=bode(sys_idpd(1:2,1:2),w);
+[MAGd1, PHASEd1,wwd1]=bode(Ga(1:2,1:2),w);
+[MAGd2, PHASEd2,wwd2]=bode(Gad(1:2,1:2),w);
+
+h1=subplot(2,2,1)
+loglog(ww1/2/pi,squeeze(MAG1(1,1,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(1,1,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(1,1,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(1,1,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+ylabel('MFC blade 1 [V]')
+title('From Flap blade 1 [V]')
+
+h1=subplot(2,2,2)
+loglog(ww1/2/pi,squeeze(MAG1(1,2,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(1,2,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(1,2,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(1,2,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+title('From Flap blade 2 [V]')
+
+h1=subplot(2,2,3)
+loglog(ww1/2/pi,squeeze(MAG1(2,1,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(2,1,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(2,1,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(2,1,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+ylabel('MFC blade 2 [V]')
+xlabel('Frequency [Hz]')
+
+h1=subplot(2,2,4)
+loglog(ww1/2/pi,squeeze(MAG1(2,2,:)),'color',[0.8,0.8,0.8]); hold on
+loglog(ww2/2/pi,squeeze(MAG2(2,2,:)),'color',[0,0,0]); hold on
+loglog(ww1/2/pi,squeeze(MAGd1(2,2,:)),'color',[0.8,0.8,0.8],'linestyle','-.'); hold on
+loglog(ww2/2/pi,squeeze(MAGd2(2,2,:)),'color',[0,0,0],'linestyle','-.'); hold on
+axis([2.5 50 1e-4 0.03 ])
+set(h1,'YTick',[1e-4  1e-3 1e-2 ])
+set(h1,'XTick',[ 2 3 4 5 6 7 8 9 10 20 30 40 50])
+set(h1,'YTickLabel',[ {'{-4}'}  {'{-3}'} {'{-2}'} {'{2}'}])
+set(h1,'XTickLabel',[ {''} {''} 4 {''} {''} {''} {''} {''} {''} {''} {''} {''} {''}])
+xlabel('Frequency [Hz]')
+
+##### SOURCE END #####
+--></body></html>

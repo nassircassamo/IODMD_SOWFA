@@ -1,0 +1,393 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex_lti_four_greybox</title><meta name="generator" content="MATLAB 7.9.1"><meta name="date" content="2010-12-13"><meta name="m-file" content="ex_lti_four_greybox"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example: Example from Reynders</a></li><li><a href="#2">LTI model</a></li><li><a href="#3">Open-loop identification experiment</a></li><li><a href="#4">Identification results</a></li></ul></div><h2>Example: Example from Reynders<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>LTI model<a name="2"></a></h2><pre class="codeinput"><span class="comment">% LTI system matrices</span>
+h = 1; <span class="comment">% Sample time</span>
+n = 4; <span class="comment">% number of states</span>
+A22 = [0.5321 0.8349; -0.8349 0.5231];
+A33 = [-0.9165 0.1313; -0.1313 -0.9615];
+B2 = [0.0012; 0.0007];
+C2 = [-0.0267 2.6723];
+C3 = [-0.0792 7.9236];
+D = -0.008;
+K2 = [0.0060; 0.0009];
+K3 = [0.0242; -0.1218];
+A = [A22 K2*C3; zeros(2) A33];
+B = [B2; zeros(2,1)];
+K = [K2; K3];
+C = [C2 C3];
+
+<span class="comment">% open-loop system</span>
+OL = ss(A,[B K],C,[D eye(1)],1);
+</pre><h2>Open-loop identification experiment<a name="3"></a></h2><p>Simulation of the model in open loop</p><pre class="codeinput"><span class="comment">% input signals</span>
+N = 10000; <span class="comment">% number of samples</span>
+t = (0:N-1)';   <span class="comment">% time samples</span>
+u = 1000*randn(N,1); <span class="comment">% excitation signal</span>
+
+<span class="comment">% noise</span>
+e = randn(N,1); <span class="comment">% noise signal</span>
+
+<span class="comment">% simulation</span>
+y0 = lsim(OL,[u zeros(N,1)],t);
+y = lsim(OL,[u e],t);
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+
+<span class="comment">% Defining a number of constants</span>
+p = 15;     <span class="comment">% past window size</span>
+f = 15;     <span class="comment">% future window size</span>
+[u,Du,y,Dy] = sigscale(u,y); <span class="comment">% signal scaling</span>
+
+<span class="comment">% PBSID-opt</span>
+[S,x] = dordvarx(u,y,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure, semilogy(S,<span class="string">'x'</span>);
+title(<span class="string">'Singular values'</span>)
+x = dmodx(x,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,u,y,f,p);
+Dat = iddata(y',u',h);
+Mi = abcdk2idss(Dat,Ai,Bi,Ci,Di,Ki);
+Mi
+
+<span class="comment">% Variance-accounted-for (by Kalman filter)</span>
+yest = predict(Mi,Dat);
+x0 = findstates(Mi,Dat);
+disp(<span class="string">'VAF of identified system'</span>)
+vaf(y,yest.y)
+
+<span class="comment">% PBSID-opt (greybox)</span>
+[S,x,xd,xs] = dordvarx_grey(u,y,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure, semilogy(S,<span class="string">'x'</span>);
+title(<span class="string">'Singular values'</span>);
+[x,R1,R2,R3] = dmodx_grey(x,xd,xs,n,2,4);
+figure, plot(R1,<span class="string">'*'</span>);
+title(<span class="string">'Canonical values between full state and deterministic only'</span>);
+figure, plot(R2,<span class="string">'*'</span>);
+title(<span class="string">'Canonical values between full state and stochastic only'</span>);
+figure, plot(R3,<span class="string">'*'</span>);
+title(<span class="string">'Canonical values between deterministic and stochastic only'</span>);
+[Ap,Bp,Cp,Dp,Kp] = dx2abcdk(x,u,y,f,p);
+Dat = iddata(y',u',h);
+Mp = abcdk2idss(Dat,Ap,Bp,Cp,Dp,Kp);
+Mp
+
+<span class="comment">% Variance-accounted-for (by Kalman filter)</span>
+yest = predict(Mp,Dat);
+x0 = findstates(Mp,Dat);
+disp(<span class="string">'VAF of identified system'</span>)
+vaf(y,yest.y)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   17.4062
+
+State-space model:  x(t+Ts) = A x(t) + B u(t) + K e(t)
+                       y(t) = C x(t) + D u(t) + e(t)
+ 
+A = 
+                        x1           x2           x3           x4
+           x1      0.51518     -0.83698     0.010729    -0.050514
+           x2      0.83289      0.53982    0.0089433     -0.02801
+           x3    0.0012153  -0.00039965     -0.97023     -0.26433
+           x4   -0.0016516   0.00088268      0.13543     -0.96658
+ 
+ 
+B = 
+                        u1
+           x1     -0.02301
+           x2    -0.014251
+           x3    0.0014799
+           x4   0.00079533
+ 
+ 
+C = 
+                        x1           x2           x3           x4
+           y1      -6.3747        3.427       2.8118      0.72174
+ 
+ 
+D = 
+                        u1
+           y1     -0.42905
+ 
+ 
+K = 
+                        y1
+           x1    -0.023525
+           x2    -0.012381
+           x3    -0.079619
+           x4    -0.049436
+ 
+ 
+x(0) = 
+                          
+           x1   0.00060748
+           x2  -0.00096233
+           x3     0.017172
+           x4     0.022878
+ 
+Estimated using PBSIDopt from data set Dat
+Loss function 0.0065966 and FPE 0.00663486
+Sampling interval: 1                      
+                                          
+VAF of identified system
+
+ans =
+
+   99.3403
+
+Warning: Y is not full rank. 
+State-space model:  x(t+Ts) = A x(t) + B u(t) + K e(t)
+                       y(t) = C x(t) + D u(t) + e(t)
+ 
+A = 
+                        x1           x2           x3           x4
+           x1      0.51663     -0.83786    -0.043114     -0.05224
+           x2      0.83268      0.53981    -0.019834    -0.037556
+           x3     0.020949   -0.0094696     -0.86688     -0.23178
+           x4      0.01322   -0.0068769      0.20412     -0.83112
+ 
+ 
+B = 
+                        u1
+           x1    -0.021548
+           x2    -0.014234
+           x3     0.016234
+           x4    0.0091957
+ 
+ 
+C = 
+                        x1           x2           x3           x4
+           y1      -6.3855       3.4277        1.589      0.17497
+ 
+ 
+D = 
+                        u1
+           y1     -0.42804
+ 
+ 
+K = 
+                        y1
+           x1    -0.027462
+           x2     -0.01823
+           x3    -0.042363
+           x4   -0.0092331
+ 
+ 
+x(0) = 
+                          
+           x1    0.0030623
+           x2  -0.00065717
+           x3     0.011354
+           x4      0.10385
+ 
+Estimated using PBSIDopt from data set Dat
+Loss function 0.0175901 and FPE 0.0176921 
+Sampling interval: 1                      
+                                          
+VAF of identified system
+
+ans =
+
+   98.2408
+
+</pre><img vspace="5" hspace="5" src="ex_lti_four_greybox_01.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_greybox_02.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_greybox_03.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_greybox_04.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_greybox_05.png" alt=""> <h2>Identification results<a name="4"></a></h2><pre class="codeinput"><span class="comment">% Plot eigenvalues</span>
+figure
+hold <span class="string">on</span>
+title(<span class="string">'poles of identified LTI systems'</span>)
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,<span class="string">'k'</span>);
+plot(real(eig(OL.a)),imag(eig(OL.a)),<span class="string">'k+'</span>,<span class="string">'LineWidth'</span>,0.1,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'k'</span>, <span class="string">'MarkerFaceColor'</span>,<span class="string">'k'</span>, <span class="string">'MarkerSize'</span>,10);
+plot(real(eig(Mi.a)),imag(eig(Mi.a)),<span class="string">'rx'</span>);
+plot(real(eig(Mp.a)),imag(eig(Mp.a)),<span class="string">'gx'</span>);
+axis([-1 1 -1 1]);
+axis <span class="string">square</span>
+legend(<span class="string">'STABBND'</span>,<span class="string">'TRUE'</span>,<span class="string">'PBSID-opt'</span>,<span class="string">'GREY'</span>,<span class="string">'Location'</span>,<span class="string">'East'</span>);
+hold <span class="string">off</span>
+
+<span class="comment">% Bodediagram (open loop)</span>
+OLi = ss(Mi);
+OLp = ss(Mp);
+OLi = Dy*OLi*inv([Du 0; 0 1]);
+OLp = Dy*OLp*inv([Du 0; 0 1]);
+figure, bodemag(OL(1,1),<span class="string">'k'</span>,OLi(1,1),<span class="string">'r'</span>,OLp(1,1),<span class="string">'g'</span>);
+figure, bodemag(OL(1,2),<span class="string">'k'</span>,OLi(1,2),<span class="string">'r'</span>,OLp(1,2),<span class="string">'g'</span>);
+</pre><img vspace="5" hspace="5" src="ex_lti_four_greybox_06.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_greybox_07.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_greybox_08.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.9.1<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example: Example from Reynders
+close all; clear; clc;
+
+%% LTI model
+
+% LTI system matrices
+h = 1; % Sample time
+n = 4; % number of states
+A22 = [0.5321 0.8349; -0.8349 0.5231];
+A33 = [-0.9165 0.1313; -0.1313 -0.9615];
+B2 = [0.0012; 0.0007]; 
+C2 = [-0.0267 2.6723];
+C3 = [-0.0792 7.9236];
+D = -0.008;
+K2 = [0.0060; 0.0009];
+K3 = [0.0242; -0.1218];
+A = [A22 K2*C3; zeros(2) A33];
+B = [B2; zeros(2,1)];
+K = [K2; K3];
+C = [C2 C3];
+
+% open-loop system
+OL = ss(A,[B K],C,[D eye(1)],1);
+
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop
+
+% input signals
+N = 10000; % number of samples
+t = (0:N-1)';   % time samples
+u = 1000*randn(N,1); % excitation signal
+
+% noise
+e = randn(N,1); % noise signal
+
+% simulation
+y0 = lsim(OL,[u zeros(N,1)],t);
+y = lsim(OL,[u e],t);
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+% Defining a number of constants
+p = 15;     % past window size
+f = 15;     % future window size
+[u,Du,y,Dy] = sigscale(u,y); % signal scaling
+
+% PBSID-opt
+[S,x] = dordvarx(u,y,f,p,'tikh','gcv');
+figure, semilogy(S,'x');
+title('Singular values')
+x = dmodx(x,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,u,y,f,p);
+Dat = iddata(y',u',h);
+Mi = abcdk2idss(Dat,Ai,Bi,Ci,Di,Ki);
+Mi
+
+% Variance-accounted-for (by Kalman filter)
+yest = predict(Mi,Dat);
+x0 = findstates(Mi,Dat);
+disp('VAF of identified system')
+vaf(y,yest.y)
+
+% PBSID-opt (greybox)
+[S,x,xd,xs] = dordvarx_grey(u,y,f,p,'tikh','gcv');
+figure, semilogy(S,'x');
+title('Singular values');
+[x,R1,R2,R3] = dmodx_grey(x,xd,xs,n,2,4);
+figure, plot(R1,'*');
+title('Canonical values between full state and deterministic only');
+figure, plot(R2,'*');
+title('Canonical values between full state and stochastic only');
+figure, plot(R3,'*');
+title('Canonical values between deterministic and stochastic only');
+[Ap,Bp,Cp,Dp,Kp] = dx2abcdk(x,u,y,f,p);
+Dat = iddata(y',u',h);
+Mp = abcdk2idss(Dat,Ap,Bp,Cp,Dp,Kp);
+Mp
+
+% Variance-accounted-for (by Kalman filter)
+yest = predict(Mp,Dat);
+x0 = findstates(Mp,Dat);
+disp('VAF of identified system')
+vaf(y,yest.y)
+
+
+%% Identification results
+%
+
+% Plot eigenvalues
+figure
+hold on
+title('poles of identified LTI systems')
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,'k');
+plot(real(eig(OL.a)),imag(eig(OL.a)),'k+','LineWidth',0.1,'MarkerEdgeColor','k', 'MarkerFaceColor','k', 'MarkerSize',10);
+plot(real(eig(Mi.a)),imag(eig(Mi.a)),'rx');
+plot(real(eig(Mp.a)),imag(eig(Mp.a)),'gx');
+axis([-1 1 -1 1]);
+axis square
+legend('STABBND','TRUE','PBSID-opt','GREY','Location','East');
+hold off
+
+% Bodediagram (open loop)
+OLi = ss(Mi);
+OLp = ss(Mp);
+OLi = Dy*OLi*inv([Du 0; 0 1]);
+OLp = Dy*OLp*inv([Du 0; 0 1]);
+figure, bodemag(OL(1,1),'k',OLi(1,1),'r',OLp(1,1),'g');
+figure, bodemag(OL(1,2),'k',OLi(1,2),'r',OLp(1,2),'g');
+
+
+
+##### SOURCE END #####
+--></body></html>

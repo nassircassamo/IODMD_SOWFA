@@ -1,0 +1,185 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>DESTMAR</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="destmar"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>DESTMAR</h1>
+         <introduction>
+            <p>Fits a multivariable autoregressive model to a time-series.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#5">Outputs</a></li>
+               <li><a href="#7">Algorithm</a></li>
+               <li><a href="#8">Used By</a></li>
+               <li><a href="#9">See Also</a></li>
+               <li><a href="#10">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>[Af,Ab,Sf,Sb] = destmar(v,d)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>This function fits a multivariable autoregressive model to a time-series <i>v(k)</i>. The model-structure is
+         </p>
+         <p><img vspace="5" hspace="5" src="destmar_eq7743737.png"> </p>
+         <p><img vspace="5" hspace="5" src="destmar_eq7502270.png"> </p>
+         <p>in which <i>ef(k)</i> and <i>eb(k)</i> are innovation sequences with covariance matrices <i>Sf</i> and <i>Sb</i> respectively. The fitting is performed according to [1].
+         </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>v</tt> is the time-series, a <i>N</i> x <i>l</i> matrix for a signal having <i>N</i> samples and which is <i>l</i>-dimensional.
+         </p>
+         <p><tt>d</tt> is the desired order <i>d</i> of the AR model.
+         </p>
+         <h2>Outputs<a name="5"></a></h2>
+         <p><tt>Af,Ab</tt> are the coefficient matrices <tt>Af</tt> and <tt>Ab</tt> of the causal and anticausal model.
+         </p>
+         <p><tt>Sf,Sb</tt> are the covariance matrices <tt>Sf</tt> and <tt>Sb</tt> of the causal and anticausal innovations.
+         </p>
+         <h2>Algorithm<a name="7"></a></h2>
+         <p>A direct Hankel-matrix based estimation of the AR model is performed according to [1].</p>
+         <h2>Used By<a name="8"></a></h2>
+         <p>This is a top-level function that is used directly by the user.</p>
+         <h2>See Also<a name="9"></a></h2>
+         <p><a href="cholicm.m"><tt>cholicm</tt></a>, <a href="doptlti.m"><tt>doptlti</tt></a></p>
+         <h2>References<a name="10"></a></h2>
+         <p>[1] B. Davis, <i>Parameter Estimation in Nonlinear Dynamical Systems with Correlated Noise.</i> PhD thesis, Universite Catholique de Louvain-La-Neuve, Belgium, 2001.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% DESTMAR
+% Fits a multivariable autoregressive model to a time-series.
+
+%% Syntax
+% |[Af,Ab,Sf,Sb] = destmar(v,d)|
+
+%% Description
+% This function fits a multivariable autoregressive model to a time-series
+% _v(k)_. The model-structure is
+%
+% $$v(k) =
+% \mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\rightharpoonup$}}
+% \over e}(k) -
+% \mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\rightharpoonup$}}
+% \over A}_1 v(k-1) - ... -
+% \mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\rightharpoonup$}}
+% \over A}_d v(k-d)$$
+%
+% $$v(k) =
+% \mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\leftharpoonup$}}
+% \over e}(k) -
+% \mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\leftharpoonup$}}
+% \over A}_1 v(k+1) - ... -
+% \mathord{\buildrel{\lower3pt\hbox{$\scriptscriptstyle\leftharpoonup$}}
+% \over A}_d v(k+d)$$
+%
+% in which _ef(k)_ and _eb(k)_ are innovation sequences with covariance
+% matrices _Sf_ and _Sb_ respectively. The fitting is performed according
+% to [1].
+
+%% Inputs
+% |v| is the time-series, a _N_ x _l_ matrix for a signal having _N_
+% samples and which is _l_-dimensional.
+%%
+% |d| is the desired order _d_ of the AR model.
+
+%% Outputs
+% |Af,Ab| are the coefficient matrices |Af| and |Ab| of the causal and
+% anticausal model.
+%%
+% |Sf,Sb| are the covariance matrices |Sf| and |Sb| of the causal and
+% anticausal innovations.
+
+%% Algorithm
+% A direct Hankel-matrix based estimation of the AR model is performed
+% according to [1].
+
+%% Used By
+% This is a top-level function that is used directly by the user.
+
+%% See Also
+% <cholicm.m |cholicm|>, <doptlti.m |doptlti|>
+
+%% References
+% [1] B. Davis, _Parameter Estimation in Nonlinear Dynamical Systems with
+% Correlated Noise._ PhD thesis, Universite Catholique de Louvain-La-Neuve,
+% Belgium, 2001.
+##### SOURCE END #####
+-->
+   </body>
+</html>

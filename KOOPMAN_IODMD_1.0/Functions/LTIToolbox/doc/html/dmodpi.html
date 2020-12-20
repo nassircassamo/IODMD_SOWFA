@@ -1,0 +1,124 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>dmodpi</title><meta name="generator" content="MATLAB 7.9"><meta name="date" content="2010-07-29"><meta name="m-file" content="dmodpi"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">DMODPI</a></li><li><a href="#2">Syntax</a></li><li><a href="#3">Description</a></li><li><a href="#4">Inputs</a></li><li><a href="#7">Outputs</a></li><li><a href="#9">Algorithm</a></li><li><a href="#12">Used By</a></li><li><a href="#13">See Also</a></li><li><a href="#14">References</a></li></ul></div><h2>DMODPI<a name="1"></a></h2><p>Estimates the <i>A</i> and <i>C</i> matrix in a discrete-time state-space model from time-domain data that was preprocessed by <a href="dordpi.html"><tt>dordpi</tt></a>.</p><h2>Syntax<a name="2"></a></h2><p><tt>[A,C] = dmodpi(R,n)</tt> <tt>[A,C] = dmodpi(R,n,'stable')</tt></p><h2>Description<a name="3"></a></h2><p>This function estimates the <i>A</i> and <i>C</i> matrices corresponding to an <i>n</i> th order discrete-time LTI state-space model. The compressed data matrix <tt>R</tt> from the preprocessor function <a href="dordpi.html"><tt>dordpi</tt></a> is used to this end.</p><h2>Inputs<a name="4"></a></h2><p><tt>R</tt> is a compressed data matrix containing information about the measured data, as well as information regarding the system dimensions.</p><p><tt>n</tt> is the desired model order <i>n</i>.</p><p><tt>stable</tt> estimates a stable A matrix, see[1].</p><h2>Outputs<a name="7"></a></h2><p><tt>A</tt> is the state-space model's <i>A</i> matrix.</p><p><tt>C</tt> is the state-space model's <i>C</i> matrix.</p><h2>Algorithm<a name="9"></a></h2><p>The data matrix obtained with <a href="dordpi.html"><tt>dordpi</tt></a> contains the weighted left singular vectors of the <i>R32</i> matrix. The first <i>n</i> of these vectors form an estimate <i>Os</i> of the system's extended observability matrix:</p><p><img vspace="5" hspace="5" src="extobs.jpg" alt=""> </p><p>The estimates <tt>Ahat</tt> and <tt>Chat</tt> are obtained by linear regression:</p><p><img src="dmodpi_eq11300.png" alt="$$ \hat{C} = \hat{\mathcal{O}}_s(1:\ell,:) $$"></p><p><img src="dmodpi_eq16309.png" alt="$$ \hat{A} = \hat{\mathcal{O}}_s(1:(s-1)\ell,:)^\dagger&#xA;\hat{\mathcal{O}}_s(\ell+1:s\ell,:) $$"></p><h2>Used By<a name="12"></a></h2><p>This a top-level function that is used directly by the user.</p><h2>See Also<a name="13"></a></h2><p><a href="dordpo.html"><tt>dordpo</tt></a>, <a href="dmodpo.html"><tt>dmodpo</tt></a>, <a href="dordpi.html"><tt>dordpi</tt></a>, <a href="dordrs.html"><tt>dordrs</tt></a>, <a href="dmodrs.html"><tt>dmodrs</tt></a></p><h2>References<a name="14"></a></h2><pre>[1] J.M. Maciejowski, "Guaranteed Stability with Subspace Methods",
+Submitted to Systems and Control Letters, 1994.</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.9<br></p></div><!--
+##### SOURCE BEGIN #####
+
+%% DMODPI
+% Estimates the _A_ and _C_ matrix in a discrete-time state-space model 
+% from time-domain data that was preprocessed by <dordpi.html |dordpi|>.
+
+%% Syntax
+% |[A,C] = dmodpi(R,n)|
+% |[A,C] = dmodpi(R,n,'stable')|
+
+%% Description
+% This function estimates the _A_ and _C_ matrices corresponding to an _n_ 
+% th order discrete-time LTI state-space model. The compressed data matrix
+% |R| from the preprocessor function <dordpi.html |dordpi|> is used to this
+% end.
+
+%% Inputs
+% |R| is a compressed data matrix containing information about the measured
+% data, as well as information regarding the system dimensions.
+%%
+% |n| is the desired model order _n_.
+%%
+% |stable| estimates a stable A matrix, see[1].
+
+%% Outputs
+% |A| is the state-space model's _A_ matrix.
+%%
+% |C| is the state-space model's _C_ matrix.
+
+%% Algorithm
+% The data matrix obtained with <dordpi.html |dordpi|> contains the
+% weighted left singular vectors of the _R32_ matrix. The first _n_ of
+% these vectors form an estimate _Os_ of the system's extended
+% observability matrix:
+%%
+% <<extobs.jpg>>
+%%
+% The estimates |Ahat| and |Chat| are obtained by linear regression:
+%
+% $$ \hat{C} = \hat{\mathcal{O}}_s(1:\ell,:) $$
+%
+% $$ \hat{A} = \hat{\mathcal{O}}_s(1:(s-1)\ell,:)^\dagger
+% \hat{\mathcal{O}}_s(\ell+1:s\ell,:) $$
+%
+
+%% Used By
+% This a top-level function that is used directly by the user.
+
+%% See Also
+% <dordpo.html |dordpo|>, <dmodpo.html |dmodpo|>, <dordpi.html |dordpi|>,
+% <dordrs.html |dordrs|>, <dmodrs.html |dmodrs|>
+
+%% References
+%  [1] J.M. Maciejowski, "Guaranteed Stability with Subspace Methods",
+%  Submitted to Systems and Control Letters, 1994.
+##### SOURCE END #####
+--></body></html>

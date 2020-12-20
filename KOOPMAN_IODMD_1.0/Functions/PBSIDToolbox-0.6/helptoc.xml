@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='ISO-8859-1' ?>
+
+<toc version="1.0">
+
+<tocitem target="pbsid_product_page.html" image="$toolbox/matlab/icons/book_mat.gif">Predictor-based Subspace Identification
+
+<tocitem target="doc/html/pbsid_install.html" 
+ image="$toolbox/matlab/icons/pagesicon.gif">Installation</tocitem>
+ 
+  <tocitem target="doc/html/pbsid_examples.html" 
+ image="$toolbox/matlab/icons/greencircleicon.gif">Examples</tocitem>
+ 
+<tocitem target="doc/html/pbsid_func_cat.html" 
+ image="$toolbox/matlab/icons/reficon.gif">Functions -- By Category</tocitem>
+
+<tocitem target="doc/html/pbsid_func_alpha.html" 
+ image="$toolbox/matlab/icons/reficon.gif">Functions -- Alphabetical List</tocitem>
+
+<tocitem target="doc/html/pbsid_releasenotes.html" 
+ image="$toolbox/matlab/icons/notesicon.gif">Release Notes</tocitem>
+
+</tocitem>
+
+</toc>

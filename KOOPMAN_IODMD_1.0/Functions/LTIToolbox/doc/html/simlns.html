@@ -1,0 +1,189 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>SIMLNS</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="simlns"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>SIMLNS</h1>
+         <introduction>
+            <p>Calculates the left null-space of the basis of similarity transformations.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#3">Description</a></li>
+               <li><a href="#6">Inputs</a></li>
+               <li><a href="#10">Outputs</a></li>
+               <li><a href="#11">Remarks</a></li>
+               <li><a href="#12">Algorithm</a></li>
+               <li><a href="#13">Used By</a></li>
+               <li><a href="#14">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>U2 = simlns(A,B,C,[],[],[])</tt></p>
+         <p><tt>U2 = simlns(A,B,C,K,fD,fx)</tt></p>
+         <h2>Description<a name="3"></a></h2>
+         <p>The function <a href="simlns.html"><tt>simlns</tt></a> calculates the left null-space of an LTI system's similarity map <tt>Mtheta</tt>. In the most general case, when <i>A</i>, <i>B</i>, <i>C</i>, <i>D</i>, <i>K</i> and <i>x0</i> are part of the parameter vector, this matrix is given by [1]:
+         </p>
+         <p><img vspace="5" hspace="5" src="simlns.jpg"> </p>
+         <p>A QR-factorization is used to obtain the left null-space.</p>
+         <p>This function is used internally by <a href="dfunlti.html"><tt>dfunlti</tt></a> and <a href="ffunlti.html"><tt>ffunlti</tt></a> and is not meant for stand-alone use.
+         </p>
+         <h2>Inputs<a name="6"></a></h2>
+         <p><tt>A,B,C</tt> are the system matrices describing the LTI State Space system.
+         </p>
+         <p><tt>K</tt> is the (optional) Kalman gain, specify as empty matrix when not present.
+         </p>
+         <p><tt>fD</tt> (optional) specifies whether <i>D</i> is part of the parameter vector, specify as empty, <i>0</i> or <i>1</i>.
+         </p>
+         <p><tt>fx</tt> (optional) specifies whether <i>x0</i> is part of the parameter vector, specify as empty, <i>0</i> or <i>1</i>.
+         </p>
+         <h2>Outputs<a name="10"></a></h2>
+         <p><tt>U2</tt> is the left null-space of the similarity map.
+         </p>
+         <h2>Remarks<a name="11"></a></h2>
+         <p>Specifying <tt>fx=1</tt> only causes an <i>n</i> x <i>n</i> identify-matrix to be appended to the lower right of the left null-space matrix; in a non-linear optimization, applying the
+            left null-space ensures that the state-basis does not change. It thus does not have to be projected.
+         </p>
+         <h2>Algorithm<a name="12"></a></h2>
+         <p>The manifold matrix <tt>Mtheta</tt> is calculated according to [1]. A QR-factorization is used subsequently to obtain the left null-space
+         </p>
+         <h2>Used By<a name="13"></a></h2>
+         <p><a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="ffunlti.html"><tt>ffunlti</tt></a></p>
+         <h2>References<a name="14"></a></h2>
+         <p>[1] L. H. Lee and K. Poolla, "Identification of linear parameter-varying systems using nonlinear programming", <i>Journal of Dynamic Systems, Measurement and Control</i>, vol. 121, pp. 71-78, Mar. 1999.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% SIMLNS
+% Calculates the left null-space of the basis of similarity transformations.
+
+%% Syntax
+% |U2 = simlns(A,B,C,[],[],[])|
+%%
+% |U2 = simlns(A,B,C,K,fD,fx)|
+
+%% Description
+% The function <simlns.html |simlns|> calculates the left null-space of an
+% LTI system's similarity map |Mtheta|. In the most general case, when _A_,
+% _B_, _C_, _D_, _K_ and _x0_ are part of the parameter vector, this matrix
+% is given by [1]:
+%%
+% <<simlns.jpg>>
+%%
+% A QR-factorization is used to obtain the left null-space.
+%            
+% This function is used internally by <dfunlti.html |dfunlti|> and
+% <ffunlti.html |ffunlti|> and is not meant for stand-alone use.
+
+%% Inputs
+% |A,B,C| are the system matrices describing the LTI State Space system.
+%%
+% |K| is the (optional) Kalman gain, specify as empty matrix when not
+% present.
+%%  
+% |fD| (optional) specifies whether _D_ is part of the parameter vector,
+% specify as empty, _0_ or _1_.
+%%                
+% |fx| (optional) specifies whether _x0_ is part of the parameter vector,
+% specify as empty, _0_ or _1_.
+         
+%% Outputs
+% |U2| is the left null-space of the similarity map.
+
+%% Remarks
+% Specifying |fx=1| only causes an _n_ x _n_ identify-matrix to be appended
+% to the lower right of the left null-space matrix; in a non-linear
+% optimization, applying the left null-space ensures that the state-basis
+% does not change. It thus does not have to be projected.
+
+%% Algorithm
+% The manifold matrix |Mtheta| is calculated according to [1]. A
+% QR-factorization is used subsequently to obtain the left null-space
+
+%% Used By
+% <dfunlti.html |dfunlti|>, <ffunlti.html |ffunlti|>
+
+%% References
+% [1] L. H. Lee and K. Poolla, "Identification of linear parameter-varying
+% systems using nonlinear programming", _Journal of Dynamic Systems,
+% Measurement and Control_, vol. 121, pp. 71-78, Mar. 1999.
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

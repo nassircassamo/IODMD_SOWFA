@@ -1,0 +1,209 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex06_lti_four_unc</title><meta name="generator" content="MATLAB 7.9.1"><meta name="date" content="2010-12-15"><meta name="m-file" content="ex06_lti_four_unc"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example 6: Uncertainty bounds on estimation using first-order variance for PBSIDopt</a></li><li><a href="#2">The fourth-order LTI model with coloured process noise</a></li><li><a href="#3">Open-loop identification experiment</a></li><li><a href="#5">VARX identification results</a></li><li><a href="#6">PBSIDopt identification results</a></li></ul></div><h2>Example 6: Uncertainty bounds on estimation using first-order variance for PBSIDopt<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>The fourth-order LTI model with coloured process noise<a name="2"></a></h2><pre class="codeinput"><span class="comment">% state-space matrices</span>
+A = [0.67 0.67 0 0; -0.67 0.67 0 0; 0 0 -0.67 -0.67; 0 0 0.67 -0.67];
+B = [0.6598 -0.5256; 1.9698 0.4845; 4.3171 -0.4879; -2.6436 -0.3416];
+K = [-0.6968 -0.1474; 0.1722 0.5646; 0.6484 -0.4660; -0.9400 0.1032];
+C = [-0.3749 0.0751 -0.5225 0.5830; -0.8977 0.7543 0.1159 0.0982];
+D = zeros(2);
+
+<span class="comment">% open-loop system</span>
+OL = ss(A,[B K],C,[D eye(2)],1);
+</pre><h2>Open-loop identification experiment<a name="3"></a></h2><p>Simulation of the model in open loop</p><pre class="codeinput"><span class="comment">% input signals</span>
+N = 4000; <span class="comment">% number of samples</span>
+t = (0:N-1)';   <span class="comment">% time samples</span>
+r = randn(N,2); <span class="comment">% excitation signal</span>
+
+<span class="comment">% noise</span>
+e = randn(N,2); <span class="comment">% noise signal</span>
+
+<span class="comment">% simulation</span>
+y0 = lsim(OL,[r zeros(N,2)],t);
+y = lsim(OL,[r e],t);
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   12.1431    7.7604
+
+</pre><p>Identification of the model in open loop</p><pre class="codeinput"><span class="comment">% parameters</span>
+n = 4;    <span class="comment">% order of system</span>
+f = 10;   <span class="comment">% future window size</span>
+p = 10;   <span class="comment">% past window size</span>
+
+<span class="comment">% PBSID-varx</span>
+[S,X,VARX,U,Zps] = dordvarx(r,y,f,p);
+figure, semilogy(S,<span class="string">'*'</span>);
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,r,y,f,p,<span class="string">'nostable'</span>);
+</pre><img vspace="5" hspace="5" src="ex06_lti_four_unc_01.png" alt=""> <h2>VARX identification results<a name="5"></a></h2><p>Representing the results in the frequency domain</p><pre class="codeinput"><span class="comment">% Frequency grid</span>
+w = logspace(-2,log10(pi),1000);
+
+<span class="comment">% Frequency response of identified system</span>
+Gr = freqresp(OL(1:2,1:4),w);
+[P,sigma] = dvar4varx(r,y,p,VARX,Zps);
+[Gi,covG] = dvar2frd(P,w,1,p,VARX);
+figure(<span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="string">'Position'</span>,[0 0 1 1]),
+dbodemagsd(Gi,covG,2.8,w,1,Gr);
+</pre><img vspace="5" hspace="5" src="ex06_lti_four_unc_02.png" alt=""> <h2>PBSIDopt identification results<a name="6"></a></h2><p>Representing the results in the frequency domain</p><pre class="codeinput"><span class="comment">% Frequency response of identified system</span>
+Gr = freqresp(OL(1:2,1:4),w);
+[P,sigma] = dvar4abcdk(x,r,y,f,p,Ai,Bi,Ci,Di,Ki,U,Zps);
+[Gi,covG] = dvar2frd(P,w,1,Ai,Bi,Ci,Di,Ki);
+figure(<span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="string">'Position'</span>,[0 0 1 1]),
+dbodemagsd(Gi,covG,2.8,w,1,Gr);
+
+figure(<span class="string">'Units'</span>,<span class="string">'normalized'</span>,<span class="string">'Position'</span>,[0 0 1 1]),
+dnyquistsd(Gi,covG,2.8,Gr);
+
+<span class="comment">% Eigenvalues with ellipse bound</span>
+[E,covE] = dvar2eig(P,Ai);
+figure, deigensd(E,covE,2.8,eig(A));
+</pre><img vspace="5" hspace="5" src="ex06_lti_four_unc_03.png" alt=""> <img vspace="5" hspace="5" src="ex06_lti_four_unc_04.png" alt=""> <img vspace="5" hspace="5" src="ex06_lti_four_unc_05.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.9.1<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example 6: Uncertainty bounds on estimation using first-order variance for PBSIDopt
+close all; clear; clc;
+
+%% The fourth-order LTI model with coloured process noise
+
+% state-space matrices
+A = [0.67 0.67 0 0; -0.67 0.67 0 0; 0 0 -0.67 -0.67; 0 0 0.67 -0.67];
+B = [0.6598 -0.5256; 1.9698 0.4845; 4.3171 -0.4879; -2.6436 -0.3416];
+K = [-0.6968 -0.1474; 0.1722 0.5646; 0.6484 -0.4660; -0.9400 0.1032];
+C = [-0.3749 0.0751 -0.5225 0.5830; -0.8977 0.7543 0.1159 0.0982];
+D = zeros(2);
+
+% open-loop system
+OL = ss(A,[B K],C,[D eye(2)],1);
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop
+
+% input signals
+N = 4000; % number of samples
+t = (0:N-1)';   % time samples
+r = randn(N,2); % excitation signal
+
+% noise
+e = randn(N,2); % noise signal
+
+% simulation
+y0 = lsim(OL,[r zeros(N,2)],t);
+y = lsim(OL,[r e],t);
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+%%
+% Identification of the model in open loop
+
+% parameters
+n = 4;    % order of system
+f = 10;   % future window size
+p = 10;   % past window size
+
+% PBSID-varx
+[S,X,VARX,U,Zps] = dordvarx(r,y,f,p);
+figure, semilogy(S,'*');
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,r,y,f,p,'nostable');
+
+
+%% VARX identification results
+% Representing the results in the frequency domain
+
+% Frequency grid
+w = logspace(-2,log10(pi),1000);
+
+% Frequency response of identified system
+Gr = freqresp(OL(1:2,1:4),w);
+[P,sigma] = dvar4varx(r,y,p,VARX,Zps);
+[Gi,covG] = dvar2frd(P,w,1,p,VARX);
+figure('Units','normalized','Position',[0 0 1 1]), 
+dbodemagsd(Gi,covG,2.8,w,1,Gr);
+
+
+%% PBSIDopt identification results
+% Representing the results in the frequency domain
+
+% Frequency response of identified system
+Gr = freqresp(OL(1:2,1:4),w);
+[P,sigma] = dvar4abcdk(x,r,y,f,p,Ai,Bi,Ci,Di,Ki,U,Zps);
+[Gi,covG] = dvar2frd(P,w,1,Ai,Bi,Ci,Di,Ki);
+figure('Units','normalized','Position',[0 0 1 1]), 
+dbodemagsd(Gi,covG,2.8,w,1,Gr);
+
+figure('Units','normalized','Position',[0 0 1 1]), 
+dnyquistsd(Gi,covG,2.8,Gr);
+
+% Eigenvalues with ellipse bound 
+[E,covE] = dvar2eig(P,Ai);
+figure, deigensd(E,covE,2.8,eig(A));
+
+
+##### SOURCE END #####
+--></body></html>

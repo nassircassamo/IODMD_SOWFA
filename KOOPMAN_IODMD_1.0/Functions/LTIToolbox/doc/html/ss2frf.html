@@ -1,0 +1,177 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>SS2FRF</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="ss2frf"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>SS2FRF</h1>
+         <introduction>
+            <p>Calculates an LTI Frequency Response Function</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#5">Outputs</a></li>
+               <li><a href="#6">Uses Functions</a></li>
+               <li><a href="#7">See Also</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>H = ss2frf(A,B,C,D,w)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>This function calculates the frequency-response function of a LTI state-space system that has the following model structure:</p>
+         <p><img vspace="5" hspace="5" src="ss2frf_eq14154.png"> </p>
+         <p><img vspace="5" hspace="5" src="ss2frf_eq8076.png"> </p>
+         <p><img vspace="5" hspace="5" src="ss2frf_eq2110.png"> </p><pre>or:</pre><p><img vspace="5" hspace="5" src="ss2frf_eq9704.png"> </p>
+         <p><img vspace="5" hspace="5" src="ss2frf_eq8049.png"> </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>A,B,C,D</tt> aer the system matrices describing the state-space system. If there is no D-matrix, pass an empty matrix.
+         </p>
+         <p><tt>w</tt> is the vector of complex frequencues at which the frequency response function is to be calculated. Typically, this is for
+            continuous-time systems
+         </p>
+         <p><img vspace="5" hspace="5" src="ss2frf_eq4210.png"> </p>
+         <p>and</p>
+         <p><img vspace="5" hspace="5" src="ss2frf_eq2771.png"> </p>
+         <p>for discrete-time systems.</p>
+         <h2>Outputs<a name="5"></a></h2>
+         <p><tt>H</tt> is the measured frequency response function (FRF). This is a matrix that follows the MATLAB 5 FRF Convention: It is a 3D-array
+            of size <i>l</i> x <i>m</i> x <i>N</i>, in which <i>H(:,:,j)</i> is the FRF at the <i>j</i> th complex frequency.
+         </p>
+         <h2>Uses Functions<a name="6"></a></h2>
+         <p><a href="ltifrf.html"><tt>ltifrf</tt></a></p>
+         <h2>See Also<a name="7"></a></h2>
+         <p><a href="ltifrf.html"><tt>ltifrf</tt></a></p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% SS2FRF
+% Calculates an LTI Frequency Response Function
+
+%% Syntax
+% |H = ss2frf(A,B,C,D,w)|
+
+%% Description
+% This function calculates the frequency-response function of a LTI
+% state-space system that has the following model structure:
+%
+% $$ \dot{x}(t) = Ax(t) + Bu(t) $$
+%
+% $$ y(t) = Cx(t) + Du(t) $$
+%
+% $$ x(0) = x0 $$
+%
+%  or:
+%
+% $$  x(k+1) = Ax(k) + Bu(k)$$
+%
+% $$ y(k) = Cx(k) + Du(k) $$
+%
+%% Inputs
+% |A,B,C,D| aer the system matrices describing the state-space system. If
+% there is no D-matrix, pass an empty matrix.
+%%
+% |w| is the vector of complex frequencues at which the frequency response
+% function is to be calculated. Typically, this is for continuous-time
+% systems
+% 
+% $$w = e^{j\omega}$$
+% 
+% and 
+% 
+% $$w = j\omega $$
+%
+% for discrete-time systems.
+    
+%% Outputs
+% |H| is the measured frequency response function (FRF). This is a matrix
+% that follows the MATLAB 5 FRF Convention: It is a 3D-array of size _l_ x
+% _m_ x _N_, in which _H(:,:,j)_ is the FRF at the _j_ th complex
+% frequency.
+
+%% Uses Functions
+% <ltifrf.html |ltifrf|>
+
+%% See Also
+% <ltifrf.html |ltifrf|>
+
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

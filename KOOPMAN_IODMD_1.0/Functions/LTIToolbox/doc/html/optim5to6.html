@@ -1,0 +1,182 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>OPTIM5TO6</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="optim5to6"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>OPTIM5TO6</h1>
+         <introduction>
+            <p>Translates a <tt>foptions</tt>-vector into an <tt>optimset</tt>-structure.
+            </p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#4">Outputs</a></li>
+               <li><a href="#5">Remarks</a></li>
+               <li><a href="#6">Used By</a></li>
+               <li><a href="#7">See Also</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>options = optim5to6(fopts)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>This function translates a MATLAB 5 optimization options vector ---as generated using <tt>foptions</tt> --- into a MATLAB 6 compatible <tt>optimset</tt>-structure. Translated fields are:
+         </p>
+         <div>
+            <ul>
+               <li><b>1</b> Display
+               </li>
+               <li><b>2</b> TolX
+               </li>
+               <li><b>3</b> TolFun
+               </li>
+               <li><b>9</b> Jacobian
+               </li>
+               <li><b>14</b> MaxFunEval
+               </li>
+            </ul>
+         </div>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>fopts</tt> is a MATLAB 5 compatible <tt>foptions</tt>-vector
+         </p>
+         <h2>Outputs<a name="4"></a></h2>
+         <p><tt>options</tt> is a MATLAB 6 compatible <tt>optimset</tt>-structure
+         </p>
+         <h2>Remarks<a name="5"></a></h2>
+         <p>MATLAB 5 uses a default parameter and function tolerance of <tt>1e-4</tt>. This is indicated by the second and third element of <tt>fopts</tt>, that are <tt>1e-4</tt> in the default case.
+         </p>
+         <p>MATLAB 6 uses a default value of <tt>1e-6</tt> for both tolerances, but setting the tolerances to <tt>1e-6</tt> if the <tt>fopts</tt> vector contains the default values is impossible: there is no way of telling whether the user used the default values or
+            that he actually specified <tt>1e-4</tt> as tolerance.
+         </p>
+         <p>Consequently, the tolerances are copied verbatim, <i>and there will thus be different results in an optimization when using a default <tt>foptions</tt>-vector or a default <tt>optimset</tt>-structure</i>.
+         </p>
+         <h2>Used By<a name="6"></a></h2>
+         <p><a href="mkoptstruc.html"><tt>mkoptstruc</tt></a></p>
+         <h2>See Also<a name="7"></a></h2>
+         <p><tt>foptions</tt>, <tt>optimset</tt>, <a href="mkoptstruc.html"><tt>mkoptstruc</tt></a></p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% OPTIM5TO6
+% Translates a |foptions|-vector into an |optimset|-structure.
+
+%% Syntax
+% |options = optim5to6(fopts)|
+
+%% Description
+% This function translates a MATLAB 5 optimization options vector REPLACE_WITH_DASH_DASH-as
+% generated using |foptions| REPLACE_WITH_DASH_DASH- into a MATLAB 6 compatible
+% |optimset|-structure. Translated fields are:
+% 
+% * *1* Display
+% * *2* TolX
+% * *3* TolFun
+% * *9* Jacobian
+% * *14* MaxFunEval
+%
+
+%% Inputs
+% |fopts| is a MATLAB 5 compatible |foptions|-vector
+         
+%% Outputs
+% |options| is a MATLAB 6 compatible |optimset|-structure
+
+%% Remarks
+% MATLAB 5 uses a default parameter and function tolerance of |1e-4|. This
+% is indicated by the second and third element of |fopts|, that are |1e-4|
+% in the default case.
+% 
+% MATLAB 6 uses a default value of |1e-6| for both tolerances, but setting
+% the tolerances to |1e-6| if the |fopts| vector contains the default
+% values is impossible: there is no way of telling whether the user used
+% the default values or that he actually specified |1e-4| as tolerance.
+% 
+% Consequently, the tolerances are copied verbatim, _and there will thus be
+% different results in an optimization when using a default
+% |foptions|-vector or a default |optimset|-structure_.
+
+%% Used By
+% <mkoptstruc.html |mkoptstruc|>
+
+%% See Also
+% |foptions|, |optimset|, <mkoptstruc.html |mkoptstruc|>
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

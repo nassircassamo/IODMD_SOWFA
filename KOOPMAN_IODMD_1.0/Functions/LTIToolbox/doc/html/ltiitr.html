@@ -1,0 +1,172 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>LTIITR</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="ltiitr"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>LTIITR</h1>
+         <introduction>
+            <p>Calculates an LTI state-trajectory</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#8">Outputs</a></li>
+               <li><a href="#9">Algorithm</a></li>
+               <li><a href="#10">Used By</a></li>
+               <li><a href="#11">See Also</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>x = ltiitr(A,B,u,w,x0)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>In its most general setting, this function iterates the state equation of an linear time-inavriant (LTI) system. It computes
+            the state <i>x(k)</i> for <i>k</i> = <i>1,2,...,N</i> satisfying the LTI state equation:
+         </p>
+         <p><img vspace="5" hspace="5" src="ltiitr_eq17541.png"> </p>
+         <p>This function is used internally by <a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="dac2b.html"><tt>dac2b</tt></a>, <a href="dac2bd.html"><tt>dac2bd</tt></a>, <a href="dinit.html"><tt>dinit</tt></a> and <a href="dltisim.html"><tt>dltisim</tt></a>. It is not meant for stand-alone use.
+         </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>A</tt> is an LTI state-transition matrix of size <i>n</i> x <i>n</i></p>
+         <p><tt>B</tt> is an LTI input matrix of size <i>n</i> x <i>m</i>.
+         </p>
+         <p><tt>u</tt> is a <i>N</i> x <i>m</i> matrix containing <i>N</i> samples of the <i>m</i> inputs.
+         </p>
+         <p><tt>w</tt> is a (optional) <i>N</i> x <i>n</i> matrix containing the process noise.
+         </p>
+         <p><tt>x0</tt> is the (optional) initial state, an <i>n</i> x <i>1</i> vector.
+         </p>
+         <h2>Outputs<a name="8"></a></h2>
+         <p><tt>x</tt> is the computed state, an <i>N</i> x <i>n</i> matrix.
+         </p>
+         <h2>Algorithm<a name="9"></a></h2>
+         <p>A direct iteration of the system's state-transition equation is used to obtain the state-trajectory for all time-instants.</p>
+         <h2>Used By<a name="10"></a></h2>
+         <p><a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="dac2b.html"><tt>dac2b</tt></a>, <a href="dac2bd.html"><tt>dac2bd</tt></a>, <a href="dinit.html"><tt>dinit</tt></a>, <a href="dltisim.html"><tt>dltisim</tt></a></p>
+         <h2>See Also<a name="11"></a></h2>
+         <p><a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="dac2b.html"><tt>dac2b</tt></a>, <a href="dac2bd.html"><tt>dac2bd</tt></a>, <a href="dinit.html"><tt>dinit</tt></a>, <a href="dltisim.html"><tt>dltisim</tt></a></p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% LTIITR
+% Calculates an LTI state-trajectory
+
+%% Syntax
+% |x = ltiitr(A,B,u,w,x0)|
+
+%% Description
+% In its most general setting, this function iterates the state equation of
+% an linear time-inavriant (LTI) system. It computes the state _x(k)_ for
+% _k_ = _1,2,...,N_ satisfying the LTI state equation:
+% 
+% $$ x(k+1) = Ax(k) + Bx(k) + w(k) $$
+% 
+% This function is used internally by <dfunlti.html |dfunlti|>, <dac2b.html
+% |dac2b|>, <dac2bd.html |dac2bd|>, <dinit.html |dinit|> and <dltisim.html
+% |dltisim|>. It is not meant for stand-alone use.
+
+%% Inputs
+% |A| is an LTI state-transition matrix of size _n_ x _n_
+%% 
+% |B| is an LTI input matrix of size _n_ x _m_.
+%% 
+% |u| is a _N_ x _m_ matrix containing _N_ samples of the _m_ inputs.
+%% 
+% |w| is a (optional) _N_ x _n_ matrix containing the process noise.
+%% 
+% |x0| is the (optional) initial state, an _n_ x _1_ vector.
+          
+%% Outputs
+% |x| is the computed state, an _N_ x _n_ matrix.
+
+%% Algorithm
+% A direct iteration of the system's state-transition equation is used to
+% obtain the state-trajectory for all time-instants.
+
+%% Used By
+% <dfunlti.html |dfunlti|>, <dac2b.html |dac2b|>, <dac2bd.html |dac2bd|>,
+% <dinit.html |dinit|>, <dltisim.html |dltisim|>
+
+%% See Also
+% <dfunlti.html |dfunlti|>, <dac2b.html |dac2b|>, <dac2bd.html |dac2bd|>,
+% <dinit.html |dinit|>, <dltisim.html |dltisim|>
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

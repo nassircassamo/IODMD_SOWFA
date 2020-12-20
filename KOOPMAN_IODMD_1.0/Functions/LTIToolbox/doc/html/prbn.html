@@ -1,0 +1,149 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>PRBN</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="prbn"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>PRBN</h1>
+         <introduction>
+            <p>Produces a pseudo-random binary sequency suitable as identification input.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#5">Outputs</a></li>
+               <li><a href="#6">Used By</a></li>
+               <li><a href="#7">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>y = prbn(N,rate)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>This function produces a binary sequence, with values <i>0</i> and <i>1</i>. The chance of switching from level is given by the parameter <tt>rate</tt>. <tt>rate = 0</tt> yields a constant value <i>0</i>. <tt>rate = 1</tt> gives an signal that changes between <i>0</i> and <i>1</i> at every time-instant. Any value in between results in a random binary sequence. This kind of testsignal has been described
+            in [1].
+         </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>N</tt> are the number of samples.
+         </p>
+         <p><tt>rate</tt> is the (optional) probability of the signal changing level at each time-instant. The default value is <i>0.5</i>.
+         </p>
+         <h2>Outputs<a name="5"></a></h2>
+         <p><tt>y</tt> is a pseudo-random binary noise.
+         </p>
+         <h2>Used By<a name="6"></a></h2>
+         <p>This is a top-level function that is used directly by the user.</p>
+         <h2>References<a name="7"></a></h2>
+         <p>[1] H. J. A. F. Tulleken, "Generalized binary noise test-signal concept for improved identification-experiment design", <i>Automatica</i>, vol. 26, no. 1, pp. 37-49, 1990.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% PRBN
+% Produces a pseudo-random binary sequency suitable as identification
+% input.
+
+%% Syntax
+% |y = prbn(N,rate)|
+
+%% Description
+% This function produces a binary sequence, with values _0_ and _1_. The
+% chance of switching from level is given by the parameter |rate|. |rate =
+% 0| yields a constant value _0_. |rate = 1| gives an signal that changes
+% between _0_ and _1_ at every time-instant. Any value in between results
+% in a random binary sequence. This kind of testsignal has been described
+% in [1].
+
+%% Inputs
+% |N| are the number of samples.
+%%
+% |rate| is the (optional) probability of the signal changing level at each
+% time-instant. The default value is _0.5_.
+          
+%% Outputs
+% |y| is a pseudo-random binary noise.
+
+%% Used By
+% This is a top-level function that is used directly by the user.
+
+%% References
+% [1] H. J. A. F. Tulleken, "Generalized binary noise test-signal concept
+% for improved identification-experiment design", _Automatica_, vol. 26,
+% no. 1, pp. 37-49, 1990.
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

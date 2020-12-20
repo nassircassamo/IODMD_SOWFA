@@ -1,0 +1,296 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>ex24_lpv_stable_predictor</title><meta name="generator" content="MATLAB 7.11.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2011-11-09"><meta name="DC.source" content="ex24_lpv_stable_predictor.m"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example 24: Stabilizing the predictor</a></li><li><a href="#2">Flapping dynamics of a wind turbine</a></li><li><a href="#3">LPV Bode diagram</a></li><li><a href="#4">Open-loop identification experiment</a></li><li><a href="#5">Identification of the model in open loop</a></li><li><a href="#6">Verification results</a></li><li><a href="#8">Stability analysis of the predictor form.</a></li></ul></div><h2>Example 24: Stabilizing the predictor<a name="1"></a></h2><p>Using the LPV system of example 19, we demonstate a feature of lx2abcdk: this function can stabilze the predictor form of the identified model in a convex polytope around the scheduling data used in the identification. It does this by solving a minimization problem with LMI constraints. Without this stabilization, the predictor form may get unstable. This usually occurs when we use short data sequences for identification, and low noise levels. Install YALMIP and an SDP solver such as SEDUMI to use this feature.</p><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>Flapping dynamics of a wind turbine<a name="2"></a></h2><pre class="codeinput"><span class="comment">% System matrices</span>
+A1 = [0 0.0734; -6.5229 -0.4997];
+A2 = [-0.0021 0; -0.0138 0.5196];
+A12 = [A1 A2];
+B12 = [-0.7221 0; -9.6277 0];
+C12 = [1 0 0 0];
+D12 = [0 0];
+n = size(A12,1);    <span class="comment">% The order of the system</span>
+m = size(A12,2)/n;  <span class="comment">% The number of scheduling parameters</span>
+r = size(B12,2)/m;  <span class="comment">% The number of inputs</span>
+l = size(C12,1);    <span class="comment">% The number of outputs</span>
+
+<span class="comment">% make affine LPV system</span>
+M = idafflpv(A12,B12,C12,D12,eye(2),zeros(2,1),1);
+</pre><h2>LPV Bode diagram<a name="3"></a></h2><p>The PBSID toolbox Version 0.5 and higher includes a function bodemag for LPV models in the idafflpv object, displaying the varying Bode magnitude plots of the system.</p><pre class="codeinput">h = bodemag(M,(-1:0.05:1)',0:0.01:pi,<span class="string">'colors'</span>);
+set(h,<span class="string">'units'</span>,<span class="string">'normalized'</span>,<span class="string">'outerposition'</span>,[0.1 0.25 0.75 0.5])
+</pre><img vspace="5" hspace="5" src="ex24_lpv_stable_predictor_01.png" alt=""> <h2>Open-loop identification experiment<a name="4"></a></h2><p>Simulation of the model in open loop, to obtain the data used in the identification experiment:</p><pre class="codeinput"><span class="comment">% defining a number of constants</span>
+j = 5;    <span class="comment">% period</span>
+np = 10;  <span class="comment">% number of periods</span>
+N = np*j;  <span class="comment">% number of data points</span>
+
+<span class="comment">% measured data from the scheduling parameters</span>
+mu3 = cos(2*pi*(1:N)'./j);
+
+<span class="comment">% simulation of the system with noise</span>
+t = (0:N-1)';
+u = randn(N,r);
+e = 0.01.*randn(N,l);
+y0 = sim(M,u,t,mu3);
+y = sim(M,u,t,mu3,e);
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   38.2814
+
+</pre><h2>Identification of the model in open loop<a name="5"></a></h2><p>We generate system matrices A,B,C,D,K with lxabcdk. In Mkstable, the observer gain K is chosen such that the predictor form is stable.</p><pre class="codeinput"><span class="comment">% parameters</span>
+p = 5;     <span class="comment">% past window size</span>
+f = 3;     <span class="comment">% future window size</span>
+
+<span class="comment">% LPV identification with noise</span>
+mu1 = ones(N,1);
+mu = [mu1 mu3];
+[S,x] = lordvarx(u,y,mu,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>,[0 1 0]);
+x = lmodx(x,n);
+[A,B,C,D,K] = lx2abcdk(x,u,y,mu,f,p,[0 1 0]);
+Mk = idafflpv(A,B,C,D,K,zeros(2,1),1);
+
+<span class="comment">% Generating a predictor form that is guaranteed to be stable in a convex</span>
+<span class="comment">% polytope around the scheduling data</span>
+[As,Bs,Cs,Ds,Ks] = lx2abcdk(x,u,y,mu,f,p,[0 1 0],0,1);
+Mkstable = idafflpv(As,Bs,Cs,Ds,Ks,zeros(2,1),1);
+</pre><h2>Verification results<a name="6"></a></h2><p>Simulation of identified LPV system:</p><pre class="codeinput">yidk = sim(Mk,u,t,mu3,e);
+disp(<span class="string">'VAF of identified LPV system '</span>)
+vaf(y,yidk)
+</pre><pre class="codeoutput">VAF of identified LPV system 
+
+ans =
+
+   99.4545
+
+</pre><p>Simulation of identified LPV system in the predictor form. If the predictor form is not stable we get bad results.</p><pre class="codeinput">x0 = findstates(Mk,u,y,t,mu3,<span class="string">'CD'</span>);
+yidpk = predict(Mk,u,y,t,mu3,x0,<span class="string">'CD'</span>);
+disp(<span class="string">'VAF of predictions of identified LPV system (not guaranteed to be stable)'</span>)
+vaf(y,yidpk)
+x0 = findstates(Mkstable,u,y,t,mu3,<span class="string">'CD'</span>);
+yidpk = predict(Mkstable,u,y,t,mu3,x0,<span class="string">'CD'</span>);
+disp(<span class="string">'VAF of predictions of stabilized predictor'</span>)
+vaf(y,yidpk)
+</pre><pre class="codeoutput">VAF of predictions of identified LPV system (not guaranteed to be stable)
+
+ans =
+
+     0
+
+VAF of predictions of stabilized predictor
+
+ans =
+
+   99.6510
+
+</pre><h2>Stability analysis of the predictor form.<a name="8"></a></h2><p>The function predstab returns the spectral radius at the cornerpoints of the convex polytope around the scheduling, and tau, the factor by which we can enlarge the scheduling range so that the predictor is still stable.</p><p>For non-stabilized predictor:</p><pre class="codeinput">tau = predstab(Mk,min(mu3),max(mu3),<span class="string">'CD'</span>,1,1)
+</pre><pre class="codeoutput">cornerpoint:     mu = -0.81
+spectral radius A-KC: 2.1      2.1
+cornerpoint:     mu = 1
+spectral radius A-KC: 2        2
+cornerpoint:     mu = -0.81
+spectral radius A-KC: 2.1      2.1
+cornerpoint:     mu = 1
+spectral radius A-KC: 2        2
+Unable to stabilize for very small tau
+
+tau =
+
+  7.4506e-009
+
+</pre><p>For stabilized predictor:</p><pre class="codeinput">tau = predstab(Mkstable,min(mu3),max(mu3),<span class="string">'CD'</span>,1,1)
+</pre><pre class="codeoutput">cornerpoint:     mu = -0.81
+spectral radius A-KC: 0.31     0.59
+cornerpoint:     mu = 1
+spectral radius A-KC: 0.47     0.47
+cornerpoint:     mu = -0.81
+spectral radius A-KC: 0.31     0.59
+cornerpoint:     mu = 1
+spectral radius A-KC: 0.47     0.47
+
+tau =
+
+     1
+
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.11.1<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example 24: Stabilizing the predictor
+% Using the LPV system of example 19, we demonstate a feature of lx2abcdk:
+% this function can stabilze the predictor form of the identified model
+% in a convex polytope around the scheduling data used in the identification. 
+% It does this by solving a minimization problem with LMI constraints. Without 
+% this stabilization, the predictor form may get unstable. This usually occurs 
+% when we use short data sequences for identification, and low noise levels.
+% Install YALMIP and an SDP solver such as SEDUMI to use this feature.
+
+close all; clear; clc;
+
+%% Flapping dynamics of a wind turbine
+
+% System matrices
+A1 = [0 0.0734; -6.5229 -0.4997];
+A2 = [-0.0021 0; -0.0138 0.5196];
+A12 = [A1 A2];
+B12 = [-0.7221 0; -9.6277 0];
+C12 = [1 0 0 0];
+D12 = [0 0];
+n = size(A12,1);    % The order of the system
+m = size(A12,2)/n;  % The number of scheduling parameters
+r = size(B12,2)/m;  % The number of inputs
+l = size(C12,1);    % The number of outputs
+
+% make affine LPV system
+M = idafflpv(A12,B12,C12,D12,eye(2),zeros(2,1),1);
+
+%% LPV Bode diagram
+% The PBSID toolbox Version 0.5 and higher includes a function bodemag for 
+% LPV models in the idafflpv object, displaying the varying Bode magnitude 
+% plots of the system.
+h = bodemag(M,(-1:0.05:1)',0:0.01:pi,'colors');
+set(h,'units','normalized','outerposition',[0.1 0.25 0.75 0.5])
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop, to obtain the data used in the
+% identification experiment:
+
+% defining a number of constants
+j = 5;    % period
+np = 10;  % number of periods
+N = np*j;  % number of data points
+
+% measured data from the scheduling parameters
+mu3 = cos(2*pi*(1:N)'./j);
+
+% simulation of the system with noise
+t = (0:N-1)';
+u = randn(N,r);
+e = 0.01.*randn(N,l);
+y0 = sim(M,u,t,mu3);
+y = sim(M,u,t,mu3,e);
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+%% Identification of the model in open loop
+% We generate system matrices A,B,C,D,K with lxabcdk. In Mkstable, the 
+% observer gain K is chosen such that the predictor form is stable.
+
+% parameters
+p = 5;     % past window size
+f = 3;     % future window size
+
+% LPV identification with noise
+mu1 = ones(N,1);
+mu = [mu1 mu3];
+[S,x] = lordvarx(u,y,mu,f,p,'tikh','gcv',[0 1 0]);
+x = lmodx(x,n);
+[A,B,C,D,K] = lx2abcdk(x,u,y,mu,f,p,[0 1 0]);
+Mk = idafflpv(A,B,C,D,K,zeros(2,1),1);
+
+% Generating a predictor form that is guaranteed to be stable in a convex
+% polytope around the scheduling data
+[As,Bs,Cs,Ds,Ks] = lx2abcdk(x,u,y,mu,f,p,[0 1 0],0,1);
+Mkstable = idafflpv(As,Bs,Cs,Ds,Ks,zeros(2,1),1);
+
+%% Verification results
+% Simulation of identified LPV system:
+yidk = sim(Mk,u,t,mu3,e);
+disp('VAF of identified LPV system ')
+vaf(y,yidk)
+
+%%
+% Simulation of identified LPV system in the predictor form. If the
+% predictor form is not stable we get bad results.
+x0 = findstates(Mk,u,y,t,mu3,'CD');
+yidpk = predict(Mk,u,y,t,mu3,x0,'CD');
+disp('VAF of predictions of identified LPV system (not guaranteed to be stable)')
+vaf(y,yidpk)
+x0 = findstates(Mkstable,u,y,t,mu3,'CD');
+yidpk = predict(Mkstable,u,y,t,mu3,x0,'CD');
+disp('VAF of predictions of stabilized predictor')
+vaf(y,yidpk)
+
+%% Stability analysis of the predictor form.
+% The function predstab returns the spectral radius at the cornerpoints of
+% the convex polytope around the scheduling, and tau, the factor by which 
+% we can enlarge the scheduling range so that the predictor is still
+% stable.
+
+%%
+% For non-stabilized predictor:
+tau = predstab(Mk,min(mu3),max(mu3),'CD',1,1)
+
+%%
+% For stabilized predictor:
+tau = predstab(Mkstable,min(mu3),max(mu3),'CD',1,1)
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

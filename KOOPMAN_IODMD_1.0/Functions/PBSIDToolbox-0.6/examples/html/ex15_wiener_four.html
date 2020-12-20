@@ -1,0 +1,228 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex15_wiener_four</title><meta name="generator" content="MATLAB 7.9"><meta name="date" content="2010-10-28"><meta name="m-file" content="ex15_wiener_four"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example 15: Fourth-order Wiener model</a></li><li><a href="#2">The fourth-order LTI model with coloured process noise</a></li><li><a href="#3">Open-loop identification experiment</a></li></ul></div><h2>Example 15: Fourth-order Wiener model<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>The fourth-order LTI model with coloured process noise<a name="2"></a></h2><pre class="codeinput"><span class="comment">% state-space matrices</span>
+A = [0.67 0.67 0 0; -0.67 0.67 0 0; 0 0 -0.67 -0.67; 0 0 0.67 -0.67];
+B = [0.6598 -0.5256; 1.9698 0.4845; 4.3171 -0.4879; -2.6436 -0.3416];
+K = [-0.6968 -0.1474; 0.1722 0.5646; 0.6484 -0.4660; -0.9400 0.1032];
+C = [-0.3749 0.0751 -0.5225 0.5830; -0.8977 0.7543 0.1159 0.0982];
+D = zeros(2);
+
+<span class="comment">% open-loop system</span>
+OL = ss(A,[B K],C,[D eye(2)],1);
+</pre><h2>Open-loop identification experiment<a name="3"></a></h2><p>Simulation of the model in open loop</p><pre class="codeinput"><span class="comment">% input signals</span>
+N = 1000; <span class="comment">% number of samples</span>
+t = (0:N-1)';   <span class="comment">% time samples</span>
+r = randn(N,2); <span class="comment">% excitation signal</span>
+
+<span class="comment">% noise</span>
+e = 0.04.*randn(N,2); <span class="comment">% noise signal</span>
+
+<span class="comment">% simulation of open loop</span>
+y0 = lsim(OL,[r zeros(N,2)],t);
+y = lsim(OL,[r e],t);
+fy = [sign(y(:,1)).*sqrt(abs(y(:,1))) sign(y(:,2)).*sqrt(abs(y(:,2)))];
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   38.4416   32.3606
+
+</pre><p>Identification of the model in open loop</p><pre class="codeinput"><span class="comment">% parameters</span>
+n = 4;    <span class="comment">% order of system</span>
+f = 10;   <span class="comment">% future window size</span>
+p = 10;   <span class="comment">% past window size</span>
+
+<span class="comment">% PBSID-varx (open loop)</span>
+[us,Du,ys,Dy] = sigscale(r,fy);
+[S,x,yi] = wordvarx(us,ys,f,p,1e-4,1e-8);
+figure, semilogy(S,<span class="string">'*'</span>);
+x = wmodx(x,n);
+[Ai,Bi,Ci,Di,Ki] = wx2abcdk(x,us,yi,f,p);
+</pre><img vspace="5" hspace="5" src="ex15_wiener_four_01.png" alt=""> <p>Verification results</p><pre class="codeinput"><span class="comment">% variance accounted for (open loop)</span>
+Qy = (Dy\y(p+1:p+size(yi,2),:)')*pinv(yi);
+OLi = ss(Ai,Bi/Du,Dy*Qy*Ci,Dy*Qy*Di,1);
+yv = lsim(OL(1:2,1:2),r,t);
+ye = lsim(OLi,r,t);
+disp(<span class="string">'VAF (open-loop)'</span>)
+vaf(yv,ye)
+</pre><pre class="codeoutput">VAF (open-loop)
+
+ans =
+
+   99.9971
+   99.9347
+
+</pre><p>Identification results</p><pre class="codeinput"><span class="comment">% plot eigenvalues (open loop)</span>
+figure
+hold <span class="string">on</span>
+title(<span class="string">'poles of identified system (open-loop)'</span>)
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,<span class="string">'k'</span>);
+plot(real(pole(OL)),imag(pole(OL)),<span class="string">'k+'</span>,<span class="string">'LineWidth'</span>,0.1,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerSize'</span>,10);
+plot(real(eig(Ai)),imag(eig(Ai)),<span class="string">'rx'</span>);
+axis([-1 1 -1 1]);
+axis <span class="string">square</span>
+legend(<span class="string">'STABBND'</span>,<span class="string">'TRUE'</span>,<span class="string">'IDENT'</span>,<span class="string">'Location'</span>,<span class="string">'East'</span>);
+hold <span class="string">off</span>
+
+<span class="comment">% simulation (open loop)</span>
+figure, bodemag(OL(1:2,1:2),<span class="string">'k'</span>,OLi,<span class="string">'y'</span>);
+legend(<span class="string">'REAL'</span>,<span class="string">'IDENT'</span>);
+
+<span class="comment">% plot the non-linear function</span>
+yi = Dy*Qy*yi;
+figure, subplot(1,2,1), plot(y(:,1),fy(:,1),<span class="string">'k.'</span>,yi(1,:)',fy(p+1:p+size(yi,2),1),<span class="string">'r.'</span>);
+subplot(1,2,2), plot(y(:,2),fy(:,2),<span class="string">'k.'</span>,yi(2,:)',fy(p+1:p+size(yi,2),2),<span class="string">'r.'</span>);
+</pre><img vspace="5" hspace="5" src="ex15_wiener_four_02.png" alt=""> <img vspace="5" hspace="5" src="ex15_wiener_four_03.png" alt=""> <img vspace="5" hspace="5" src="ex15_wiener_four_04.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.9<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example 15: Fourth-order Wiener model
+close all; clear; clc;
+
+%% The fourth-order LTI model with coloured process noise
+
+% state-space matrices
+A = [0.67 0.67 0 0; -0.67 0.67 0 0; 0 0 -0.67 -0.67; 0 0 0.67 -0.67];
+B = [0.6598 -0.5256; 1.9698 0.4845; 4.3171 -0.4879; -2.6436 -0.3416];
+K = [-0.6968 -0.1474; 0.1722 0.5646; 0.6484 -0.4660; -0.9400 0.1032];
+C = [-0.3749 0.0751 -0.5225 0.5830; -0.8977 0.7543 0.1159 0.0982];
+D = zeros(2);
+
+% open-loop system
+OL = ss(A,[B K],C,[D eye(2)],1);
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop
+
+% input signals
+N = 1000; % number of samples
+t = (0:N-1)';   % time samples
+r = randn(N,2); % excitation signal
+
+% noise
+e = 0.04.*randn(N,2); % noise signal
+
+% simulation of open loop
+y0 = lsim(OL,[r zeros(N,2)],t);
+y = lsim(OL,[r e],t);
+fy = [sign(y(:,1)).*sqrt(abs(y(:,1))) sign(y(:,2)).*sqrt(abs(y(:,2)))];
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+%%
+% Identification of the model in open loop
+
+% parameters
+n = 4;    % order of system
+f = 10;   % future window size
+p = 10;   % past window size
+
+% PBSID-varx (open loop)
+[us,Du,ys,Dy] = sigscale(r,fy);
+[S,x,yi] = wordvarx(us,ys,f,p,1e-4,1e-8);
+figure, semilogy(S,'*');
+x = wmodx(x,n);
+[Ai,Bi,Ci,Di,Ki] = wx2abcdk(x,us,yi,f,p);
+
+%%
+% Verification results
+
+% variance accounted for (open loop)
+Qy = (Dy\y(p+1:p+size(yi,2),:)')*pinv(yi);
+OLi = ss(Ai,Bi/Du,Dy*Qy*Ci,Dy*Qy*Di,1);
+yv = lsim(OL(1:2,1:2),r,t);
+ye = lsim(OLi,r,t);
+disp('VAF (open-loop)')
+vaf(yv,ye)
+
+%%
+% Identification results
+
+% plot eigenvalues (open loop)
+figure
+hold on
+title('poles of identified system (open-loop)')
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,'k');
+plot(real(pole(OL)),imag(pole(OL)),'k+','LineWidth',0.1,'MarkerEdgeColor','k','MarkerFaceColor','k','MarkerSize',10);
+plot(real(eig(Ai)),imag(eig(Ai)),'rx');
+axis([-1 1 -1 1]);
+axis square
+legend('STABBND','TRUE','IDENT','Location','East');
+hold off
+
+% simulation (open loop)
+figure, bodemag(OL(1:2,1:2),'k',OLi,'y');
+legend('REAL','IDENT');
+
+% plot the non-linear function
+yi = Dy*Qy*yi;
+figure, subplot(1,2,1), plot(y(:,1),fy(:,1),'k.',yi(1,:)',fy(p+1:p+size(yi,2),1),'r.');
+subplot(1,2,2), plot(y(:,2),fy(:,2),'k.',yi(2,:)',fy(p+1:p+size(yi,2),2),'r.');
+##### SOURCE END #####
+--></body></html>

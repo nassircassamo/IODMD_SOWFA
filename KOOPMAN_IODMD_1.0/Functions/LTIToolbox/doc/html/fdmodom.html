@@ -1,0 +1,173 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>FCMODOM</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="fdmodom"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>FCMODOM</h1>
+         <introduction>
+            <p>Estimates the <i>A</i> and <i>C</i> matrix in a discrete-time state-space model from frequency response function (FRF) data that was preprocessed by <a href="fdordom.html"><tt>fdordom</tt></a>.
+            </p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#5">Outputs</a></li>
+               <li><a href="#7">Algorithm</a></li>
+               <li><a href="#10">Used By</a></li>
+               <li><a href="#11">See Also</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>[A,C] = fdmodom(R,n)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>This function estimates the <i>A</i> and <i>C</i> matrices corresponding to an <i>n</i> th order discrete-time LTI state-space model. The compressed data matrix <i>R</i> from the preprocessor function <a href="fdordom.html"><tt>fdordom</tt></a> is used to this end.
+         </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>R</tt> is a compressed data matrix containing information about the measured data, as well as information regarding the system dimensions.
+         </p>
+         <p><tt>n</tt> is the desired model order <i>n</i>.
+         </p>
+         <h2>Outputs<a name="5"></a></h2>
+         <p><tt>A</tt> is the state-space model's <i>A</i> matrix.
+         </p>
+         <p><tt>C</tt> is the state-space model's <i>C</i> matrix.
+         </p>
+         <h2>Algorithm<a name="7"></a></h2>
+         <p>The data matrix obtained with <a href="fcordom.html"><tt>fcordom</tt></a> contains the weighted left singular vectors of a matrix similar to the <tt>R22</tt> matrix (see <a href="fdordom.html"><tt>fdordom</tt></a>). The first <i>n</i> of these vectors form an estimate <i>Os</i> of the system's extended observability matrix:
+         </p>
+         <p><img vspace="5" hspace="5" src="extobs.jpg"> </p>
+         <p>The estimates Ahat and Chat are obtained by linear regression:</p>
+         <p><img vspace="5" hspace="5" src="fdmodom_eq36202.png"> </p>
+         <p><img vspace="5" hspace="5" src="fdmodom_eq293938.png"> </p>
+         <h2>Used By<a name="10"></a></h2>
+         <p>This a top-level function that is used directly by the user.</p>
+         <h2>See Also<a name="11"></a></h2>
+         <p><a href="fdordom.html"><tt>fdordom</tt></a>, <a href="fcmodm.html"><tt>fcmodom</tt></a></p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% FCMODOM
+% Estimates the _A_ and _C_ matrix in a discrete-time state-space model
+% from frequency response function (FRF) data that was preprocessed by
+% <fdordom.html |fdordom|>.
+
+%% Syntax
+% |[A,C] = fdmodom(R,n)|
+
+%% Description
+% This function estimates the _A_ and _C_ matrices corresponding to an _n_
+% th order discrete-time LTI state-space model. The compressed data matrix
+% _R_ from the preprocessor function <fdordom.html |fdordom|> is used to
+% this end.
+
+%% Inputs
+% |R| is a compressed data matrix containing information about the measured
+% data, as well as information regarding the system dimensions.
+%% 
+% |n| is the desired model order _n_.
+
+%% Outputs
+% |A| is the state-space model's _A_ matrix.
+%%
+% |C| is the state-space model's _C_ matrix.
+
+%% Algorithm
+% The data matrix obtained with <fcordom.html |fcordom|> contains the
+% weighted left singular vectors of a matrix similar to the |R22| matrix
+% (see <fdordom.html |fdordom|>). The first _n_ of these vectors form an
+% estimate _Os_ of the system's extended observability matrix:
+%%
+% <<extobs.jpg>>
+%%
+% The estimates Ahat and Chat are obtained by linear regression:
+%
+% $$ \hat{C} = \hat{\mathcal{O}}_s(1:\ell,:) $$
+%
+% $$ \hat{A} = \hat{\mathcal{O}}_s(1:(s-1)\ell,:)^\dagger
+% \hat{\mathcal{O}}_s(\ell+1:s\ell,:) $$
+%
+
+%% Used By
+% This a top-level function that is used directly by the user.
+
+%% See Also
+% <fdordom.html |fdordom|>, <fcmodm.html |fcmodom|>
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

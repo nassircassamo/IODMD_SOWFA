@@ -1,0 +1,382 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex_lti_four_varmax</title><meta name="generator" content="MATLAB 7.9.1"><meta name="date" content="2010-12-12"><meta name="m-file" content="ex_lti_four_varmax"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example 1: Fourth-order LTI model with coloured process noise in closed loop</a></li><li><a href="#2">The fourth-order LTI model with coloured process noise</a></li><li><a href="#3">Open-loop identification experiment</a></li><li><a href="#7">Closed-loop identification experiment</a></li></ul></div><h2>Example 1: Fourth-order LTI model with coloured process noise in closed loop<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>The fourth-order LTI model with coloured process noise<a name="2"></a></h2><pre class="codeinput"><span class="comment">% state-space matrices</span>
+A = [0.67 0.67 0 0; -0.67 0.67 0 0; 0 0 -0.67 -0.67; 0 0 0.67 -0.67];
+B = [0.6598 -0.5256; 1.9698 0.4845; 4.3171 -0.4879; -2.6436 -0.3416];
+K = [-0.6968 -0.1474; 0.1722 0.5646; 0.6484 -0.4660; -0.9400 0.1032];
+C = [-0.3749 0.0751 -0.5225 0.5830; -0.8977 0.7543 0.1159 0.0982];
+D = zeros(2);
+
+<span class="comment">% open-loop system</span>
+OL = ss(A,[B K],C,[D eye(2)],1);
+
+<span class="comment">% closed-loop system</span>
+F = diag([0.25 0.25]);
+CL = feedback(OL,F,[1 2],[1 2],-1);
+</pre><h2>Open-loop identification experiment<a name="3"></a></h2><p>Simulation of the model in open loop</p><pre class="codeinput"><span class="comment">% input signals</span>
+N = 4000; <span class="comment">% number of samples</span>
+t = (0:N-1)';   <span class="comment">% time samples</span>
+r = randn(N,2); <span class="comment">% excitation signal</span>
+
+<span class="comment">% noise</span>
+e = randn(N,2); <span class="comment">% noise signal</span>
+
+<span class="comment">% simulation</span>
+y0 = lsim(OL,[r zeros(N,2)],t);
+y = lsim(OL,[r e],t);
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   12.1059    7.2149
+
+</pre><p>Identification of the model in open loop</p><pre class="codeinput"><span class="comment">% parameters</span>
+n = 4;    <span class="comment">% order of system</span>
+f = 10;   <span class="comment">% future window size</span>
+p = 10;   <span class="comment">% past window size</span>
+
+<span class="comment">% PBSID-varx</span>
+[S,X] = dordvarmax(r,y,f,p,<span class="string">'els'</span>,1e-6,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure, semilogy(S,<span class="string">'*'</span>);
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,r,y,f,p);
+
+<span class="comment">% PBSID-varx backwards</span>
+[S,X] = dordvarmax_back(r,y,f,p,1e-6,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure, semilogy(S,<span class="string">'*'</span>);
+x = dmodx(X,n);
+[Av,Bv,Cv,Dv,Kv] = dx2abcdk_back(x,r,y,f,p);
+</pre><img vspace="5" hspace="5" src="ex_lti_four_varmax_01.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_varmax_02.png" alt=""> <p>Verification results</p><pre class="codeinput"><span class="comment">% verification using variance accounted for (VAF) (open loop)</span>
+OLi = ss(Ai,Bi,Ci,Di,1);
+OLv = ss(Av,Bv,Cv,Dv,1);
+y = lsim(OL(1:2,1:2),r,t);
+yi = lsim(OLi,r,t);
+yv = lsim(OLv,r,t);
+disp(<span class="string">'VAF with PBSID-forward (open loop)'</span>)
+vaf(y,yi)
+disp(<span class="string">'VAF with PBSID-backward (open loop)'</span>)
+vaf(y,yv)
+</pre><pre class="codeoutput">VAF with PBSID-forward (open loop)
+
+ans =
+
+   99.9732
+   99.9029
+
+VAF with PBSID-backward (open loop)
+
+ans =
+
+   77.2797
+   36.7621
+
+</pre><p>Identification results</p><pre class="codeinput"><span class="comment">% plot eigenvalues (open loop)</span>
+figure
+hold <span class="string">on</span>
+title(<span class="string">'poles of identified system (open-loop)'</span>)
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,<span class="string">'k'</span>);
+plot(real(pole(OL)),imag(pole(OL)),<span class="string">'k+'</span>,<span class="string">'LineWidth'</span>,0.1,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerSize'</span>,10);
+plot(real(eig(Ai)),imag(eig(Ai)),<span class="string">'rx'</span>);
+plot(real(eig(Av)),imag(eig(Av)),<span class="string">'bx'</span>);
+axis([-1 1 -1 1]);
+axis <span class="string">square</span>
+legend(<span class="string">'STABBND'</span>,<span class="string">'TRUE'</span>,<span class="string">'PBSID-forward'</span>,<span class="string">'PBSID-backward'</span>,<span class="string">'Location'</span>,<span class="string">'East'</span>);
+hold <span class="string">off</span>
+
+<span class="comment">% simulation</span>
+figure, bodemag(OL(1:2,1:2),<span class="string">'k'</span>,OLi,<span class="string">'r'</span>,OLv,<span class="string">'b'</span>);
+legend(<span class="string">'TRUE'</span>,<span class="string">'PBSID-forward'</span>,<span class="string">'PBSID-backward'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>);
+</pre><img vspace="5" hspace="5" src="ex_lti_four_varmax_03.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_varmax_04.png" alt=""> <h2>Closed-loop identification experiment<a name="7"></a></h2><p>Simulation of the model in closed loop</p><pre class="codeinput"><span class="comment">% simulation of closed loop</span>
+e = 0.7.*e;
+y = lsim(CL,[r e],t);
+u = (r' - F*y')';
+y0 = lsim(OL,[u zeros(N,2)],t);
+disp(<span class="string">'Signal to noise ratio (SNR) (closed-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (closed-loop)
+
+ans =
+
+   10.4131    9.1208
+
+</pre><p>Identification of the model in closed loop</p><pre class="codeinput"><span class="comment">% PBSID-varx (closed loop)</span>
+[S,X] = dordvarmax(u,y,f,p,<span class="string">'els'</span>,1e-6,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure, semilogy(S,<span class="string">'*'</span>);
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,u,y,f,p);
+
+<span class="comment">% PBSID-backwards (closed loop)</span>
+[S,X] = dordvarmax_back(u,y,f,p,1e-6,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>);
+figure, semilogy(S,<span class="string">'*'</span>);
+x = dmodx(X,n);
+[Av,Bv,Cv,Dv,Kv] = dx2abcdk_back(x,u,y,f,p);
+</pre><img vspace="5" hspace="5" src="ex_lti_four_varmax_05.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_varmax_06.png" alt=""> <p>Verification results</p><pre class="codeinput"><span class="comment">% verification using variance accounted for (VAF) (closed loop)</span>
+OLi = ss(Ai,Bi,Ci,Di,1);
+OLv = ss(Av,Bv,Cv,Dv,1);
+y = lsim(OL(1:2,1:2),u,t);
+yi = lsim(OLi,u,t);
+yv = lsim(OLv,u,t);
+disp(<span class="string">'VAF with PBSID-forward (closed loop)'</span>)
+vaf(y,yi)
+disp(<span class="string">'VAF with PBSID-backward (closed loop)'</span>)
+vaf(y,yv)
+</pre><pre class="codeoutput">VAF with PBSID-forward (closed loop)
+
+ans =
+
+   99.5900
+   99.0921
+
+VAF with PBSID-backward (closed loop)
+
+ans =
+
+   95.4362
+   85.6421
+
+</pre><p>Identification results</p><pre class="codeinput"><span class="comment">% plot eigenvalues (closed loop)</span>
+figure
+hold <span class="string">on</span>
+title(<span class="string">'poles of identified system (closed loop)'</span>)
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,<span class="string">'k'</span>);
+plot(real(pole(OL)),imag(pole(OL)),<span class="string">'k+'</span>,<span class="string">'LineWidth'</span>,0.1,<span class="string">'MarkerEdgeColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerFaceColor'</span>,<span class="string">'k'</span>,<span class="string">'MarkerSize'</span>,10);
+plot(real(eig(Ai)),imag(eig(Ai)),<span class="string">'rx'</span>);
+plot(real(eig(Av)),imag(eig(Av)),<span class="string">'bx'</span>);
+axis([-1 1 -1 1]);
+axis <span class="string">square</span>
+legend(<span class="string">'STABBND'</span>,<span class="string">'TRUE'</span>,<span class="string">'PBSID-forward'</span>,<span class="string">'PBSID-backward'</span>,<span class="string">'Location'</span>,<span class="string">'East'</span>);
+hold <span class="string">off</span>
+
+<span class="comment">% simulation (closed loop)</span>
+figure, bodemag(OL(1:2,1:2),<span class="string">'k'</span>,OLi,<span class="string">'r'</span>,OLv,<span class="string">'b'</span>);
+legend(<span class="string">'TRUE'</span>,<span class="string">'PBSID-forward'</span>,<span class="string">'PBSID-backward'</span>,<span class="string">'Location'</span>,<span class="string">'Best'</span>);
+</pre><img vspace="5" hspace="5" src="ex_lti_four_varmax_07.png" alt=""> <img vspace="5" hspace="5" src="ex_lti_four_varmax_08.png" alt=""> <p class="footer"><br>
+      Published with MATLAB&reg; 7.9.1<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example 1: Fourth-order LTI model with coloured process noise in closed loop
+close all; clear; clc;
+
+%% The fourth-order LTI model with coloured process noise
+
+% state-space matrices
+A = [0.67 0.67 0 0; -0.67 0.67 0 0; 0 0 -0.67 -0.67; 0 0 0.67 -0.67];
+B = [0.6598 -0.5256; 1.9698 0.4845; 4.3171 -0.4879; -2.6436 -0.3416];
+K = [-0.6968 -0.1474; 0.1722 0.5646; 0.6484 -0.4660; -0.9400 0.1032];
+C = [-0.3749 0.0751 -0.5225 0.5830; -0.8977 0.7543 0.1159 0.0982];
+D = zeros(2);
+
+% open-loop system
+OL = ss(A,[B K],C,[D eye(2)],1);
+
+% closed-loop system
+F = diag([0.25 0.25]);
+CL = feedback(OL,F,[1 2],[1 2],-1);
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop
+
+% input signals
+N = 4000; % number of samples
+t = (0:N-1)';   % time samples
+r = randn(N,2); % excitation signal
+
+% noise
+e = randn(N,2); % noise signal
+
+% simulation
+y0 = lsim(OL,[r zeros(N,2)],t);
+y = lsim(OL,[r e],t);
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+%%
+% Identification of the model in open loop
+
+% parameters
+n = 4;    % order of system
+f = 10;   % future window size
+p = 10;   % past window size
+
+% PBSID-varx
+[S,X] = dordvarmax(r,y,f,p,'els',1e-6,'tikh','gcv');
+figure, semilogy(S,'*');
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,r,y,f,p);
+
+% PBSID-varx backwards
+[S,X] = dordvarmax_back(r,y,f,p,1e-6,'tikh','gcv');
+figure, semilogy(S,'*');
+x = dmodx(X,n);
+[Av,Bv,Cv,Dv,Kv] = dx2abcdk_back(x,r,y,f,p);
+
+%%
+% Verification results
+
+% verification using variance accounted for (VAF) (open loop)
+OLi = ss(Ai,Bi,Ci,Di,1);
+OLv = ss(Av,Bv,Cv,Dv,1);
+y = lsim(OL(1:2,1:2),r,t);
+yi = lsim(OLi,r,t);
+yv = lsim(OLv,r,t);
+disp('VAF with PBSID-forward (open loop)')
+vaf(y,yi)
+disp('VAF with PBSID-backward (open loop)')
+vaf(y,yv)
+
+%%
+% Identification results
+
+% plot eigenvalues (open loop)
+figure
+hold on
+title('poles of identified system (open-loop)')
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,'k');
+plot(real(pole(OL)),imag(pole(OL)),'k+','LineWidth',0.1,'MarkerEdgeColor','k','MarkerFaceColor','k','MarkerSize',10);
+plot(real(eig(Ai)),imag(eig(Ai)),'rx');
+plot(real(eig(Av)),imag(eig(Av)),'bx');
+axis([-1 1 -1 1]);
+axis square
+legend('STABBND','TRUE','PBSID-forward','PBSID-backward','Location','East');
+hold off
+
+% simulation
+figure, bodemag(OL(1:2,1:2),'k',OLi,'r',OLv,'b');
+legend('TRUE','PBSID-forward','PBSID-backward','Location','Best');
+
+%% Closed-loop identification experiment
+% Simulation of the model in closed loop
+
+% simulation of closed loop
+e = 0.7.*e;
+y = lsim(CL,[r e],t);
+u = (r' - F*y')';
+y0 = lsim(OL,[u zeros(N,2)],t);
+disp('Signal to noise ratio (SNR) (closed-loop)')
+snr(y,y0)
+
+%%
+% Identification of the model in closed loop
+
+% PBSID-varx (closed loop)
+[S,X] = dordvarmax(u,y,f,p,'els',1e-6,'tikh','gcv');
+figure, semilogy(S,'*');
+x = dmodx(X,n);
+[Ai,Bi,Ci,Di,Ki] = dx2abcdk(x,u,y,f,p);
+
+% PBSID-backwards (closed loop)
+[S,X] = dordvarmax_back(u,y,f,p,1e-6,'tikh','gcv');
+figure, semilogy(S,'*');
+x = dmodx(X,n);
+[Av,Bv,Cv,Dv,Kv] = dx2abcdk_back(x,u,y,f,p);
+
+%%
+% Verification results
+
+% verification using variance accounted for (VAF) (closed loop)
+OLi = ss(Ai,Bi,Ci,Di,1);
+OLv = ss(Av,Bv,Cv,Dv,1);
+y = lsim(OL(1:2,1:2),u,t);
+yi = lsim(OLi,u,t);
+yv = lsim(OLv,u,t);
+disp('VAF with PBSID-forward (closed loop)')
+vaf(y,yi)
+disp('VAF with PBSID-backward (closed loop)')
+vaf(y,yv)
+
+%%
+% Identification results
+
+% plot eigenvalues (closed loop)
+figure
+hold on
+title('poles of identified system (closed loop)')
+[cx,cy] = pol2cart(linspace(0,2*pi),ones(1,100));
+plot(cx,cy,'k');
+plot(real(pole(OL)),imag(pole(OL)),'k+','LineWidth',0.1,'MarkerEdgeColor','k','MarkerFaceColor','k','MarkerSize',10);
+plot(real(eig(Ai)),imag(eig(Ai)),'rx');
+plot(real(eig(Av)),imag(eig(Av)),'bx');
+axis([-1 1 -1 1]);
+axis square
+legend('STABBND','TRUE','PBSID-forward','PBSID-backward','Location','East');
+hold off
+
+% simulation (closed loop)
+figure, bodemag(OL(1:2,1:2),'k',OLi,'r',OLv,'b');
+legend('TRUE','PBSID-forward','PBSID-backward','Location','Best');
+
+
+
+
+
+
+
+##### SOURCE END #####
+--></body></html>

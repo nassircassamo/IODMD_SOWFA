@@ -1,0 +1,283 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex20_lpv_mimo</title><meta name="generator" content="MATLAB 7.9"><meta name="date" content="2010-10-28"><meta name="m-file" content="ex20_lpv_mimo"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example 20: Fourth-order MIMO LPV model</a></li><li><a href="#2">Fourth-order MIMO Model</a></li><li><a href="#3">Open-loop identification experiment</a></li></ul></div><h2>Example 20: Fourth-order MIMO LPV model<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>Fourth-order MIMO Model<a name="2"></a></h2><pre class="codeinput">n = 4;  <span class="comment">% The order of the system</span>
+m = 4;  <span class="comment">% The number of scheduling parameters</span>
+r = 2;  <span class="comment">% The number of inputs</span>
+l = 3;  <span class="comment">% The number of outputs</span>
+
+<span class="comment">% System matrices</span>
+A1 = [-1.3 -0.6325 -0.1115 0.0596; 1 0 0 0; 0 1 0 0; 0 0 1 0];
+A2 = [-0.51 -0.1075 -0.007275 -0.0000625; 1 0 0 0; 0 1 0 0; 0 0 1 0];
+A3 = [0.2 0 0 0; 0 0.4 0 0; 0 0 0 0; 0 0 0 0];
+A4 = [0 0 0 0; 0 0 0 0; 0 0 0.3 0; 0 0 0 0.3];
+B1 = [0 1; 1 0; 1 0; 0 1];
+B2 = [0 0; 0 0; 0 0; 0.3 0.3];
+B3 = B2;
+B4 = B2;
+K = [0.16 0 0; 0 0.16 0; 0 0 0.16; 0.16 0 0];
+C = [1 0 0 0; 0 1 0 0; 0 0 1 0];
+D = [0 0; 0 0; 0 0];
+Alpv = [A1 A2 A3 A4];
+Blpv = [B1 B2 B3 B4];
+Clpv = [C zeros(l,3*n)];
+Dlpv = [D zeros(l,3*r)];
+Klpv = [K zeros(n,3*l)];
+</pre><h2>Open-loop identification experiment<a name="3"></a></h2><p>Simulation of the model in open loop</p><pre class="codeinput"><span class="comment">% Measured data from the scheduling parameters</span>
+N = 1000;  <span class="comment">% number of data points</span>
+t = (0:1:(N-1))';
+rho = rand(N,1);
+mu = [ones(N,1) rho 0.5.*sin((2*pi/100).*t).*rho 0.5.*cos((2*pi/100).*t).*rho];
+
+<span class="comment">% Measured input data</span>
+nu = randn(N,1);
+eta = randn(N,1);
+xi = randn(N,1);
+[b,a] = butter(2,0.2);
+u = [filter([0.75 1.05 0.15],1,eta) + filter(b,a,nu) xi];
+
+<span class="comment">% Simulation of the system without noise</span>
+M = idafflpv(Alpv,Blpv,Clpv,Dlpv,Klpv,[],1);
+y0 = sim(M,u,t,mu(:,2:end));
+
+<span class="comment">% Simulation of the system with noise</span>
+e = 0.5.*randn(N,l);
+y = sim(M,u,t,mu(:,2:end),e);
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   19.2396   19.2329   19.2336
+
+</pre><p>Identification of the model in open loop</p><pre class="codeinput"><span class="comment">% Defining a number of constants</span>
+p = 5;     <span class="comment">% past window size</span>
+f = 3;     <span class="comment">% future window size</span>
+
+<span class="comment">% LPV identification</span>
+[S,x] = lordvarx(u,y,mu,f,p,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>,[0 0 0]);
+x = lmodx(x,n);
+[Aid,Bid,Cid,Did,Kid] = lx2abcdk(x,u,y,mu,f,p,[0 0 0]);
+[Aid1,Bid1,Cid1,Did1,Kid1] = lx2abcdk(x,u,y,mu,f,p,[0 0 0],1);
+figure, semilogy(S,<span class="string">'x'</span>);
+title(<span class="string">'Singular values'</span>)
+</pre><img vspace="5" hspace="5" src="ex20_lpv_mimo_01.png" alt=""> <p>Optimization with the prediction error method</p><pre class="codeinput">Mi = idafflpv(Aid,Bid,Cid,Did,Kid,[],1);
+[e,x0] = pe(Mi,u,y,t,mu(:,2:end),<span class="string">'CD'</span>);
+Mi.x0 = x0;
+Mi.NoiseVariance = cov(e);
+Mp = pem(Mi,u,y,t,mu(:,2:end),<span class="string">'CD'</span>);
+</pre><pre class="codeoutput">maximum number of iterations has been exceeded
+</pre><p>Validation results</p><pre class="codeinput"><span class="comment">% Validation data from the scheduling parameters</span>
+rho = rand(N,1);
+mu = [ones(N,1) rho 0.5.*sin((2*pi/100).*t).*rho 0.5.*cos((2*pi/100).*t).*rho];
+
+<span class="comment">% Validation data</span>
+nu = randn(N,1);
+eta = randn(N,1);
+xi = randn(N,1);
+[b,a] = butter(2,0.2);
+u = [filter([0.75 1.05 0.15],1,eta) + filter(b,a,nu) xi];
+
+<span class="comment">% Simulation of the system without noise</span>
+y0 = sim(M,u,t,mu(:,2:end));
+
+<span class="comment">% Simulation of identified LPV system</span>
+yid = sim(Mi,u,t,mu(:,2:end));
+disp(<span class="string">'VAF of identified LPV system'</span>)
+vaf(y0,yid)
+
+<span class="comment">% Simulation of optimized LPV system</span>
+yid = sim(Mp,u,t,mu(:,2:end));
+disp(<span class="string">'VAF of optimized LPV system'</span>)
+vaf(y0,yid)
+</pre><pre class="codeoutput">VAF of identified LPV system
+
+ans =
+
+   99.1401
+   99.1739
+   99.1748
+
+VAF of optimized LPV system
+
+ans =
+
+   99.9826
+   99.9827
+   99.9824
+
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.9<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example 20: Fourth-order MIMO LPV model
+close all; clear; clc;
+
+%% Fourth-order MIMO Model
+
+n = 4;  % The order of the system
+m = 4;  % The number of scheduling parameters
+r = 2;  % The number of inputs
+l = 3;  % The number of outputs
+
+% System matrices
+A1 = [-1.3 -0.6325 -0.1115 0.0596; 1 0 0 0; 0 1 0 0; 0 0 1 0];
+A2 = [-0.51 -0.1075 -0.007275 -0.0000625; 1 0 0 0; 0 1 0 0; 0 0 1 0];
+A3 = [0.2 0 0 0; 0 0.4 0 0; 0 0 0 0; 0 0 0 0];
+A4 = [0 0 0 0; 0 0 0 0; 0 0 0.3 0; 0 0 0 0.3];
+B1 = [0 1; 1 0; 1 0; 0 1];
+B2 = [0 0; 0 0; 0 0; 0.3 0.3];
+B3 = B2;
+B4 = B2;
+K = [0.16 0 0; 0 0.16 0; 0 0 0.16; 0.16 0 0];
+C = [1 0 0 0; 0 1 0 0; 0 0 1 0];
+D = [0 0; 0 0; 0 0];
+Alpv = [A1 A2 A3 A4];
+Blpv = [B1 B2 B3 B4];
+Clpv = [C zeros(l,3*n)];
+Dlpv = [D zeros(l,3*r)];
+Klpv = [K zeros(n,3*l)];
+
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop
+
+% Measured data from the scheduling parameters
+N = 1000;  % number of data points
+t = (0:1:(N-1))';
+rho = rand(N,1);
+mu = [ones(N,1) rho 0.5.*sin((2*pi/100).*t).*rho 0.5.*cos((2*pi/100).*t).*rho];
+
+% Measured input data
+nu = randn(N,1);
+eta = randn(N,1);
+xi = randn(N,1);
+[b,a] = butter(2,0.2);
+u = [filter([0.75 1.05 0.15],1,eta) + filter(b,a,nu) xi];
+
+% Simulation of the system without noise
+M = idafflpv(Alpv,Blpv,Clpv,Dlpv,Klpv,[],1);
+y0 = sim(M,u,t,mu(:,2:end));
+
+% Simulation of the system with noise
+e = 0.5.*randn(N,l);
+y = sim(M,u,t,mu(:,2:end),e);
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+%%
+% Identification of the model in open loop
+
+% Defining a number of constants
+p = 5;     % past window size
+f = 3;     % future window size
+
+% LPV identification 
+[S,x] = lordvarx(u,y,mu,f,p,'tikh','gcv',[0 0 0]);
+x = lmodx(x,n);
+[Aid,Bid,Cid,Did,Kid] = lx2abcdk(x,u,y,mu,f,p,[0 0 0]);
+[Aid1,Bid1,Cid1,Did1,Kid1] = lx2abcdk(x,u,y,mu,f,p,[0 0 0],1);
+figure, semilogy(S,'x');
+title('Singular values')
+
+%%
+% Optimization with the prediction error method
+
+Mi = idafflpv(Aid,Bid,Cid,Did,Kid,[],1);
+[e,x0] = pe(Mi,u,y,t,mu(:,2:end),'CD');
+Mi.x0 = x0;
+Mi.NoiseVariance = cov(e);
+Mp = pem(Mi,u,y,t,mu(:,2:end),'CD');
+
+%%
+% Validation results
+
+% Validation data from the scheduling parameters
+rho = rand(N,1);
+mu = [ones(N,1) rho 0.5.*sin((2*pi/100).*t).*rho 0.5.*cos((2*pi/100).*t).*rho];
+
+% Validation data
+nu = randn(N,1);
+eta = randn(N,1);
+xi = randn(N,1);
+[b,a] = butter(2,0.2);
+u = [filter([0.75 1.05 0.15],1,eta) + filter(b,a,nu) xi];
+
+% Simulation of the system without noise
+y0 = sim(M,u,t,mu(:,2:end));
+
+% Simulation of identified LPV system
+yid = sim(Mi,u,t,mu(:,2:end));
+disp('VAF of identified LPV system')
+vaf(y0,yid)
+
+% Simulation of optimized LPV system
+yid = sim(Mp,u,t,mu(:,2:end));
+disp('VAF of optimized LPV system')
+vaf(y0,yid)
+
+
+##### SOURCE END #####
+--></body></html>

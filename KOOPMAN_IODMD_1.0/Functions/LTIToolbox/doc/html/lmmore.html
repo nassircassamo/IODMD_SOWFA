@@ -1,0 +1,266 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>LMMORE</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="lmmore"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>LMMORE</h1>
+         <introduction>
+            <p>Performs a More-Hebden Levenberg-Marquardt optimization</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#3">Description</a></li>
+               <li><a href="#4">Inputs</a></li>
+               <li><a href="#10">Outputs</a></li>
+               <li><a href="#11">Remarks</a></li>
+               <li><a href="#12">Algorithm</a></li>
+               <li><a href="#13">Used By</a></li>
+               <li><a href="#14">Uses Functions</a></li>
+               <li><a href="#15">See Also</a></li>
+               <li><a href="#16">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>x = lmmore('func',xinit,lb,ub,options,arg2,...)</tt></p>
+         <p><tt>[x,resnorm,residual,exitflag,output,lambda,jacobian] = lmmore('func',xinit,lb,ub,options,arg2,...)</tt></p>
+         <h2>Description<a name="3"></a></h2>
+         <p>This function is a More-Hebden implementation of the Levenberg-Marquardt nonlinear least-squares optimization algorithm. The
+            function is interface-compatible with the <tt>lsqnonlin</tt>-function from the MATLAB 6 Optimization Toolbox.
+         </p>
+         <h2>Inputs<a name="4"></a></h2>
+         <p><tt>'func'</tt> is the cost-function that is to be used.
+         </p>
+         <p><tt>xinit</tt> is the parameter-vector's starting point in the non-linear optimization.
+         </p>
+         <p><tt>lb</tt> is the lower-bound on the parameters. This value is <i>not</i> used.
+         </p>
+         <p><tt>ub</tt> is the upper-bound on the parameters. This value is <i>not</i> used.
+         </p>
+         <p><tt>options</tt> is a MATLAB 6 compatible <tt>optimset</tt>-structure that contains options for the optimization algorithm [1]. In addition, a number of extra fields may be present.
+            See the Remarks section below for more information.
+         </p>
+         <p><tt>arg2</tt> will be passed as second argument to the cost-function <tt>'func'</tt>. Arguments <i>3</i> to <i>N</i> may be appended after <tt>arg2</tt>.
+         </p>
+         <h2>Outputs<a name="10"></a></h2>
+         <p><tt>x</tt> is the result of the optimization. The solution <tt>x</tt> is guaranteed to have an equal or smaller cost than <tt>xinit</tt>.
+         </p>
+         <p>All other parameters are compatible with the MATLAB 6 <tt>lsqnonlin</tt> function.
+         </p>
+         <h2>Remarks<a name="11"></a></h2>
+         <p>The interface to lmmore has been made compatible with the <tt>lsqnonlin</tt> optimization function in the MATLAB 6 Optimization Toolbox. Note that although a lower and upper bound are given (consistent
+            with <tt>lsqnonlin</tt>'s interface), they are <i>not</i> used internally.
+         </p>
+         <p>This optimization implementation supports overparametrized cost-functions. If <tt>options.Manifold</tt> (not part of <tt>optimset</tt>'s normal structure) is passed and set to <tt>'on'</tt>, <a href="lmmore.html"><tt>lmmore</tt></a> expects the cost- function to be able to return three arguments: an error-vector <tt>EN</tt>, a Jacobian <tt>PsiN</tt> <tt>U2</tt> and a projection matrix <tt>U2</tt>. The columns of this matrix <tt>U2</tt> must form an orthonormal basis of the subspace in which the cost-function does not change because of over-parametrization.
+         </p>
+         <p>This optimization implementation supports cost-functions that return the <i>R</i>-factor of the (projected) Jacobian <tt>PsiN</tt> and the error-vector <tt>EN</tt>:
+         </p>
+         <p><img vspace="5" hspace="5" src="lmmore_eq9042.png"> </p>
+         <p><img vspace="5" hspace="5" src="lmmore_eq12908.png"> </p>
+         <p>Cost-functions may use this functionality, e.g. to build up the <i>R</i>-factor in such a way that less memory is required. In order to use this feature with costfunctions that support it, the field
+            <tt>options.RFactor</tt> should be set to <tt>'on'</tt>.
+         </p>
+         <h2>Algorithm<a name="12"></a></h2>
+         <p>This function implements a More-Hebden trust-region based Levenberg-Marquardt optimization according to [2,3].</p>
+         <p>In addition, this function supports projected gradients according to [4,5].</p>
+         <h2>Used By<a name="13"></a></h2>
+         <p><a href="doptlti.html"><tt>doptlti</tt></a>, <a href="foptlti.html"><tt>foptlti</tt></a></p>
+         <h2>Uses Functions<a name="14"></a></h2>
+         <p><a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="ffunlti.html"><tt>ffunlti</tt></a></p>
+         <h2>See Also<a name="15"></a></h2>
+         <p><tt>lsqnonlin</tt>, <tt>optimset</tt></p>
+         <h2>References<a name="16"></a></h2>
+         <p>[1] The MathWorks Inc., Natick, Massachusetts, <i>Optimization Toolbox User's Guide</i>, version 2.1 (release 12) ed., Sept 2000.
+         </p>
+         <p>[2] J. E. Dennis and R. B. Schnabel, <i>Numerical Methods for Unconstrained Optimization and Nonlinear Equations</i>. New Jersey: Prentice-Hall, 1982.
+         </p>
+         <p>[3] J. J. More, "The Levenberg-Marquardt algorithm: Implemnetation and theory", in <i>Numerical Analysis (G. A. Watson, ed.), vol. 630 of _Lecture Notes in Mathematics</i>, pp. 106-116, Springer Verlag, 1978.
+         </p>
+         <p>[4] N. Bergboer, V. Verdult, and M. Verhaegen, "An effcient implementation of maximum likelihood identification of LTI state-space
+            models by local gradient search", in <i>Proceedings of the 41st IEEE Conference on Decision and Control</i>, Las Vegas, Nevada, Dec. 2002.
+         </p>
+         <p>[5] L.H. Lee and K. Poolla, "Identification of linear parameter varying systems using nonlinear programming", <i>Journal of Dynamic Systems</i>, Measurement and Control, col. 121, pp. 71-78, Mar 1999.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% LMMORE
+% Performs a More-Hebden Levenberg-Marquardt optimization
+
+%% Syntax
+% |x = lmmore('func',xinit,lb,ub,options,arg2,...)|
+%%
+% |[x,resnorm,residual,exitflag,output,lambda,jacobian] =
+% lmmore('func',xinit,lb,ub,options,arg2,...)|
+
+%% Description
+% This function is a More-Hebden implementation of the Levenberg-Marquardt
+% nonlinear least-squares optimization algorithm. The function is
+% interface-compatible with the |lsqnonlin|-function from the MATLAB 6
+% Optimization Toolbox.
+
+%% Inputs
+% |'func'| is the cost-function that is to be used.
+%%
+% |xinit| is the parameter-vector's starting point in the non-linear
+% optimization.
+%% 
+% |lb| is the lower-bound on the parameters. This value is _not_ used.
+%% 
+% |ub| is the upper-bound on the parameters. This value is _not_ used.
+%% 
+% |options| is a MATLAB 6 compatible |optimset|-structure that contains
+% options for the optimization algorithm [1]. In addition, a number of
+% extra fields may be present. See the Remarks section below for more
+% information.
+%% 
+% |arg2| will be passed as second argument to the cost-function |'func'|.
+% Arguments _3_ to _N_ may be appended after |arg2|.
+          
+%% Outputs
+% |x| is the result of the optimization. The solution |x| is guaranteed to
+% have an equal or smaller cost than |xinit|.
+% 
+% All other parameters are compatible with the MATLAB 6 |lsqnonlin|
+% function.
+
+%% Remarks
+% The interface to lmmore has been made compatible with the |lsqnonlin|
+% optimization function in the MATLAB 6 Optimization Toolbox.
+% Note that although a lower and upper bound are given (consistent
+% with |lsqnonlin|'s interface), they are _not_ used internally.
+%
+% This optimization implementation supports overparametrized
+% cost-functions. If |options.Manifold| (not part of |optimset|'s normal
+% structure) is passed and set to |'on'|, <lmmore.html |lmmore|> expects
+% the cost- function to be able to return three arguments: an error-vector
+% |EN|, a Jacobian |PsiN| |U2| and a projection matrix |U2|. The columns of
+% this matrix |U2| must form an orthonormal basis of the subspace in which
+% the cost-function does not change because of over-parametrization.
+%
+% This optimization implementation supports cost-functions that
+% return the _R_-factor of the (projected) Jacobian |PsiN| and the
+% error-vector |EN|:
+%
+% $$[ \Psi_N \; E_N ] = Q R$$
+%
+% $$[ \Psi_N U_2 \; E_N ] = Q R$$
+%
+% Cost-functions may use this functionality, e.g. to build up the
+% _R_-factor in such a way that less memory is required. In order to
+% use this feature with costfunctions that support it, the field
+% |options.RFactor| should be set to |'on'|.
+
+%% Algorithm
+% This function implements a More-Hebden trust-region based
+% Levenberg-Marquardt optimization according to [2,3].
+% 
+% In addition, this function supports projected gradients according to
+% [4,5].
+
+%% Used By
+% <doptlti.html |doptlti|>, <foptlti.html |foptlti|>
+
+%% Uses Functions
+% <dfunlti.html |dfunlti|>, <ffunlti.html |ffunlti|>
+
+%% See Also
+% |lsqnonlin|, |optimset|
+
+%% References
+% [1] The MathWorks Inc., Natick, Massachusetts, _Optimization Toolbox 
+% User's Guide_, version 2.1 (release 12) ed., Sept 2000.
+%
+% [2] J. E. Dennis and R. B. Schnabel, _Numerical Methods for Unconstrained
+% Optimization and Nonlinear Equations_. New Jersey: Prentice-Hall, 1982.
+%
+% [3] J. J. More, "The Levenberg-Marquardt algorithm: Implemnetation and
+% theory", in _Numerical Analysis (G. A. Watson, ed.), vol. 630 of _Lecture
+% Notes in Mathematics_, pp. 106-116, Springer Verlag, 1978.
+%
+% [4] N. Bergboer, V. Verdult, and M. Verhaegen, "An effcient 
+% implementation of maximum likelihood identification of LTI state-space 
+% models by local gradient search", in _Proceedings of the 41st IEEE
+% Conference on Decision and Control_, Las Vegas, Nevada, Dec. 2002.
+%
+% [5] L.H. Lee and K. Poolla, "Identification of linear parameter varying
+% systems using nonlinear programming", _Journal of Dynamic Systems_,
+% Measurement and Control, col. 121, pp. 71-78, Mar 1999.
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

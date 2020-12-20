@@ -1,0 +1,152 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>VAF</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="vaf"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>VAF</h1>
+         <introduction>
+            <p>Calculates the Variance Accounted For between two signals.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#5">Outputs</a></li>
+               <li><a href="#6">Used By</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>v = vaf(y,yhat)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>The function <tt>vaf</tt> calculates the Variance Accounted For between two signals. The VAF between <tt>y</tt> and <tt>yhat</tt> for the <i>i</i> th component is defined as
+         </p>
+         <p><img vspace="5" hspace="5" src="vaf_eq453212.png"> </p>
+         <p>The VAF of two signals that are the same is 100%. If they differ, the VAF will be lower. If <tt>y</tt> and <tt>yhat</tt> have multiple columns, the VAF is calculated for every column in <tt>y</tt> and <tt>yhat</tt> seperately.
+         </p>
+         <p>The VAF is often used to verify the correctness of a model, by comparing the real output with the estimated output of the
+            model.
+         </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>y</tt> is the measured output <i>y(k)</i>.
+         </p>
+         <p><tt>yhat</tt> is the estimated output <i>yhat(k)</i>.
+         </p>
+         <h2>Outputs<a name="5"></a></h2>
+         <p><tt>v</tt> is the Variance Accounted For as defined above.
+         </p>
+         <h2>Used By<a name="6"></a></h2>
+         <p>This is a top-level function that is used directly by the user.</p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% VAF
+% Calculates the Variance Accounted For between two signals.
+
+%% Syntax
+% |v = vaf(y,yhat)|
+
+%% Description
+% The function |vaf| calculates the Variance Accounted For between two
+% signals. The VAF between |y| and |yhat| for the _i_ th component is
+% defined as
+%   
+% $$ \mathrm{VAF}_i = \left(1 - \frac{\mathrm{var}(y_i -
+% \hat{y}_i)}{\mathrm{var}(y_i)} \right) \cdot 100 \% $$
+% 
+% The VAF of two signals that are the same is 100%. If they differ, the
+% VAF will be lower. If |y| and |yhat| have multiple columns, the VAF is
+% calculated for every column in |y| and |yhat| seperately.
+% 
+% The VAF is often used to verify the correctness of a model, by comparing
+% the real output with the estimated output of the model.
+
+%% Inputs
+% |y| is the measured output _y(k)_.
+%%
+% |yhat| is the estimated output _yhat(k)_.
+          
+%% Outputs
+% |v| is the Variance Accounted For as defined above.
+
+%% Used By
+% This is a top-level function that is used directly by the user.
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

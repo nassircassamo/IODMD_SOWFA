@@ -1,0 +1,171 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>FCMODOM</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="fcmodom"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>FCMODOM</h1>
+         <introduction>
+            <p>Estimates the <i>A</i> and <i>C</i> matrix in a continuous-time state-space model from frequency response function (FRF) data that was preprocessed by <a href="fcordom.html"><tt>fcordom</tt></a>.
+            </p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#2">Description</a></li>
+               <li><a href="#3">Inputs</a></li>
+               <li><a href="#5">Outputs</a></li>
+               <li><a href="#7">Algorithm</a></li>
+               <li><a href="#8">Used By</a></li>
+               <li><a href="#9">See Also</a></li>
+               <li><a href="#10">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>[A,C] = fcmodom(R,n)</tt></p>
+         <h2>Description<a name="2"></a></h2>
+         <p>This function estimates the <i>A</i> and <i>C</i> matrices corresponding to an <i>n</i> th order discrete-time LTI state-space model. The compressed data matrix <i>R</i> from the preprocessor function <a href="fcordom.html"><tt>fcordom</tt></a> is used to this end.
+         </p>
+         <h2>Inputs<a name="3"></a></h2>
+         <p><tt>R</tt> is a compressed data matrix containing information about the measured data, as well as information regarding the system dimensions.
+         </p>
+         <p><tt>n</tt> is the desired model order <i>n</i>.
+         </p>
+         <h2>Outputs<a name="5"></a></h2>
+         <p><tt>A</tt> is the state-space model's <i>A</i> matrix.
+         </p>
+         <p><tt>C</tt> is the state-space model's <i>C</i> matrix.
+         </p>
+         <h2>Algorithm<a name="7"></a></h2>
+         <p>The data matrix obtained with <a href="fcordom.html"><tt>fcordom</tt></a> contains the weighted left singular vectors of a matrix similar to the <tt>R22</tt> matrix (see <a href="fdordom.html"><tt>fdordom</tt></a>). Unlike in the discrete-time case, the first <i>n</i> of these vectors do not form a direct estimate <i>Os</i> of the extended observability matrix. Rather, a generalized matrix <i>Og</i> is estimated because of the Forsythe-recursions in the data-compression step. The <i>Ahat</i> and <i>Chat</i> estimates are extracted such that this generalized shift-structure is taken into account [1].
+         </p>
+         <h2>Used By<a name="8"></a></h2>
+         <p>This a top-level function that is used directly by the user.</p>
+         <h2>See Also<a name="9"></a></h2>
+         <p><a href="fcordom.html"><tt>fcordom</tt></a>, <a href="fdmodom.html"><tt>fdmodom</tt></a></p>
+         <h2>References<a name="10"></a></h2>
+         <p>[1] R. Pintelon, "Frequency domain subspace system identfication using non-parametric noise models", in <i>Proceedings of the 40th IEEE Conference on Decision and Control</i>, Orlando, Florida, pp. 3916-3921, Dec 2001.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% FCMODOM
+% Estimates the _A_ and _C_ matrix in a continuous-time state-space model
+% from frequency response function (FRF) data that was preprocessed by
+% <fcordom.html |fcordom|>.
+
+%% Syntax
+% |[A,C] = fcmodom(R,n)|
+
+%% Description
+% This function estimates the _A_ and _C_ matrices corresponding to an _n_
+% th order discrete-time LTI state-space model. The compressed data matrix
+% _R_ from the preprocessor function <fcordom.html |fcordom|> is used to
+% this end.
+
+%% Inputs
+% |R| is a compressed data matrix containing information about the measured
+% data, as well as information regarding the system dimensions.
+%% 
+% |n| is the desired model order _n_.
+
+%% Outputs
+% |A| is the state-space model's _A_ matrix.
+%%
+% |C| is the state-space model's _C_ matrix.
+
+%% Algorithm
+% The data matrix obtained with <fcordom.html |fcordom|> contains the
+% weighted left singular vectors of a matrix similar to the |R22| matrix
+% (see <fdordom.html |fdordom|>). Unlike in the discrete-time case, the
+% first _n_ of these vectors do not form a direct estimate _Os_ of the
+% extended observability matrix. Rather, a generalized matrix _Og_ is
+% estimated because of the Forsythe-recursions in the data-compression
+% step. The _Ahat_ and _Chat_ estimates are extracted such that this
+% generalized shift-structure is taken into account [1].
+
+%% Used By
+% This a top-level function that is used directly by the user.
+
+%% See Also
+% <fcordom.html |fcordom|>, <fdmodom.html |fdmodom|>
+
+%% References
+% [1] R. Pintelon, "Frequency domain subspace system identfication using
+% non-parametric noise models", in _Proceedings of the 40th IEEE Conference
+% on Decision and Control_, Orlando, Florida, pp. 3916-3921, Dec 2001.
+##### SOURCE END #####
+-->
+   </body>
+</html>

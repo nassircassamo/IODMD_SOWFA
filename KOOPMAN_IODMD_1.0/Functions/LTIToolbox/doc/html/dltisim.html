@@ -1,0 +1,168 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>DLTISIM</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="dltisim"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>DLTISIM</h1>
+         <introduction>
+            <p>Simulates a discrete-time LTI state-space system.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#3">Description</a></li>
+               <li><a href="#4">Inputs</a></li>
+               <li><a href="#7">Outputs</a></li>
+               <li><a href="#9">Algorithm</a></li>
+               <li><a href="#10">Uses Functions</a></li>
+               <li><a href="#11">See Also</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>y = dltisim(A,B,C,D,u)</tt></p>
+         <p><tt>[y,x] = dltisim(A,B,C,D,u,x0)</tt></p>
+         <h2>Description<a name="3"></a></h2>
+         <p>This function simulates a discrete-time LTI state-space system. The model structure is the following:</p>
+         <p><img vspace="5" hspace="5" src="dltisim_eq9704.png"> </p>
+         <p><img vspace="5" hspace="5" src="dltisim_eq8049.png"> </p>
+         <p>An optional initial state can be specified.</p>
+         <h2>Inputs<a name="4"></a></h2>
+         <p><tt>A,B,C,D</tt> is the discrete-time LTI state-space system matrices.
+         </p>
+         <p><tt>u</tt> is an <i>N</i> x <i>m</i> matrix conatining <i>N</i> samples of the <i>m</i> inputs.
+         </p>
+         <p><tt>x0</tt> is the (optional) initial stae. an <i>n</i> x <i>1</i> vector.
+         </p>
+         <h2>Outputs<a name="7"></a></h2>
+         <p><tt>y</tt> is the computed output sequence, an <i>N</i> x <i>l</i> matrix.
+         </p>
+         <p><tt>x</tt> is the (optional) computed state, an <i>N</i> x <i>n</i> matrix.
+         </p>
+         <h2>Algorithm<a name="9"></a></h2>
+         <p>A direct iteration of the system's state-transition equation is used to obtain the state-trajectory for all time-instants.
+            The function <a href="ltiitr.html"><tt>ltiitr</tt></a> is used to this end.
+         </p>
+         <h2>Uses Functions<a name="10"></a></h2>
+         <p><a href="ltiitr.html"><tt>ltiitr</tt></a></p>
+         <h2>See Also<a name="11"></a></h2>
+         <p><tt>dlsim</tt>, <a href="ltiitr.html"><tt>ltiitr</tt></a></p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% DLTISIM
+% Simulates a discrete-time LTI state-space system.
+
+%% Syntax
+% |y = dltisim(A,B,C,D,u)|
+%%
+% |[y,x] = dltisim(A,B,C,D,u,x0)|
+
+%% Description
+% This function simulates a discrete-time LTI state-space system. The model
+% structure is the following:
+%
+% $$ x(k+1) = Ax(k) + Bu(k) $$
+%
+% $$ y(k) = Cx(k) + Du(k) $$
+%
+% An optional initial state can be specified.
+
+%% Inputs
+% |A,B,C,D| is the discrete-time LTI state-space system matrices.
+%%
+% |u| is an _N_ x _m_ matrix conatining _N_ samples of the _m_ inputs.
+%%
+% |x0| is the (optional) initial stae. an _n_ x _1_ vector.
+
+%% Outputs
+% |y| is the computed output sequence, an _N_ x _l_ matrix.
+%%
+% |x| is the (optional) computed state, an _N_ x _n_ matrix.
+
+%% Algorithm
+% A direct iteration of the system's state-transition equation is used to 
+% obtain the state-trajectory for all time-instants. The function
+% <ltiitr.html |ltiitr|> is used to this end.
+
+%% Uses Functions
+% <ltiitr.html |ltiitr|>
+
+%% See Also
+% |dlsim|, <ltiitr.html |ltiitr|>
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

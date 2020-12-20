@@ -1,0 +1,303 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>Getting Started</title>
+      <meta name="generator" content="MATLAB 7.4">
+      <meta name="date" content="2007-09-28">
+      <meta name="m-file" content="lti_gettingstarted"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>Getting Started</h1>
+         <introduction>
+            <p>The LTI System Identification Toolbox for Matlab enables you to perform an identification of linear time-invariant systems.
+               It provides command-line functions for parametric model estimation and subspace model identification in both discrete-time
+               and continuous-time (frequency domain). To get you started, this page will explain a subspace identification of a small LTI
+               model using the PI-MOESP method. For more examples and a full description of the <a href="lti_func_cat.html">functions</a>, read the toolbox software <a href="../companion.pdf">manual</a>.
+            </p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Subspace Identification using PI-MOESP</a></li>
+               <li><a href="#4">Step 1: Data Compression and Order Estimation</a></li>
+               <li><a href="#7">Step 2: Estimation of A and C</a></li>
+               <li><a href="#8">Step 3: Estimation of B, D and the Initial State</a></li>
+               <li><a href="#9">Model Validaton</a></li>
+            </ul>
+         </div>
+         <h2>Subspace Identification using PI-MOESP<a name="1"></a></h2>
+         <p>In this example we will give an example of how the subspace identification framework in the toolbox software is used in a
+            practical situation. The PI-MOESP scheme functions <a href="dordpi.html"><tt>dordpi</tt></a> and <a href="dmodpi.html"><tt>dmodpi</tt></a> will be used to estimate <i>A</i> and <i>C</i>, after which <a href="dac2bd.html"><tt>dac2bd</tt></a> and <a href="dinit.html"><tt>dinit</tt></a> are used to estimate <i>B</i>, <i>D</i> and the initial state. Finally, a simple model validation is performed.
+         </p>
+         <p>First we generate data for a second-order system. Apseudorandom binary sequence will be generated as identification input
+            using the tool <a href="prbn.html"><tt>prbn</tt></a>. A pseudo-random binary sequence, or PRBN, is an often-used identification input signal. In the following example, the <tt>rate</tt> is set to 0.1 in order to get a signal that changes state rather infrequently and which therefore mainly contains signal
+            energy in the lower frequency range.
+         </p><pre class="codeinput">A = [1.5 -0.7; 1 0]; B = [1; 0]; C = [1 0.5]; D = 0;
+u = prbn(300,0.1)-0.5;
+y = dltisim(A,B,C,D,u);
+</pre><p>In order to make the example more realistic, the output signal is disturbed by colored measurement noise such that a 20 dB
+            SNR is obtained. The <tt>b</tt> and <tt>a</tt> vectors correspond to the numerator and denominator polynomials of a lowpass filter.
+         </p><pre class="codeinput">b = [0.17 0.50 0.50 0.17];
+a = [1.0 0 0.33 0];
+y = y + 0.1*std(y)*filter(b,a,randn(300,1));
+
+figure, subplot(2,1,1);
+plot(1:300,u);
+title(<span class="string">'Input signal'</span>)
+axis([1 300 -1 1]);
+subplot(2,1,2);
+plot(1:300,y);
+title(<span class="string">'Output signal'</span>)
+axis([1 300 -10 10]);
+xlabel(<span class="string">'Sample'</span>)
+</pre><img vspace="5" hspace="5" src="lti_gettingstarted_01.png"> <p>We will now try to identify the system from the generated data set by assuming the following state-space model structure:</p>
+         <p><img vspace="5" hspace="5" src="lti_gettingstarted_eq23522.png"> </p>
+         <p><img vspace="5" hspace="5" src="lti_gettingstarted_eq12758.png"> </p>
+         <p>This model, in which <i>v(k)</i> is a colored noise signal, falls within the class of models for which PI-MOESP can provide consistent estimates, as was illustrated
+            in Section 9.5 of the textbook.
+         </p>
+         <h2>Step 1: Data Compression and Order Estimation<a name="4"></a></h2>
+         <p>In this first step we use the "ord" function, <a href="dordpi.html"><tt>dordpi</tt></a> in this PI-MOESP case, in order to compress the available data and to generate a model order estimate. The only model structure
+            selection parameter that we need to pass is the block-size <tt>s</tt>, which should be larger than the expected system order. We will use the rather high value <tt>s=10</tt> in this example in order to show the order selection mechanism more clearly.
+         </p><pre class="codeinput">s = 10;
+[S,R] = dordpi(u,y,s);
+</pre><p>The function <a href="dordpi.html"><tt>dordpi</tt></a> returns a vector <tt>S</tt> containing singular values based on which the model order can be determined. In addition, a compressed data matrix <tt>R</tt> is returned that is used by <a href="dmodpi.html"><tt>dmodpi</tt></a> to estimate <i>A</i> and <i>C</i> in the next step. The singular values in <tt>S</tt> are plotted using the following command:
+         </p><pre class="codeinput">figure, semilogy(1:10,S,<span class="string">'x'</span>)
+</pre><img vspace="5" hspace="5" src="lti_gettingstarted_02.png"> <p>In a noise-free case, only the first <tt>n</tt> singular values would have been nonzero. However, the singular values that would have been zero are now disturbed because
+            of the noise. Still, a gap is visible between singular values 2 and 3, and so the model order will be chosen equal to <tt>n=2</tt>.
+         </p>
+         <h2>Step 2: Estimation of A and C<a name="7"></a></h2>
+         <p>In this step we will obtain estimates for <i>A</i> and <i>C</i>. As the <i>A</i> and <i>C</i> variables have already been defined, we will call the estimates for <i>A</i> and <i>C</i>, <tt>Ae</tt> and <tt>Ce</tt> respectively. The function <a href="dordpi.html"><tt>dordpi</tt></a> is used to determine <tt>Ae</tt> and <tt>Ce</tt> based on the <tt>R</tt> matrix from dordpi and the model order n determined from the singular value plot.
+         </p><pre class="codeinput">n = 2;
+[Ae,Ce] = dmodpi(R,n);
+</pre><h2>Step 3: Estimation of B, D and the Initial State<a name="8"></a></h2>
+         <p>Once estimates <tt>Ae</tt> and <tt>Ce</tt> for <i>A</i> and <i>C</i> have been determined, the toolbox function <a href="dac2bd.html"><tt>dac2bd</tt></a> will be used to estimate <i>B</i> and <i>D</i>, as <tt>Be</tt> and <tt>De</tt> respectively. The function <a href="dac2bd.html"><tt>dac2bd</tt></a> requires the estimates for <i>A</i> and <i>C</i> and the measured inputoutput data. Subsequently, the toolbox function <a href="dinit.html"><tt>dinit</tt></a> is used to obtain the initial state <tt>x0</tt> corresponding to the current data set. This function needs estimates for all system matrices as well as the measured input-output
+            data.
+         </p><pre class="codeinput">[Be,De] = dac2bd(Ae,Ce,u,y);
+x0e = dinit(Ae,Be,Ce,De,u,y);
+</pre><h2>Model Validaton<a name="9"></a></h2>
+         <p>The quality of the model <tt>(Ae,Be,Ce,De)</tt> that has been identified will now be assessed. To this end, we will compare the output predicted by the identified model
+            to the measured output signal. As a figure of merit, we use the variance accounted for (VAF). If the model is good, the VAF
+            should be close to 100%. The following code fragment simulated the estimated model using the measured input signal in order
+            to obtain the estimated output <tt>ye</tt>. Subsequently, the VAF is calculated using the toolbox function  <a href="vaf.html"><tt>vaf</tt></a>.
+         </p><pre class="codeinput">ye = dltisim(Ae,Be,Ce,De,u,x0e);
+vaf(y,ye)
+</pre><pre class="codeoutput">
+ans =
+
+   99.4623
+
+</pre><p>It is clear that the estimated model described the actual system behavior well. The error signal <i>y(k)</i> - <i>ye(k)</i> is plotted. This error is very small compared to the output signal in the first figure.
+         </p><pre class="codeinput">figure, plot(1:300,y-ye);
+title(<span class="string">'Error signal'</span>)
+axis([1 300 -10 10]);
+xlabel(<span class="string">'Sample'</span>)
+</pre><img vspace="5" hspace="5" src="lti_gettingstarted_03.png"> <p class="footer"><br>
+            Published with MATLAB&reg; 7.4<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% Getting Started
+% The LTI System Identification Toolbox for Matlab enables you to perform 
+% an identification of linear time-invariant systems. It provides
+% command-line functions for parametric model estimation and subspace model
+% identification in both discrete-time and continuous-time (frequency 
+% domain). To get you started, this page will explain a subspace
+% identification of a small LTI model using the PI-MOESP method. For more
+% examples and a full description of the <lti_func_cat.html functions>,
+% read the toolbox software <../companion.pdf manual>. 
+
+%% Subspace Identification using PI-MOESP
+% In this example we will give an example of how the subspace
+% identification framework in the toolbox software is used in a practical
+% situation. The PI-MOESP scheme functions <dordpi.html |dordpi|> and
+% <dmodpi.html |dmodpi|> will be used to estimate _A_ and _C_, after which
+% <dac2bd.html |dac2bd|> and <dinit.html |dinit|> are used to estimate _B_,
+% _D_ and the initial state. Finally, a simple model validation is
+% performed.
+%
+% First we generate data for a second-order system. Apseudorandom binary
+% sequence will be generated as identification input using the tool
+% <prbn.html |prbn|>. A pseudo-random binary sequence, or PRBN, is an
+% often-used identification input signal. In the following example, the
+% |rate| is set to 0.1 in order to get a signal that changes state rather
+% infrequently and which therefore mainly contains signal energy in the
+% lower frequency range.
+
+A = [1.5 -0.7; 1 0]; B = [1; 0]; C = [1 0.5]; D = 0;
+u = prbn(300,0.1)-0.5;
+y = dltisim(A,B,C,D,u);
+
+%%
+% In order to make the example more realistic, the output signal is
+% disturbed by colored measurement noise such that a 20 dB SNR is obtained.
+% The |b| and |a| vectors correspond to the numerator and denominator
+% polynomials of a lowpass filter.
+
+b = [0.17 0.50 0.50 0.17];
+a = [1.0 0 0.33 0];
+y = y + 0.1*std(y)*filter(b,a,randn(300,1));
+
+figure, subplot(2,1,1);
+plot(1:300,u);
+title('Input signal')
+axis([1 300 -1 1]);
+subplot(2,1,2);
+plot(1:300,y);
+title('Output signal')
+axis([1 300 -10 10]);
+xlabel('Sample')
+
+%%
+% We will now try to identify the system from the generated data set by
+% assuming the following state-space model structure:
+% 
+% $$x(k + 1) = Ax(k) + Bu(k), x(0) = x0$$
+% 
+% $$y(k) = Cx(k) + Du(k) + v(k)$$
+% 
+% This model, in which _v(k)_ is a colored noise signal, falls within the
+% class of models for which PI-MOESP can provide consistent estimates, as
+% was illustrated in Section 9.5 of the textbook. 
+
+%% Step 1: Data Compression and Order Estimation
+% In this first step we use the "ord" function, <dordpi.html |dordpi|> in
+% this PI-MOESP case, in order to compress the available data and to
+% generate a model order estimate. The only model structure selection
+% parameter that we need to pass is the block-size |s|, which should be
+% larger than the expected system order. We will use the rather high value
+% |s=10| in this example in order to show the order selection mechanism
+% more clearly.
+
+s = 10;
+[S,R] = dordpi(u,y,s);
+
+%%
+% The function <dordpi.html |dordpi|> returns a vector |S| containing
+% singular values based on which the model order can be determined. In
+% addition, a compressed data matrix |R| is returned that is used by
+% <dmodpi.html |dmodpi|> to estimate _A_ and _C_ in the next step. The
+% singular values in |S| are plotted using the following command:
+
+figure, semilogy(1:10,S,'x')
+
+%%
+% In a noise-free case, only the first |n| singular values would have been
+% nonzero. However, the singular values that would have been zero are now
+% disturbed because of the noise. Still, a gap is visible between singular
+% values 2 and 3, and so the model order will be chosen equal to |n=2|.
+
+%% Step 2: Estimation of A and C
+% In this step we will obtain estimates for _A_ and _C_. As the _A_ and _C_
+% variables have already been defined, we will call the estimates for _A_
+% and _C_, |Ae| and |Ce| respectively. The function <dordpi.html |dordpi|>
+% is used to determine |Ae| and |Ce| based on the |R| matrix from dordpi
+% and the model order n determined from the singular value plot.
+
+n = 2;
+[Ae,Ce] = dmodpi(R,n);
+
+%% Step 3: Estimation of B, D and the Initial State
+% Once estimates |Ae| and |Ce| for _A_ and _C_ have been determined, the
+% toolbox function <dac2bd.html |dac2bd|> will be used to estimate _B_ and
+% _D_, as |Be| and |De| respectively. The function <dac2bd.html |dac2bd|>
+% requires the estimates for _A_ and _C_ and the measured inputoutput data.
+% Subsequently, the toolbox function <dinit.html |dinit|> is used to obtain
+% the initial state |x0| corresponding to the current data set. This
+% function needs estimates for all system matrices as well as the measured
+% input-output data.
+
+[Be,De] = dac2bd(Ae,Ce,u,y);
+x0e = dinit(Ae,Be,Ce,De,u,y);
+
+%% Model Validaton
+% The quality of the model |(Ae,Be,Ce,De)| that has been identified will
+% now be assessed. To this end, we will compare the output predicted by the
+% identified model to the measured output signal. As a figure of merit, we
+% use the variance accounted for (VAF). If the model is good, the VAF
+% should be close to 100%. The following code fragment simulated the
+% estimated model using the measured input signal in order to obtain the
+% estimated output |ye|. Subsequently, the VAF is calculated using the
+% toolbox function  <vaf.html |vaf|>.
+
+ye = dltisim(Ae,Be,Ce,De,u,x0e);
+vaf(y,ye)
+
+%%
+% It is clear that the estimated model described the actual system behavior well.
+% The error signal _y(k)_ - _ye(k)_ is plotted. This error is very small
+% compared to the output signal in the first figure.
+
+figure, plot(1:300,y-ye);
+title('Error signal')
+axis([1 300 -10 10]);
+xlabel('Sample')
+##### SOURCE END #####
+-->
+   </body>
+</html>

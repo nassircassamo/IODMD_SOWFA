@@ -1,0 +1,232 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>ex22_plpv_mimo</title><meta name="generator" content="MATLAB 7.9"><meta name="date" content="2010-10-28"><meta name="m-file" content="ex22_plpv_mimo"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h2>Contents</h2><div><ul><li><a href="#1">Example 22: Third-order SIMO Periodic-LPV model</a></li><li><a href="#2">Periodic third-order LPV model</a></li><li><a href="#3">Open-loop identification experiment</a></li></ul></div><h2>Example 22: Third-order SIMO Periodic-LPV model<a name="1"></a></h2><pre class="codeinput">close <span class="string">all</span>; clear; clc;
+</pre><h2>Periodic third-order LPV model<a name="2"></a></h2><pre class="codeinput"><span class="comment">% System matrices</span>
+A1 = [0 0.9 0.2; -0.9 0.5 0; -0.2 0 0.2];
+A2 = [0.60 -0.5 0.5; 0.50 0.60 0; -0.5 0 0.6];
+A12 = [A1 A2];
+B12 = [1 0.4; 1 0.2 ; 1 0.12];
+C12 = [0.2 1 0.5 0.2 0.1 1; 0.2 0.1 1 0.3 0.4 0.8];
+D12 = [0.1 0.2; 0.2 0.1];
+K0 = [0.0130 0.0225; 0.0089 0.0060; 0.0002 -0.0010];
+
+n = size(A12,1);    <span class="comment">% The order of the system</span>
+m = size(A12,2)/n;  <span class="comment">% The number of scheduling parameters</span>
+r = size(B12,2)/m;  <span class="comment">% The number of inputs</span>
+l = size(C12,1);    <span class="comment">% The number of outputs</span>
+</pre><h2>Open-loop identification experiment<a name="3"></a></h2><p>Simulation of the model in open loop</p><pre class="codeinput"><span class="comment">% Defining a number of constants</span>
+j = 18;     <span class="comment">% period</span>
+np = 1000;  <span class="comment">% number of periods</span>
+N = np*j;   <span class="comment">% number of data points</span>
+
+<span class="comment">% Measured data and the scheduling parameters</span>
+t = (0:N-1)';
+u = randn(N,r);
+mu1 = 0.8*sin(2*pi*(1:N)'./j) + 0.2;
+mu3 = 0.8*cos(2*pi*(1:N)'./j) + 0.2;
+mu = [mu1 mu3];
+
+<span class="comment">% Simulation of the system without noise</span>
+Alpv = [zeros(n) A12];
+Blpv = [zeros(n,r) B12];
+Clpv = [zeros(l,n) C12];
+Dlpv = [zeros(l,r) D12];
+Klpv = [K0 zeros(n,2*l)];
+M = idafflpv(Alpv,Blpv,Clpv,Dlpv,Klpv,[],1);
+y0 = sim(M,u,t,mu);
+
+<span class="comment">% Simulation of the system with noise</span>
+e = 0.1.*randn(N,l);
+y = sim(M,u,t,mu,e);
+disp(<span class="string">'Signal to noise ratio (SNR) (open-loop)'</span>)
+snr(y,y0)
+</pre><pre class="codeoutput">Signal to noise ratio (SNR) (open-loop)
+
+ans =
+
+   21.1911   19.1111
+
+</pre><p>Identification of the model in open loop</p><pre class="codeinput"><span class="comment">% Defining a number of constants</span>
+p = 7;     <span class="comment">% past window size</span>
+f = 7;     <span class="comment">% past window size</span>
+
+<span class="comment">% LPV identification without noise</span>
+pnd = pschedclust(mu,f,p);
+[S,X,TU,K] = pordvarx(u,y,mu,f,p,pnd,<span class="string">'tikh'</span>,<span class="string">'gcv'</span>,0,[0 0 0 0 1]);
+[x,CC] = pmodx(X,TU,K,n,1e-4,1e-8);
+[A,B,C,D,K] = px2abcdk(x,u,y,mu,f,p,[0 0 0 0 1],pnd);
+figure, semilogy(S,<span class="string">'x'</span>);
+title(<span class="string">'Singular values'</span>)
+disp(<span class="string">'Canonical correlation coefficients'</span>)
+CC(1:n)
+</pre><pre class="codeoutput">Canonical correlation coefficients
+
+ans =
+
+    0.9993    0.9988    0.9957
+
+</pre><img vspace="5" hspace="5" src="ex22_plpv_mimo_01.png" alt=""> <p>Verification results</p><pre class="codeinput"><span class="comment">% Simulation of identified LPV system</span>
+Aidm = [zeros(n) A];
+Bidm = [zeros(n,r) B];
+Cidm = [zeros(l,n) C];
+Didm = [zeros(l,r) D];
+Kidm = [zeros(n,l) K];
+Mm = idafflpv(Aidm,Bidm,Cidm,Didm,Kidm,[],1);
+yidm = sim(Mm,u,t,mu);
+disp(<span class="string">'VAF of identified LPV system'</span>)
+vaf(y,yidm)
+</pre><pre class="codeoutput">VAF of identified LPV system
+
+ans =
+
+   98.7543
+   98.1991
+
+</pre><p class="footer"><br>
+      Published with MATLAB&reg; 7.9<br></p></div><!--
+##### SOURCE BEGIN #####
+%% Example 22: Third-order SIMO Periodic-LPV model
+close all; clear; clc;
+
+%% Periodic third-order LPV model
+
+% System matrices
+A1 = [0 0.9 0.2; -0.9 0.5 0; -0.2 0 0.2];
+A2 = [0.60 -0.5 0.5; 0.50 0.60 0; -0.5 0 0.6];
+A12 = [A1 A2];
+B12 = [1 0.4; 1 0.2 ; 1 0.12];
+C12 = [0.2 1 0.5 0.2 0.1 1; 0.2 0.1 1 0.3 0.4 0.8];
+D12 = [0.1 0.2; 0.2 0.1];
+K0 = [0.0130 0.0225; 0.0089 0.0060; 0.0002 -0.0010];
+
+n = size(A12,1);    % The order of the system
+m = size(A12,2)/n;  % The number of scheduling parameters
+r = size(B12,2)/m;  % The number of inputs
+l = size(C12,1);    % The number of outputs
+
+%% Open-loop identification experiment
+% Simulation of the model in open loop
+
+% Defining a number of constants
+j = 18;     % period
+np = 1000;  % number of periods
+N = np*j;   % number of data points
+
+% Measured data and the scheduling parameters
+t = (0:N-1)';
+u = randn(N,r);
+mu1 = 0.8*sin(2*pi*(1:N)'./j) + 0.2;
+mu3 = 0.8*cos(2*pi*(1:N)'./j) + 0.2;
+mu = [mu1 mu3];
+
+% Simulation of the system without noise
+Alpv = [zeros(n) A12];
+Blpv = [zeros(n,r) B12];
+Clpv = [zeros(l,n) C12];
+Dlpv = [zeros(l,r) D12];
+Klpv = [K0 zeros(n,2*l)];
+M = idafflpv(Alpv,Blpv,Clpv,Dlpv,Klpv,[],1);
+y0 = sim(M,u,t,mu);
+
+% Simulation of the system with noise
+e = 0.1.*randn(N,l);
+y = sim(M,u,t,mu,e);
+disp('Signal to noise ratio (SNR) (open-loop)')
+snr(y,y0)
+
+%%
+% Identification of the model in open loop
+
+% Defining a number of constants
+p = 7;     % past window size
+f = 7;     % past window size
+
+% LPV identification without noise
+pnd = pschedclust(mu,f,p);
+[S,X,TU,K] = pordvarx(u,y,mu,f,p,pnd,'tikh','gcv',0,[0 0 0 0 1]);
+[x,CC] = pmodx(X,TU,K,n,1e-4,1e-8);
+[A,B,C,D,K] = px2abcdk(x,u,y,mu,f,p,[0 0 0 0 1],pnd);
+figure, semilogy(S,'x');
+title('Singular values')
+disp('Canonical correlation coefficients')
+CC(1:n)
+
+
+%%
+% Verification results
+
+% Simulation of identified LPV system
+Aidm = [zeros(n) A];
+Bidm = [zeros(n,r) B];
+Cidm = [zeros(l,n) C];
+Didm = [zeros(l,r) D];
+Kidm = [zeros(n,l) K];
+Mm = idafflpv(Aidm,Bidm,Cidm,Didm,Kidm,[],1);
+yidm = sim(Mm,u,t,mu);
+disp('VAF of identified LPV system')
+vaf(y,yidm)
+
+##### SOURCE END #####
+--></body></html>

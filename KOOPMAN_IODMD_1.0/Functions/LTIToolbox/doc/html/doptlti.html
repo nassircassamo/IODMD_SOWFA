@@ -1,0 +1,389 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>DOPTLTI</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="doptlti"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>DOPTLTI</h1>
+         <introduction>
+            <p>Performs a nonlinear least squares or maximum likelihood optimization of a discrete time LTI state space model.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#3">Description</a></li>
+               <li><a href="#4">Inputs</a></li>
+               <li><a href="#12">Outputs</a></li>
+               <li><a href="#16">Remarks</a></li>
+               <li><a href="#17">Limitations</a></li>
+               <li><a href="#18">Used By</a></li>
+               <li><a href="#19">Uses Functions</a></li>
+               <li><a href="#20">See Also</a></li>
+               <li><a href="#21">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>[A,B,C,D] = doptlti(u,y,A,B,C,D)</tt></p>
+         <p><tt>[A,B,C,D,x0,K,options] = doptlti(u,y,A,B,C,D,x0,K,...            partype,options,sigman,nmodel)</tt></p>
+         <h2>Description<a name="3"></a></h2>
+         <p>This function performs a nonlinear least squares optimization of a discrete time linear state space system model with structure</p>
+         <p><img vspace="5" hspace="5" src="doptlti_eq9704.png"> </p>
+         <p><img vspace="5" hspace="5" src="doptlti_eq8049.png"> </p>
+         <p>The function also supports innovation models:</p>
+         <p><img vspace="5" hspace="5" src="doptlti_eq18927.png"> </p>
+         <p><img vspace="5" hspace="5" src="doptlti_eq16205.png"> </p>
+         <p>First, the state space matrices are parameterized. The output normal parametrization, the tridiagonal parametrization and
+            the full parametrization can be used.
+         </p>
+         <p>The parameterized model is optimized using the supplied <a href="lmmore.html"><tt>lmmore</tt></a> Levenberg-Marquardt function. The matrices <i>A</i>, <i>B</i>, and <i>C</i> are always returned. If needed, <i>D</i>, the initial state and a Kalman gain can also be optimized.
+         </p>
+         <h2>Inputs<a name="4"></a></h2>
+         <p><tt>u,y</tt> is the input and output data of the system to be optimized.
+         </p>
+         <p><tt>A,B,C,D</tt> is the initial estimates of the system matrices <i>A</i>, <i>B</i>, <i>C</i> and <i>D</i>.
+         </p>
+         <p><tt>x0</tt> is the (optional) initial state
+         </p>
+         <p><tt>K</tt> is the (optional) Kalman gain
+         </p>
+         <p><tt>partype</tt> (optional) This parameter specifies the type of parameterization that is used to parameterize the state space model. Three
+            types of parameterization are supported:
+         </p>
+         <div>
+            <ul>
+               <li><tt>'on'</tt> for output Normal parametrization.
+               </li>
+               <li><tt>'tr'</tt> for tridiagonal parametrization.
+               </li>
+               <li><tt>'fl'</tt> for gull parametrization.
+               </li>
+            </ul>
+         </div>
+         <p><tt>options</tt> (optional) Input parameters that are passed on directy to the optimization function. These options may be compatible with
+            the <tt>optimset</tt> options from the MATLAB 6 Optimization Toolbox [1]. Alternatively, a MATLAB 5 Optimization Toolbox compatible <tt>foptions</tt> vector may be specified.
+         </p>
+         <p>There are a number of fields in addition to the normal fields in the <tt>options</tt> structure. These are described in detail in the remarks section below.
+         </p>
+         <p><tt>sigman</tt> (optional) The function of this parameters depends on its format:
+         </p>
+         <div>
+            <ul>
+               <li>If <tt>sigman</tt> is a <i>1</i> x <i>l</i> vector, the output errors will be weighted by the inverse of these factors. In a weighted least squares estimation, <tt>sigman</tt> should contain the standard deviations of the noise on each of the outputs. In a maximum likelihood estimation which assumes
+                  no correlation between the noise on different outputs [2], <tt>sigman</tt> should contain the standard deviations of the white-noise signals which, when put through the AR filter specified by <tt>nmodel</tt>, generates the output measurement noise.
+               </li>
+               <li>If <tt>sigman</tt> is an <i>l</i> x <i>2l</i> matrix, a maximum likelihood estimation which does support correlation between the output noises will be carried out [3].
+                  The <tt>nmodel</tt> parameter <i>must</i> be specified in this case. <tt>sigman</tt> should be <tt>[Sf Sb]</tt>, in which <tt>Sf</tt> is the covariance matrix of the multivariable white noise sequence that is put through the causal filter <tt>Af</tt> (see <tt>nmodel</tt>). <tt>Sb</tt> is the covariance matrix of the white noise sequence that will be put through the anticausal filter <tt>Ab</tt>.
+               </li>
+            </ul>
+         </div>
+         <p><tt>nmodel</tt> (optional) The specification of the AR noise model. This should be either a matrix of size <i>d</i> x <i>l</i>, or a matrix of size <i>2l</i> x <i>ld</i>, for an AR model of order <i>d</i> . In the first output case <tt>nmodel</tt> should be a matrix having a number of rows equal to the highest noise-model order on any of the outputs. The matrix should
+            have <i>l</i> columns. If a certain output noise model has a lower order, then pad the coefficient vector with <tt>NaN</tt> s. In the second case, filtera should be <tt>[Sf Sb]</tt> in which <tt>Af</tt> specifies the causal AR filter, and <tt>Ab</tt> specifies the anti- causal AR filter, as obtained using <tt>cholicm</tt>.
+         </p>
+         <h2>Outputs<a name="12"></a></h2>
+         <p><tt>A,B,C,D</tt> are the system matrices of the optimized linear model. If the <tt>D</tt> matrix is not estimated, it will be empty.
+         </p>
+         <p><tt>x0</tt> is the estimate of the initial state. If the <tt>x0</tt> matrix is not estimated, it will be returned empty.
+         </p>
+         <p><tt>K</tt> is the estimate of the Kalman gain. If the <tt>K</tt> matrix is not estimated, it will be returned empty.
+         </p>
+         <p><tt>options</tt> are the output parameters from the Optimization Toolbox. See <tt>foptions</tt> or <tt>optimset</tt>.
+         </p>
+         <h2>Remarks<a name="16"></a></h2>
+         <p>An extra field <tt>options.Manifold</tt> may be set to <tt>'on'</tt> if the full parametrization is used. The <tt>Manifold</tt> field indicates whether the search direction should be confined to directions in which the cost-function changes. If <tt>options.Manifold</tt> is not set, <tt>doptlti</tt> will set it to <tt>'off'</tt> for the output normal and tridiagonal parametrizations, and to <tt>'on'</tt> for the full parametrization.
+         </p>
+         <p>Another new field that can be set is the <tt>options.BlockSize</tt> field. The value <i>Nb</i> of the <tt>BlockSize</tt> field indicates that the Jacobian in the cost-function is build up <i>Nb</i> block-rows at a time rather than all at once [4]. This option is mainly interesting in tight-memory situations or for problems
+            with a very large number of samples. If <tt>options.BlockSize</tt> is set to <i>Nb</i>, the fields <tt>options.RFactor</tt> and <tt>options.LargeScale</tt> are set to <tt>'on'</tt> automatically. A rule of thumb is that the Jacobian-calculation requires about <i>24(p</i> + <i>1</i> + <i>Nb</i> <i>l)(p</i> + <i>1)</i> bytes of computer memory, in which <i>p</i> is the number of free parameters. For the full parametrization, this is the number of parameters <tt>after</tt> a manifold-projection.
+         </p>
+         <p>If the model is unstable one can use the innovation description. This implies choosing a <i>K</i> such that <i>(A</i> - <i>KC)</i> is stable. The first option is to just specify <i>K</i> in the parameter list. This starts a prediction error optimization in which <i>K</i> is optimized as well. Faster convergence can be obtained by restricting <i>K</i> to a fixed value. To this end, the field <tt>options.OEMStable</tt> should be set to <tt>'on'</tt>, in addition to specifying <i>K</i> in the parameter list.
+         </p>
+         <p>This optimization function has been targeted at MATLAB version 6 or higher. However, the function will run on MATLAB version
+            5 using a compatibility kludge. This kludge implies that the options input parameter can either be a MATLAB 6 <tt>optimset</tt>-structure, or a MATLAB 5 compatible <tt>foptions</tt>-vector. However, the latter is discouraged since it does not allow the <tt>Manifold</tt>, <tt>LargeScale</tt>, <tt>RFactor</tt>, <tt>BlockSize</tt> and <tt>OEMStable</tt> fields to be set.
+         </p>
+         <h2>Limitations<a name="17"></a></h2>
+         <p>The <a href="doptlti"><tt>doptlti</tt></a>-function is a <tt>non-linear</tt> optimization. This implies that there is the inherent risk of ending up in a local minimum, rather than in the cost-function's
+            global minimum. Therefore, a well-chosen initial model should be used. If the optimization gets stuck in a local minimum nontheless,
+            a different initial model should be tried.
+         </p>
+         <p>An initial estimate can be obtained by using the time-domain subspace identification functions in this toolbox. The relevant
+            functions are <a href="dordpo.html"><tt>dordpo</tt></a>, <a href="dmodpo.html"><tt>dmodpo</tt></a>, <a href="dordpi.html"><tt>dordpi</tt></a>, <a href="dmodpi.html"><tt>dmodpi</tt></a>, <a href="dordrs.html"><tt>dordrs</tt></a>, <a href="dmodrs.html"><tt>dmodrs</tt></a>, <a href="dac2b.html"><tt>dac2b</tt></a> and <a href="dac2bd.html"><tt>dac2bd</tt></a>.
+         </p>
+         <h2>Used By<a name="18"></a></h2>
+         <p>This is a toplevel function that is used directly by the user.</p>
+         <h2>Uses Functions<a name="19"></a></h2>
+         <p><a href="lmmore.html"><tt>lmmore</tt></a>, <a href="dss2th.html"><tt>dss2th</tt></a>, <a href="dth2ss.html"><tt>dth2ss</tt></a>, <a href="dfunlti.html"><tt>dfunlti</tt></a>, <a href="cholicm.html"><tt>cholicm</tt></a></p>
+         <h2>See Also<a name="20"></a></h2>
+         <p><a href="foptlti.html"><tt>foptlti</tt></a>, <tt>optimset</tt>, <tt>foptions</tt>, <a href="mkoptstruc.html"><tt>mkoptstruc</tt></a></p>
+         <h2>References<a name="21"></a></h2>
+         <p>[1] The MathWorks Inc., Natick, Massachusetts, <i>Optimization Toolbox User's Guide</i>, version 2.1 (release 12) ed., Sept 2000.
+         </p>
+         <p>[2] B. David and G. Bastin, "An estimator of the inverse covariance matrix aqnd its application to ML parameter estimation
+            in dynamical systems", <i>Automatica</i>, vol. 37, no. 1, pp. 99-106, 2001.
+         </p>
+         <p>[2] B. Davis, <i>Parameter Estimation in Nonlinear Dynamical Systems with Correlated Noise.</i> PhD thesis, Universite Catholique de Louvain-La-Neuve, Belgium, 2001.
+         </p>
+         <p>[4] N. Bergboer, V. Verdult, and M. Verhaegen, "An effcient implementation of maximum likelihood identification of LTI state-space
+            models by local gradient search", in <i>Proceedings of the 41st IEEE Conference on Decision and Control</i>, Las Vegas, Nevada, Dec. 2002.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% DOPTLTI
+% Performs a nonlinear least squares or maximum likelihood optimization of
+% a discrete time LTI state space model.
+
+%% Syntax
+% |[A,B,C,D] = doptlti(u,y,A,B,C,D)|
+%%
+% |[A,B,C,D,x0,K,options] = doptlti(u,y,A,B,C,D,x0,K,...
+%            partype,options,sigman,nmodel)|
+
+%% Description
+% This function performs a nonlinear least squares optimization of a
+% discrete time linear state space system model with structure
+%
+% $$ x(k+1) = Ax(k) + Bu(k) $$
+%
+% $$ y(k) = Cx(k) + Du(k) $$ 
+%
+% The function also supports innovation models:
+%
+% $$ x(k+1) = Ax(k) + Bu(k) + Ke(k) $$
+%
+% $$ y(k) = Cx(k) + Du(k) +  e(k) $$
+% 
+% First, the state space matrices are parameterized. The output normal
+% parametrization, the tridiagonal parametrization and the full
+% parametrization can be used.
+% 
+% The parameterized model is optimized using the supplied <lmmore.html
+% |lmmore|> Levenberg-Marquardt function. The matrices _A_, _B_, and _C_
+% are always returned. If needed, _D_, the initial state and a Kalman gain
+% can also be optimized.
+
+%% Inputs
+% |u,y| is the input and output data of the system to be optimized.
+%%
+% |A,B,C,D| is the initial estimates of the system matrices _A_, _B_, _C_
+% and _D_.
+%%
+% |x0| is the (optional) initial state
+%%
+% |K| is the (optional) Kalman gain
+%%
+% |partype| (optional) This parameter specifies the type of parameterization
+% that is used to parameterize the state space model. Three types of
+% parameterization are supported:
+%
+% * |'on'| for output Normal parametrization.
+% * |'tr'| for tridiagonal parametrization.
+% * |'fl'| for gull parametrization.
+%
+%%
+% |options| (optional) Input parameters that are passed on directy to the
+% optimization function. These options may be compatible with the
+% |optimset| options from the MATLAB 6 Optimization Toolbox [1].
+% Alternatively, a MATLAB 5 Optimization Toolbox compatible |foptions|
+% vector may be specified.
+% 
+% There are a number of fields in addition to the normal fields in the
+% |options| structure. These are described in detail in the remarks section
+% below.
+%%            
+% |sigman| (optional) The function of this parameters depends on its
+% format:
+%
+% * If |sigman| is a _1_ x _l_ vector, the output errors will be weighted
+% by the inverse of these factors. In a weighted least squares estimation,
+% |sigman| should contain the standard deviations of the noise on each of
+% the outputs.
+% In a maximum likelihood estimation which assumes no correlation between
+% the noise on different outputs [2], |sigman| should contain the standard
+% deviations of the white-noise signals which, when put through the AR
+% filter specified by |nmodel|, generates the output measurement noise.
+% * If |sigman| is an _l_ x _2l_ matrix, a maximum likelihood estimation
+% which does support correlation between the output noises will be carried
+% out [3]. The |nmodel| parameter _must_ be specified in this case.
+% |sigman| should be |[Sf Sb]|, in which |Sf| is the covariance matrix of the
+% multivariable white noise sequence that is put through the causal filter
+% |Af| (see |nmodel|). |Sb| is the covariance matrix of the white noise
+% sequence that will be put through the anticausal filter |Ab|.
+%
+%%
+% |nmodel| (optional) The specification of the AR noise model. This should
+% be either a matrix of size _d_ x _l_, or a matrix of size _2l_ x _ld_,
+% for an AR model of order _d_ .
+% In the first output case |nmodel| should be a matrix having a number of
+% rows equal to the highest noise-model order on any of the outputs. The
+% matrix should have _l_ columns. If a certain output noise model has a
+% lower order, then pad the coefficient vector with |NaN| s.
+% In the second case, filtera should be |[Sf Sb]| in which |Af| specifies
+% the causal AR filter, and |Ab| specifies the anti- causal AR filter, as
+% obtained using |cholicm|.
+
+%% Outputs
+% |A,B,C,D| are the system matrices of the optimized linear model. If the
+% |D| matrix is not estimated, it will be empty.
+%% 
+% |x0| is the estimate of the initial state. If the |x0| matrix is not
+% estimated, it will be returned empty.
+%% 
+% |K| is the estimate of the Kalman gain. If the |K| matrix is not
+% estimated, it will be returned empty.
+%% 
+% |options| are the output parameters from the Optimization Toolbox. See
+% |foptions| or |optimset|.
+
+%% Remarks
+% An extra field |options.Manifold| may be set to |'on'| if the full
+% parametrization is used. The |Manifold| field indicates whether the
+% search direction should be confined to directions in which the
+% cost-function changes. If |options.Manifold| is not set, |doptlti| will
+% set it to |'off'| for the output normal and tridiagonal parametrizations,
+% and to |'on'| for the full parametrization.
+% 
+% Another new field that can be set is the |options.BlockSize| field. The
+% value _Nb_ of the |BlockSize| field indicates that the Jacobian in the
+% cost-function is build up _Nb_ block-rows at a time rather than all at
+% once [4]. This option is mainly interesting in tight-memory situations or
+% for problems with a very large number of samples. If |options.BlockSize|
+% is set to _Nb_, the fields |options.RFactor| and |options.LargeScale| are
+% set to |'on'| automatically. A rule of thumb is that the
+% Jacobian-calculation requires about _24(p_ + _1_ + _Nb_ _l)(p_ + _1)_
+% bytes of computer memory, in which _p_ is the number of free parameters.
+% For the full parametrization, this is the number of parameters |after| a
+% manifold-projection.
+% 
+% If the model is unstable one can use the innovation description. This
+% implies choosing a _K_ such that _(A_ - _KC)_ is stable. The first option
+% is to just specify _K_ in the parameter list. This starts a prediction
+% error optimization in which _K_ is optimized as well. Faster convergence
+% can be obtained by restricting _K_ to a fixed value. To this end, the
+% field |options.OEMStable| should be set to |'on'|, in addition to
+% specifying _K_ in the parameter list.
+% 
+% This optimization function has been targeted at MATLAB version 6 or
+% higher. However, the function will run on MATLAB version 5 using a
+% compatibility kludge. This kludge implies that the options input
+% parameter can either be a MATLAB 6 |optimset|-structure, or a MATLAB 5
+% compatible |foptions|-vector. However, the latter is discouraged since it
+% does not allow the |Manifold|, |LargeScale|, |RFactor|, |BlockSize| and
+% |OEMStable| fields to be set.
+
+%% Limitations
+% The <doptlti |doptlti|>-function is a |non-linear| optimization. This
+% implies that there is the inherent risk of ending up in a local minimum,
+% rather than in the cost-function's global minimum. Therefore, a
+% well-chosen initial model should be used. If the optimization gets stuck
+% in a local minimum nontheless, a different initial model should be tried.
+% 
+% An initial estimate can be obtained by using the time-domain subspace
+% identification functions in this toolbox. The relevant functions are
+% <dordpo.html |dordpo|>, <dmodpo.html |dmodpo|>, <dordpi.html |dordpi|>,
+% <dmodpi.html |dmodpi|>, <dordrs.html |dordrs|>, <dmodrs.html |dmodrs|>,
+% <dac2b.html |dac2b|> and <dac2bd.html |dac2bd|>.
+
+%% Used By
+% This is a toplevel function that is used directly by the user.
+
+%% Uses Functions
+% <lmmore.html |lmmore|>, <dss2th.html |dss2th|>, <dth2ss.html |dth2ss|>,
+% <dfunlti.html |dfunlti|>, <cholicm.html |cholicm|>
+
+%% See Also
+% <foptlti.html |foptlti|>, |optimset|, |foptions|, <mkoptstruc.html
+% |mkoptstruc|>
+
+%% References
+% [1] The MathWorks Inc., Natick, Massachusetts, _Optimization Toolbox 
+% User's Guide_, version 2.1 (release 12) ed., Sept 2000.
+%
+% [2] B. David and G. Bastin, "An estimator of the inverse covariance
+% matrix aqnd its application to ML parameter estimation in dynamical
+% systems", _Automatica_, vol. 37, no. 1, pp. 99-106, 2001.
+%
+% [2] B. Davis, _Parameter Estimation in Nonlinear Dynamical Systems with
+% Correlated Noise._ PhD thesis, Universite Catholique de Louvain-La-Neuve,
+% Belgium, 2001.
+%
+% [4] N. Bergboer, V. Verdult, and M. Verhaegen, "An effcient 
+% implementation of maximum likelihood identification of LTI state-space 
+% models by local gradient search", in _Proceedings of the 41st IEEE
+% Conference on Decision and Control_, Las Vegas, Nevada, Dec. 2002.
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>

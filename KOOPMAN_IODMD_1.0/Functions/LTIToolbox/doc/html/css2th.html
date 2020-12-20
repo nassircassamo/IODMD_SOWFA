@@ -1,0 +1,254 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>CSS2TH</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="css2th"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>CSS2TH</h1>
+         <introduction>
+            <p>Converts a continuous-time LTI state-space model into a parameter vector.</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#6">Description</a></li>
+               <li><a href="#7">Inputs</a></li>
+               <li><a href="#11">Outputs</a></li>
+               <li><a href="#14">Remarks</a></li>
+               <li><a href="#15">Algorithm</a></li>
+               <li><a href="#17">Used By</a></li>
+               <li><a href="#18">See Also</a></li>
+               <li><a href="#19">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>[theta,params,T] = css2th(A,C,partype)</tt></p>
+         <p><tt>[theta,params,T] = css2th(A,B,C,partype)</tt></p>
+         <p><tt>[theta,params,T] = css2th(A,B,C,D,partype)</tt></p>
+         <p><tt>[theta,params,T] = css2th(A,B,C,D,x0,partype)</tt></p>
+         <p><tt>[theta,params,T] = css2th(A,B,C,D,x0,K,partype)</tt></p>
+         <h2>Description<a name="6"></a></h2>
+         <p>This function converts a continuous-time LTI state-space model into a parameter vector that describes the model. Model structure:</p>
+         <p><img vspace="5" hspace="5" src="css2th_eq22362.png"> </p>
+         <p><img vspace="5" hspace="5" src="css2th_eq12777.png"> </p>
+         <h2>Inputs<a name="7"></a></h2>
+         <p><tt>A,B,C,D</tt> are system matrices describing the state space system. The <tt>B</tt> and <tt>D</tt> matrices are optional and can be left out or passed as an empty matrix to indicate it is not part of the model.
+         </p>
+         <p><tt>x0</tt> is the (optional) initial state.
+         </p>
+         <p><tt>K</tt> is the (optional) Kalman gain.
+         </p>
+         <p><tt>partype</tt> is string which specifies the type of parameterization that is used to parameterize the state space model. Three types of
+            parameterization are supported:
+         </p>
+         <div>
+            <ul>
+               <li><tt>'on'</tt> for output Normal parametrization.
+               </li>
+               <li><tt>'tr'</tt> for tridiagonal parametrization.
+               </li>
+               <li><tt>'fl'</tt> for full parametrization.
+               </li>
+            </ul>
+         </div>
+         <p>Rules for input parameters:</p>
+         <div>
+            <ul>
+               <li>The final parameter should always be the parametrization type. The order for the parameters prior to <tt>partype</tt> is <tt>A,B,C,D,x0,K</tt>. The only exception is <tt>A,C</tt>, when only those are to be parametrized.
+               </li>
+               <li>All parameters after <tt>A,B,C</tt> and before <tt>partype</tt> are optional. If the last one is not to be parametrized it can be omitted. If any other is not to be parametrized, an empty
+                  matrix should be passed.
+               </li>
+               <li><tt>(A,B,C,partype)</tt> is thus equivalent to <tt>(A,B,C,[],[],[],partype)</tt> However, <tt>(A,B,C,[],x0,partype)</tt> cannot be abbreviated.
+               </li>
+            </ul>
+         </div>
+         <h2>Outputs<a name="11"></a></h2>
+         <p><tt>theta</tt> is the parameter vector describing the system.
+         </p>
+         <p><tt>params</tt> is a structure that contains the dimension parameters of the system, such as the order, the number of inputs and whether
+            <tt>D</tt>, <tt>x0</tt> or <tt>K</tt> is present.
+         </p>
+         <p><tt>T</tt> is the transformation matrix between the input state space system and the state space system in the form described by <tt>theta</tt>.
+         </p>
+         <h2>Remarks<a name="14"></a></h2>
+         <p>This function is based on the SMI Toolbox 2.0 function <tt>css2th</tt>, copyright 1996 Johan Bruls. Support for the omission of <tt>D</tt>, <tt>x0</tt> and/or <tt>K</tt> has been added, as well as support for the full parametrization.
+         </p>
+         <h2>Algorithm<a name="15"></a></h2>
+         <p>The model parametrization for the output normal form and the tridiagonal parametrization is carried out according to [1].
+            The full model parametrization is a simple vectorization of the system matrices. In its most general form, the parameter vector
+            is given by
+         </p>
+         <p><img vspace="5" hspace="5" src="param.jpg"> </p>
+         <h2>Used By<a name="17"></a></h2>
+         <p><a href="foptlti.html"><tt>foptli</tt></a></p>
+         <h2>See Also<a name="18"></a></h2>
+         <p><a href="cth2ss.html"><tt>cth2ss</tt></a>, <a href="dss2th.html"><tt>dss2th</tt></a></p>
+         <h2>References<a name="19"></a></h2>
+         <p>[1] B. Haverkamp, <i>Subspace Method Identification, Theory and Practice.</i> PhD thesis, Delft University of Technology, Delft, The Netherlands, 2000.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% CSS2TH
+% Converts a continuous-time LTI state-space model into a parameter vector.
+
+%% Syntax
+% |[theta,params,T] = css2th(A,C,partype)|
+%%
+% |[theta,params,T] = css2th(A,B,C,partype)|
+%%
+% |[theta,params,T] = css2th(A,B,C,D,partype)|
+%%
+% |[theta,params,T] = css2th(A,B,C,D,x0,partype)|
+%%
+% |[theta,params,T] = css2th(A,B,C,D,x0,K,partype)|
+
+%% Description
+% This function converts a continuous-time LTI state-space model into a
+% parameter vector that describes the model. Model structure:
+%
+% $$\dot{x}(t) = Ax(t) + Bu(t) + Ke(t)$$
+%
+% $$y(t) = Cx(t) + Du(t) + e(t)$$
+%
+
+%% Inputs
+% |A,B,C,D| are system matrices describing the state space system. The
+% |B| and |D| matrices are optional and can be left out or passed as an
+% empty matrix to indicate it is not part of the model.
+
+%%
+% |x0| is the (optional) initial state.
+
+%%
+% |K| is the (optional) Kalman gain. 
+
+%%
+% |partype| is string which specifies the type of parameterization that is
+% used to parameterize the state space model. Three types of
+% parameterization are supported: 
+% 
+% * |'on'| for output Normal parametrization.
+% * |'tr'| for tridiagonal parametrization.
+% * |'fl'| for full parametrization.
+%
+% Rules for input parameters: 
+%
+% * The final parameter should always be the parametrization type. The order
+% for the parameters prior to |partype| is |A,B,C,D,x0,K|. The only
+% exception is |A,C|, when only those are to be parametrized.
+% * All parameters after |A,B,C| and before |partype| are optional. If the
+% last one is not to be parametrized it can be omitted. If any other is not
+% to be parametrized, an empty matrix should be passed.
+% * |(A,B,C,partype)| is thus equivalent to |(A,B,C,[],[],[],partype)|
+% However, |(A,B,C,[],x0,partype)| cannot be abbreviated.
+%
+
+%% Outputs
+% |theta| is the parameter vector describing the system.
+%%
+% |params| is a structure that contains the dimension parameters of the
+% system, such as the order, the number of inputs and whether |D|, |x0| or
+% |K| is present.
+%%
+% |T| is the transformation matrix between the input state space system and
+% the state space system in the form described by |theta|.
+
+%% Remarks
+% This function is based on the SMI Toolbox 2.0 function |css2th|,
+% copyright 1996 Johan Bruls. Support for the omission of |D|, |x0| and/or
+% |K| has been added, as well as support for the full parametrization.
+
+%% Algorithm
+% The model parametrization for the output normal form and the tridiagonal
+% parametrization is carried out according to [1]. The full model
+% parametrization is a simple vectorization of the system matrices. In its
+% most general form, the parameter vector is given by
+%%
+% <<param.jpg>>
+
+%% Used By
+% <foptlti.html |foptli|>
+
+%% See Also
+% <cth2ss.html |cth2ss|>, <dss2th.html |dss2th|>
+
+%% References
+% [1] B. Haverkamp, _Subspace Method Identification, Theory and Practice._
+% PhD thesis, Delft University of Technology, Delft, The Netherlands, 2000.
+##### SOURCE END #####
+-->
+   </body>
+</html>

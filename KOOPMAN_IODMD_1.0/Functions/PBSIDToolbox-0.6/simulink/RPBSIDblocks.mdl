@@ -1,0 +1,5337 @@
+Model {
+  Name			  "RPBSIDblocks"
+  Version		  7.8
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.473"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "windows-1252"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  DataTypeOverrideAppliesTo "AllNumericTypes"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  FPTRunName		  "Run 1"
+  MaxMDLFileLineLength	  120
+  Created		  "Tue Apr 07 13:05:31 2009"
+  Creator		  "ivohoutzager"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "pietergebraad"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Mon Apr 02 13:27:18 2012"
+  RTWModifiedTimeStamp	  255273647
+  ModelVersionFormat	  "1.%<AutoIncrement:473>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  SampleTimeAnnotations	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowDesignRanges	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  CovForceBlockReductionOff on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  CovExternalEMLEnable	  off
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.11.1"
+      Array {
+	Type			"Handle"
+	Dimension		8
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.11.1"
+	  StartTime		  "0.0"
+	  StopTime		  "10.0"
+	  AbsTol		  "auto"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ZcThreshold		  "auto"
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  ConcurrentTasks	  off
+	  Solver		  "ode45"
+	  SolverName		  "ode45"
+	  SolverJacobianMethodControl "auto"
+	  ShapePreserveControl	  "DisableAll"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  ZeroCrossAlgorithm	  "Nonadaptive"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  InsertRTBMode		  "Whenever possible"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.11.1"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveCompleteFinalSimState off
+	  SaveFormat		  "Array"
+	  SignalLoggingSaveFormat "ModelDataLogs"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  DSMLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  ReturnWorkspaceOutputs  off
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  DSMLoggingName	  "dsmout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  ReturnWorkspaceOutputsName "out"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Version		  "1.11.1"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    4
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    Cell		    "OptimizeModelRefInitCode"
+	    PropName		    "DisabledProps"
+	  }
+	  BlockReduction	  on
+	  BooleanDataType	  on
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  UseIntDivNetSlope	  off
+	  UseFloatMulNetSlope	  off
+	  UseSpecifiedMinMax	  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnhancedBackFolding	  off
+	  StrengthReduction	  off
+	  ExpressionFolding	  on
+	  BooleansAsBitfields	  off
+	  BitfieldContainerType	  "uint_T"
+	  EnableMemcpy		  on
+	  MemcpyThreshold	  64
+	  PassReuseOutputArgsAs	  "Structure reference"
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  EfficientMapNaN2IntZero on
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  MaxStackSize		  "Inherit from target"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	  AccelParallelForEachSubsystem	on
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.11.1"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"none"
+	  CheckSSInitialOutputMsg on
+	  UnderspecifiedInitializationDetection	"Classic"
+	  MergeDetectMultiDrivingBlocksExec "none"
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "UseLocalSettings"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  MaskedZcDiagnostic	  "warning"
+	  IgnoredZcDiagnostic	  "warning"
+	  SolverPrmCheckMsg	  "warning"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "error"
+	  MultiTaskCondExecSysMsg "none"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  FixptConstUnderflowMsg  "none"
+	  FixptConstOverflowMsg	  "none"
+	  FixptConstPrecisionLossMsg "none"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  FrameProcessingCompatibilityMsg "warning"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceMultiInstanceNormalModeStructChecksumCheck "error"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  SimStateInterfaceChecksumMismatchMsg "warning"
+	  SimStateOlderReleaseMsg "error"
+	  InitInArrayFormatMsg	  "warning"
+	  StrictBusMsg		  "Warning"
+	  BusNameAdapt		  "WarnAndRepair"
+	  NonBusSignalsTreatedAsBus "none"
+	  LoggingUnavailableSignals "error"
+	  BlockIODiagnostic	  "none"
+	  SFUnusedDataAndEventsDiag "warning"
+	  SFUnexpectedBacktrackingDiag "warning"
+	  SFInvalidInputDataAccessInChartInitDiag "warning"
+	  SFNoUnconditionalDefaultTransitionDiag "warning"
+	  SFTransitionOutsideNaturalParentDiag "warning"
+	  SFUnconditionalTransitionShadowingDiag "warning"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.11.1"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdBitPerFloat	  32
+	  ProdBitPerDouble	  64
+	  ProdBitPerPointer	  32
+	  ProdLargestAtomicInteger "Char"
+	  ProdLargestAtomicFloat  "None"
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetBitPerFloat	  32
+	  TargetBitPerDouble	  64
+	  TargetBitPerPointer	  32
+	  TargetLargestAtomicInteger "Char"
+	  TargetLargestAtomicFloat "None"
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "32-bit Generic"
+	  TargetUnknown		  off
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.11.1"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  EnableParallelModelReferenceBuilds off
+	  ParallelModelReferenceErrorOnInvalidPool on
+	  ParallelModelReferenceMATLABWorkerInit "None"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  PropagateVarSize	  "Infer from blocks in model"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	  PropagateSignalLabelsOutOfModel off
+	  SupportModelReferenceSimTargetCustomCode off
+	}
+	Simulink.SFSimCC {
+	  $ObjectID		  8
+	  Version		  "1.11.1"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
+	  SFSimEcho		  on
+	  SimBlas		  on
+	  SimCtrlC		  on
+	  SimExtrinsic		  on
+	  SimIntegrity		  on
+	  SimUseLocalCustomCode	  off
+	  SimParseCustomCode	  off
+	  SimBuildMode		  "sf_incremental_build"
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  9
+	  Version		  "1.11.1"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    2
+	    Cell		    "IncludeHyperlinkInReport"
+	    Cell		    "GenerateTraceInfo"
+	    PropName		    "DisabledProps"
+	  }
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  RTWUseLocalCustomCode	  off
+	  RTWUseSimCustomCode	  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  on
+	  GenerateTraceInfo	  off
+	  GenerateTraceReport	  off
+	  GenerateTraceReportSl	  off
+	  GenerateTraceReportSf	  off
+	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
+	  GenerateSLWebview	  off
+	  GenerateCodeMetricsReport off
+	  RTWCompilerOptimization "Off"
+	  CheckMdlBeforeBuild	  "Off"
+	  CustomRebuildMode	  "OnUpdate"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      10
+	      Version		      "1.11.1"
+	      Array {
+		Type			"Cell"
+		Dimension		16
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		Cell			"CustomSymbolStrGlobalVar"
+		Cell			"CustomSymbolStrType"
+		Cell			"CustomSymbolStrField"
+		Cell			"CustomSymbolStrFcn"
+		Cell			"CustomSymbolStrBlkIO"
+		Cell			"CustomSymbolStrTmpVar"
+		Cell			"CustomSymbolStrMacro"
+		PropName		"DisabledProps"
+	      }
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      MATLABFcnDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrFcnArg   "rt$I$N$M"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      InsertPolySpaceComments off
+	      SimulinkBlockComments   on
+	      MATLABSourceComments    off
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	      UseSimReservedNames     off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      11
+	      Version		      "1.11.1"
+	      Array {
+		Type			"Cell"
+		Dimension		14
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"GenerateTestInterfaces"
+		Cell			"ModelStepFunctionPrototypeControlCompliant"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"PortableWordSizes"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		PropName		"DisabledProps"
+	      }
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      TargetFunctionLibrary   "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      ERTMultiwordTypeDef     "System defined"
+	      CodeExecutionProfiling  off
+	      ERTMultiwordLength      256
+	      MultiwordLength	      2048
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      ParMdlRefBuildCompliant on
+	      CompOptLevelCompliant   on
+	      ConcurrentExecutionCompliant on
+	      IncludeMdlTerminateFcn  on
+	      GeneratePreprocessorConditionals "Disable all"
+	      CombineOutputUpdateFcns off
+	      CombineSignalStateStructs	off
+	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      SupportVariableSizeSignals off
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      CPPClassGenCompliant    off
+	      AutosarCompliant	      off
+	      UseMalloc		      off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      RTWCAPIRootIO	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Solver"
+      ConfigPrmDlgPosition     [ 200, 197, 1080, 827 ] 
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+    BlockRotation	    0
+    BlockMirror		    off
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "arial"
+    FontSize		    10
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "arial"
+    FontSize		    9
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      OutputFunctionCall      off
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchInputForFeedbackSignals off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      VarSizeSig	      "Inherit"
+      SampleTime	      "-1"
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      S-Function
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+      SFunctionDeploymentMode off
+    }
+    Block {
+      BlockType		      Scope
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      DataTypeOverrideAppliesTo	"AllNumericTypes"
+      MinMaxOverflowLogging   "UseLocalSettings"
+      SFBlockType	      "NONE"
+      Variant		      off
+      GeneratePreprocessorConditionals off
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Terminator
+    }
+  }
+  System {
+    Name		    "RPBSIDblocks"
+    Location		    [190, 344, 1218, 893]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "A4"
+    PaperUnits		    "centimeters"
+    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "100"
+    ReportName		    "simulink-default.rpt"
+    SIDHighWatermark	    "46"
+    Block {
+      BlockType		      SubSystem
+      Name		      "Detrend"
+      SID		      "32"
+      Ports		      [1, 1]
+      Position		      [715, 239, 810, 281]
+      LibraryVersion	      "1.762"
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      System {
+	Name			"Detrend"
+	Location		[433, 403, 931, 703]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "In1"
+	  SID			  "33"
+	  Position		  [70, 108, 100, 122]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "Low-Pass Filter"
+	  SID			  "35"
+	  Ports			  [1, 1]
+	  Position		  [190, 162, 285, 198]
+	  LibraryVersion	  "1.107"
+	  SourceBlock		  "cstblocks/LTI System"
+	  SourceType		  "LTI Block"
+	  ShowPortLabels	  "FromPortIcon"
+	  SystemSampleTime	  "-1"
+	  FunctionWithSeparateData off
+	  RTWMemSecFuncInitTerm	  "Inherit from model"
+	  RTWMemSecFuncExecute	  "Inherit from model"
+	  RTWMemSecDataConstants  "Inherit from model"
+	  RTWMemSecDataInternal	  "Inherit from model"
+	  RTWMemSecDataParameters "Inherit from model"
+	  sys			  "LP"
+	  IC			  "[]"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  SID			  "36"
+	  Ports			  [2, 1]
+	  Position		  [320, 105, 340, 125]
+	  ShowName		  off
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  InputSameDT		  off
+	  OutDataTypeStr	  "Inherit: Inherit via internal rule"
+	  SaturateOnIntegerOverflow off
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  SID			  "34"
+	  Position		  [420, 108, 450, 122]
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "In1"
+	  SrcPort		  1
+	  Points		  [40, 0]
+	  Branch {
+	    Points		    [0, 65]
+	    DstBlock		    "Low-Pass Filter"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Sum"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Low-Pass Filter"
+	  SrcPort		  1
+	  Points		  [40, 0]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "Out1"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Pulse Counter"
+      SID		      "3"
+      Ports		      [1, 1]
+      Position		      [725, 79, 805, 121]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'pulse']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"Pulse Counter"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"13"
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "3::1"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "3::11"
+	  Ports			  [1, 1]
+	  Position		  [270, 160, 320, 200]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "3::10"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 15"
+	  Ports			  [1, 2]
+	  Position		  [180, 100, 230, 160]
+	  FunctionName		  "sf_sfun"
+	  PortCounts		  "[1 2]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "freq"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "3::13"
+	  Position		  [460, 171, 480, 189]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "freq"
+	  SID			  "3::5"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "freq"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "freq"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "RPBSID (VARMAX)\nFAST-ARRAY"
+      SID		      "26"
+      Ports		      [4, 6]
+      Position		      [420, 278, 545, 437]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'rpbsid']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"RPBSID (VARMAX)\nFAST-ARRAY"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"30"
+	SIDPrevWatermark	"26"
+	Block {
+	  BlockType		  Inport
+	  Name			  "ON"
+	  SID			  "26::24"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "RESET"
+	  SID			  "26::26"
+	  Position		  [20, 136, 40, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  "26::1"
+	  Position		  [20, 171, 40, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "26::2"
+	  Position		  [20, 206, 40, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "26::28"
+	  Ports			  [1, 1]
+	  Position		  [270, 315, 320, 355]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "26::27"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 6"
+	  Ports			  [4, 7]
+	  Position		  [180, 100, 230, 260]
+	  FunctionName		  "sf_sfun"
+	  Parameters		  "Du,Dy,W"
+	  PortCounts		  "[4 7]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "Ws"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "Fs1"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    4
+	    Name		    "Fs2"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    5
+	    Name		    "Wn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    6
+	    Name		    "Zn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    7
+	    Name		    "ERR"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "26::30"
+	  Position		  [460, 326, 480, 344]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Ws"
+	  SID			  "26::9"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs1"
+	  SID			  "26::10"
+	  Position		  [460, 136, 480, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs2"
+	  SID			  "26::11"
+	  Position		  [460, 171, 480, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Wn"
+	  SID			  "26::12"
+	  Position		  [460, 206, 480, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Zn"
+	  SID			  "26::13"
+	  Position		  [460, 246, 480, 264]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "ERR"
+	  SID			  "26::25"
+	  Position		  [460, 281, 480, 299]
+	  Port			  "6"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "ON"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RESET"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "Ws"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "Ws"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs1"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  3
+	  DstBlock		  "Fs1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs2"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  4
+	  DstBlock		  "Fs2"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Wn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  5
+	  DstBlock		  "Wn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Zn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  6
+	  DstBlock		  "Zn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "ERR"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  7
+	  DstBlock		  "ERR"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "RPBSID (VARMAX)\nSQUARE-ROOT ARRAY"
+      SID		      "28"
+      Ports		      [4, 5]
+      Position		      [245, 282, 370, 438]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'rpbsid']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"RPBSID (VARMAX)\nSQUARE-ROOT ARRAY"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"29"
+	SIDPrevWatermark	"25"
+	Block {
+	  BlockType		  Inport
+	  Name			  "ON"
+	  SID			  "28::24"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "RESET"
+	  SID			  "28::25"
+	  Position		  [20, 136, 40, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  "28::1"
+	  Position		  [20, 171, 40, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "28::2"
+	  Position		  [20, 206, 40, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "28::27"
+	  Ports			  [1, 1]
+	  Position		  [270, 280, 320, 320]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "28::26"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 1"
+	  Ports			  [4, 6]
+	  Position		  [180, 102, 230, 243]
+	  FunctionName		  "sf_sfun"
+	  Parameters		  "Du,Dy,W"
+	  PortCounts		  "[4 6]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "Ws"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "Fs1"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    4
+	    Name		    "Fs2"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    5
+	    Name		    "Wn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    6
+	    Name		    "Zn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "28::29"
+	  Position		  [460, 291, 480, 309]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Ws"
+	  SID			  "28::9"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs1"
+	  SID			  "28::10"
+	  Position		  [460, 136, 480, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs2"
+	  SID			  "28::11"
+	  Position		  [460, 171, 480, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Wn"
+	  SID			  "28::12"
+	  Position		  [460, 206, 480, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Zn"
+	  SID			  "28::13"
+	  Position		  [460, 246, 480, 264]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "ON"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RESET"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "Ws"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "Ws"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs1"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  3
+	  DstBlock		  "Fs1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs2"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  4
+	  DstBlock		  "Fs2"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Wn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  5
+	  DstBlock		  "Wn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Zn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  6
+	  DstBlock		  "Zn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "RPBSID (VARMAX)\nTRADITIONAL RLS"
+      SID		      "27"
+      Ports		      [4, 5]
+      Position		      [70, 282, 195, 438]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'rpbsid']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"RPBSID (VARMAX)\nTRADITIONAL RLS"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"29"
+	SIDPrevWatermark	"25"
+	Block {
+	  BlockType		  Inport
+	  Name			  "ON"
+	  SID			  "27::24"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "RESET"
+	  SID			  "27::25"
+	  Position		  [20, 136, 40, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  "27::1"
+	  Position		  [20, 171, 40, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "27::2"
+	  Position		  [20, 206, 40, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "27::27"
+	  Ports			  [1, 1]
+	  Position		  [270, 280, 320, 320]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "27::26"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 4"
+	  Ports			  [4, 6]
+	  Position		  [180, 102, 230, 243]
+	  FunctionName		  "sf_sfun"
+	  Parameters		  "Du,Dy,W"
+	  PortCounts		  "[4 6]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "Ws"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "Fs1"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    4
+	    Name		    "Fs2"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    5
+	    Name		    "Wn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    6
+	    Name		    "Zn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "27::29"
+	  Position		  [460, 291, 480, 309]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Ws"
+	  SID			  "27::9"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs1"
+	  SID			  "27::10"
+	  Position		  [460, 136, 480, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs2"
+	  SID			  "27::11"
+	  Position		  [460, 171, 480, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Wn"
+	  SID			  "27::12"
+	  Position		  [460, 206, 480, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Zn"
+	  SID			  "27::13"
+	  Position		  [460, 246, 480, 264]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "ON"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RESET"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "Ws"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "Ws"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs1"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  3
+	  DstBlock		  "Fs1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs2"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  4
+	  DstBlock		  "Fs2"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Wn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  5
+	  DstBlock		  "Wn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Zn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  6
+	  DstBlock		  "Zn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "RPBSID (VARX)\nFAST-ARRAY"
+      SID		      "29"
+      Ports		      [4, 6]
+      Position		      [420, 78, 545, 237]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'rpbsid']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"RPBSID (VARX)\nFAST-ARRAY"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"31"
+	SIDPrevWatermark	"27"
+	Block {
+	  BlockType		  Inport
+	  Name			  "ON"
+	  SID			  "29::24"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "RESET"
+	  SID			  "29::27"
+	  Position		  [20, 136, 40, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  "29::1"
+	  Position		  [20, 171, 40, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "29::2"
+	  Position		  [20, 206, 40, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "29::29"
+	  Ports			  [1, 1]
+	  Position		  [270, 315, 320, 355]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "29::28"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 5"
+	  Ports			  [4, 7]
+	  Position		  [180, 100, 230, 260]
+	  FunctionName		  "sf_sfun"
+	  Parameters		  "Du,Dy,W"
+	  PortCounts		  "[4 7]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "Ws"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "Fs1"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    4
+	    Name		    "Fs2"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    5
+	    Name		    "Wn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    6
+	    Name		    "Zn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    7
+	    Name		    "ERR"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "29::31"
+	  Position		  [460, 326, 480, 344]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Ws"
+	  SID			  "29::9"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs1"
+	  SID			  "29::10"
+	  Position		  [460, 136, 480, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs2"
+	  SID			  "29::11"
+	  Position		  [460, 171, 480, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Wn"
+	  SID			  "29::12"
+	  Position		  [460, 206, 480, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Zn"
+	  SID			  "29::13"
+	  Position		  [460, 246, 480, 264]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "ERR"
+	  SID			  "29::25"
+	  Position		  [460, 281, 480, 299]
+	  Port			  "6"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "ON"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RESET"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "Ws"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "Ws"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs1"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  3
+	  DstBlock		  "Fs1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs2"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  4
+	  DstBlock		  "Fs2"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Wn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  5
+	  DstBlock		  "Wn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Zn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  6
+	  DstBlock		  "Zn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "ERR"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  7
+	  DstBlock		  "ERR"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "RPBSID (VARX)\nSQUARE-ROOT ARRAY"
+      SID		      "31"
+      Ports		      [4, 5]
+      Position		      [245, 81, 370, 239]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'rpbsid']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"RPBSID (VARX)\nSQUARE-ROOT ARRAY"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"30"
+	SIDPrevWatermark	"26"
+	Block {
+	  BlockType		  Inport
+	  Name			  "ON"
+	  SID			  "31::24"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "RESET"
+	  SID			  "31::26"
+	  Position		  [20, 136, 40, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  "31::1"
+	  Position		  [20, 171, 40, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "31::2"
+	  Position		  [20, 206, 40, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "31::28"
+	  Ports			  [1, 1]
+	  Position		  [270, 280, 320, 320]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "31::27"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 2"
+	  Ports			  [4, 6]
+	  Position		  [180, 102, 230, 243]
+	  FunctionName		  "sf_sfun"
+	  Parameters		  "Du,Dy,W"
+	  PortCounts		  "[4 6]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "Ws"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "Fs1"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    4
+	    Name		    "Fs2"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    5
+	    Name		    "Wn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    6
+	    Name		    "Zn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "31::30"
+	  Position		  [460, 291, 480, 309]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Ws"
+	  SID			  "31::9"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs1"
+	  SID			  "31::10"
+	  Position		  [460, 136, 480, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs2"
+	  SID			  "31::11"
+	  Position		  [460, 171, 480, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Wn"
+	  SID			  "31::12"
+	  Position		  [460, 206, 480, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Zn"
+	  SID			  "31::13"
+	  Position		  [460, 246, 480, 264]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "ON"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RESET"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "Ws"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "Ws"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs1"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  3
+	  DstBlock		  "Fs1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs2"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  4
+	  DstBlock		  "Fs2"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Wn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  5
+	  DstBlock		  "Wn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Zn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  6
+	  DstBlock		  "Zn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "RPBSID (VARX)\nTRADITIONAL RLS"
+      SID		      "30"
+      Ports		      [4, 5]
+      Position		      [70, 81, 195, 239]
+      ErrorFcn		      "Stateflow.Translate.translate"
+      PermitHierarchicalResolution "ExplicitOnly"
+      TreatAsAtomicUnit	      on
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      SFBlockType	      "MATLAB Function"
+      MaskType		      "Stateflow"
+      MaskDescription	      "Embedded MATLAB block"
+      MaskSelfModifiable      on
+      MaskDisplay	      "bgColor = Simulink.Root.ColorString2Rgb(get_param(gcbh, 'BackgroundColor')); image(imread('pr"
+      "ivate/eml_membrane_16.png','png','BackgroundColor',bgColor(1:3)),'center'); disp([10 10 'rpbsid']);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      off
+      MaskIconRotate	      "none"
+      MaskPortRotate	      "default"
+      MaskIconUnits	      "normalized"
+      System {
+	Name			"RPBSID (VARX)\nTRADITIONAL RLS"
+	Location		[257, 457, 812, 717]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	SIDHighWatermark	"30"
+	SIDPrevWatermark	"26"
+	Block {
+	  BlockType		  Inport
+	  Name			  "ON"
+	  SID			  "30::24"
+	  Position		  [20, 101, 40, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "RESET"
+	  SID			  "30::26"
+	  Position		  [20, 136, 40, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "U"
+	  SID			  "30::1"
+	  Position		  [20, 171, 40, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Y"
+	  SID			  "30::2"
+	  Position		  [20, 206, 40, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  " Demux "
+	  SID			  "30::28"
+	  Ports			  [1, 1]
+	  Position		  [270, 280, 320, 320]
+	  Outputs		  "1"
+	}
+	Block {
+	  BlockType		  S-Function
+	  Name			  " SFunction "
+	  SID			  "30::27"
+	  Tag			  "Stateflow S-Function RPBSIDblocks 3"
+	  Ports			  [4, 6]
+	  Position		  [180, 102, 230, 243]
+	  FunctionName		  "sf_sfun"
+	  Parameters		  "Du,Dy,W"
+	  PortCounts		  "[4 6]"
+	  EnableBusSupport	  off
+	  Port {
+	    PortNumber		    2
+	    Name		    "Ws"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    3
+	    Name		    "Fs1"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    4
+	    Name		    "Fs2"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    5
+	    Name		    "Wn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	  Port {
+	    PortNumber		    6
+	    Name		    "Zn"
+	    RTWStorageClass	    "Auto"
+	    DataLoggingNameMode	    "SignalName"
+	  }
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  " Terminator "
+	  SID			  "30::30"
+	  Position		  [460, 291, 480, 309]
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Ws"
+	  SID			  "30::9"
+	  Position		  [460, 101, 480, 119]
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs1"
+	  SID			  "30::10"
+	  Position		  [460, 136, 480, 154]
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fs2"
+	  SID			  "30::11"
+	  Position		  [460, 171, 480, 189]
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Wn"
+	  SID			  "30::12"
+	  Position		  [460, 206, 480, 224]
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Zn"
+	  SID			  "30::13"
+	  Position		  [460, 246, 480, 264]
+	  Port			  "5"
+	  IconDisplay		  "Port number"
+	}
+	Line {
+	  SrcBlock		  "ON"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "RESET"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "U"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Y"
+	  SrcPort		  1
+	  DstBlock		  " SFunction "
+	  DstPort		  4
+	}
+	Line {
+	  Name			  "Ws"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  2
+	  DstBlock		  "Ws"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs1"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  3
+	  DstBlock		  "Fs1"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Fs2"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  4
+	  DstBlock		  "Fs2"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Wn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  5
+	  DstBlock		  "Wn"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Zn"
+	  Labels		  [0, 0]
+	  SrcBlock		  " SFunction "
+	  SrcPort		  6
+	  DstBlock		  "Zn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Demux "
+	  SrcPort		  1
+	  DstBlock		  " Terminator "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " SFunction "
+	  SrcPort		  1
+	  DstBlock		  " Demux "
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Remaining Computation Time\n(must be positive)"
+      SID		      "8"
+      Ports		      [1]
+      Position		      [875, 164, 905, 196]
+      Floating		      off
+      Location		      [677, 56, 1275, 463]
+      Open		      off
+      NumInputPorts	      "1"
+      ZoomMode		      "xonly"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      TimeRange		      "10"
+      YMin		      "-0.01"
+      YMax		      "0.01"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      S-Function
+      Name		      "Timer for Real-Time"
+      SID		      "7"
+      Ports		      [0, 1]
+      Position		      [725, 160, 805, 200]
+      FunctionName	      "sfun_rttime"
+      Parameters	      "1"
+      EnableBusSupport	      off
+    }
+    Line {
+      SrcBlock		      "Timer for Real-Time"
+      SrcPort		      1
+      DstBlock		      "Remaining Computation Time\n(must be positive)"
+      DstPort		      1
+    }
+    Annotation {
+      Name		      "Recursive Closed-Loop (and Open-Loop)\nSubspace Identification methods"
+      Position		      [132, 53]
+    }
+    Annotation {
+      Name		      "Other blocks"
+      Position		      [767, 53]
+    }
+  }
+}
+# Finite State Machines
+#
+#    Stateflow Version 7.6 (R2011b) dated Aug  6 2011, 13:17:15
+#
+#
+
+
+Stateflow {
+  machine {
+    id			    1
+    name		    "RPBSIDblocks"
+    created		    "07-Apr-2009 13:05:34"
+    isLibrary		    0
+    firstTarget		    113
+    sfVersion		    76014001.0002
+  }
+  chart {
+    id			    2
+    name		    "RPBSID (VARMAX)\nSQUARE-ROOT ARRAY"
+    windowPosition	    [431.813 179.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 3 0 0]
+    firstTransition	    5
+    firstJunction	    4
+    viewObj		    2
+    machine		    1
+    ssIdHighWaterMark	    21
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    6
+    chartFileNumber	    1
+    disableImplicitCasting  1
+    eml {
+      name		      "rpbsid"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    3
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    2
+    treeNode		    [2 0 0 0]
+    superState		    SUBCHART
+    subviewer		    2
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [Ws,Fs1,Fs2,Wn,Zn] = rpbsid(ON,RESET,U,Y,W,Du,Dy)\n%RPBSID Closed-loop recursive predict"
+      "or-based subspace identification (VARX)\n\n% Input definitions\n% U input sample\n% Y output sample\n% W weight "
+      "matrix (from workspace)\n% Du input scaling matrix from sigscale (from workspace)\n% Dy output scaling matric fr"
+      "om sigscale (from workspace)\n\n% Common paremeters\nr = 1;         % number if inpuh\nl = 2;         % number o"
+      "f outpuh\nm = 2*l+r;\nn = 7;         % number of states\nTs = 0.05;      % sample time\n\n% Parameters for ident"
+      "ification\np = 50;        % past window\nf = 50;        % future window\nnoD = 0;       % no direct feedtrough\n"
+      "off = 1;       % remove offset in Markov estimation\nweight = 0;    % apply transformation filter\n\n% Parameter"
+      "s for adaptive filters\nlambda1 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nlambda2 = 0.999; % initi"
+      "al forgetting factor (~= 1 - 2/window)\nlambda3 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nireg1 = "
+      "100;     % initial regularisation\nireg2 = 1e-6;    % initial regularisation\nireg3 = 1e-6;    % initial regular"
+      "isation\nreg1 = 1;        % initial regularisation\n\n% Initialization\nstartA = 3;\n\n% Initialize if needed\np"
+      "ersistent Plk VARX LK Pcd Pabk ABK CD U1 Y1 X X1 E1 Zp w k start saw\nif isempty(Plk) || RESET\n    % Initialisa"
+      "tion of Markov estimation problem\n    if noD\n        if off\n            Plk = (1/sqrt(ireg1)).*eye(p*m+1);\n "
+      "           VARX = zeros(l,p*m+1);\n        else\n            Plk = (1/sqrt(ireg1)).*eye(p*m);\n            VARX "
+      "= zeros(l,p*m);\n        end\n    else\n        if off\n            Plk = (1/sqrt(ireg1)).*eye(p*m+r+1);\n      "
+      "      VARX = zeros(l,p*m+r+1);\n        else\n            Plk = (1/sqrt(ireg1)).*eye(p*m+r);\n            VARX ="
+      " zeros(l,p*m+r);\n        end\n    end\n    saw = 0;\n    \n    % Initialisation of the LambdaKappa\n    LK = ze"
+      "ros(f*l,m*p);\n    \n    % Initialisation the estimate of ABK\n    Pabk = (1/sqrt(ireg2)).*eye(n+r+l);\n    ABK "
+      "= [zeros(n) zeros(n,r) zeros(n,l)];\n    \n    if noD\n        % Initialisation the estimate of CD\n        Pcd "
+      "= (1/sqrt(ireg3)).*eye(n);\n        CD = zeros(l,n);\n    else\n        % Initialisation the estimate of CD and "
+      "e\n        Pcd = (1/sqrt(ireg3)).*eye(n+r);\n        CD = [zeros(l,n) zeros(l,r)];\n    end\n\n    % Store vecto"
+      "rs for next iteration\n    Y1 = zeros(l,1);\n    U1 = zeros(r,1);\n    X1 = zeros(n,1);\n    X = zeros(n,1);\n  "
+      "  E1 = zeros(l,1);\n    Zp = zeros(p*m,1); \n    \n    % Frequency grid\n    w = logspace(-1,1,300);\n    k = 1;"
+      "\n    start = 1;\nend\n\n% Start RPBSID iff ON is set\nif ON > 0.5\n    \n    % Scale input and output\n    U = "
+      "diag(1./diag(Du))*U;\n    Y = diag(1./diag(Dy))*Y;\n    \n    % New signal vector\n    Zp(1:(p-1)*m,1) = Zp(m+1:"
+      "p*m,1);\n    Zp((p-1)*m+1:p*m,1) = [U1; Y1; E1];\n    if noD\n        if off\n            Z = [Zp; 1];\n        "
+      "else\n            Z = Zp;\n        end\n    else\n        if off\n            Z = [Zp; U; 1];\n        else\n   "
+      "         Z = [Zp; U];\n        end\n    end\n\n    if (start < 0.5) || (k >= p)\n        % Solve Markov estimati"
+      "on problem recursively\n        if reg1 ~= 0\n            [VARX,Plk,saw] = inverseQRreg(Z,Y,VARX,Plk,lambda1,reg"
+      "1,saw);\n            E1 = Y - VARX*Z;\n        else\n            [VARX,Plk] = inverseQR(Z,Y,VARX,Plk,lambda1);\n"
+      "            E1 = Y - VARX*Z;\n        end\n    end\n    \n    if (start < 0.5) || (k >= startA*p)\n        % Con"
+      "struction of LambdaKappa\n        LK = zeros(f*l,p*m);\n        if ~weight\n            for i = 0:f-1\n         "
+      "       for h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+(1:m));\n                en"
+      "d\n            end\n        else\n            for i = 0:f-1\n                for h = 0:p-i-1\n                  "
+      "  LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+(1:m));\n                end\n                if i ~= 0\n            "
+      "        for j = 0:i-1\n                        LK(i*l+(1:l),:) = LK(i*l+(1:l),:) + VARX(:,(p-i+j)*m+r+(1:l))*LK("
+      "j*l+(1:l),:);\n                    end\n                end\n            end\n        end\n        \n        % T"
+      "he estimation of the state vector\n        X = W*LK*Zp;\n    end\n    \n    if (start < 0.5) || (k >= startA*p+1"
+      ")\n        % The estimation of the system matrices\n        if noD\n            [CD,Pcd] = inverseQR(X1,Y1,CD,Pc"
+      "d,lambda2);\n            R1 = Y1-CD*X1;\n        else\n            [CD,Pcd] = inverseQR([X1; U1],Y1,CD,Pcd,lambd"
+      "a2);\n            R1 = Y1-CD*[X1; U1];\n        end\n        [ABK,Pabk] = inverseQR([X1; U1; R1],X,ABK,Pabk,lamb"
+      "da3);\n    end\n        \n    % Store vectors and matrices for next iteration\n    if (start < 0.5) || (k >= sta"
+      "rtA*p)\n        X1 = X;\n    end\n    Y1 = Y;\n    U1 = U;\nend\n\n% Store state-space matrices\nA = ABK(:,1:n);"
+      "\nB = ABK(:,n+1:n+r)*diag(1./diag(Du));\nC = Dy*CD(:,1:n);\nif noD\n    D = zeros(l,r);\nelse\n    D = Dy*CD(:,n"
+      "+1:end)*diag(1./diag(Du));\nend\nK = ABK(:,n+r+1:n+r+l);\n\n% Calculate damping and frequencies\n[Wn,Zn] = damp("
+      "A,Ts);\n\n% Calculate frequency response\nWs = w(k);\nFs = real(abs(C*((exp(sqrt(complex(-1))*Ts*Ws*2*pi).*eye(n"
+      ") - A)\\B)+D));\nWs = log10(Ws);\nif Fs(1) < 1e-5\n    Fs1 = -100;\nelse\n    Fs1 = 20*log10(Fs(1));\nend\nif Fs"
+      "(2) < 1e-5\n    Fs2 = -100;\nelse\n    Fs2 = 20*log10(Fs(2));\nend\n\n% Update counter\nif k >= length(w)\n    s"
+      "tart = 0;\n    k = 1;\nelse\n    k = k+1;\nend\n\nend % END RPBSID\n\n\nfunction [theta,P,saw,R] = inverseQRreg("
+      "z,y,theta,P,lambda,reg,saw)\n%INVERSEQR Square-Root Recursive Least Squares update (inverse QR)\n[mz,nz] = size("
+      "z);\n\n% Do regularization update first\neta = zeros(mz,nz);\nif saw > (mz-0.5)\n   saw = 1;\nelse\n   saw = saw"
+      " + 1; \nend\neta(saw) = sqrt((1-lambda^mz)*reg);\netap = eta'*P;\nM = [eye(nz) etap; zeros(mz,nz) P];\nfor i = ("
+      "size(P,2)+nz):-1:2\n    % determine Givens rotation parameters\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n    "
+      "    % swap\n        h = M(:,i);\n        M(:,i) = -M(:,1);\n        M(:,1) = h;\n    else\n        % determine G"
+      "ivens rotation parameters\n        rho = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^2);\n        \n        % ap"
+      "ply givens rotation using mixed-downdating (more numeric stable)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n "
+      "       M(:,i) = -rho.*M(:,1) + c.*M(:,i);\n    end\nend\nP = M(nz+1:end,nz+1:end);\n\n% Do data update\nzp = z'*"
+      "P;\nM = [eye(nz) (zp)./sqrt(lambda); zeros(mz,nz) P./sqrt(lambda)];\nfor i = (size(P,2)+nz):-1:2\n    % determin"
+      "e Givens rotation parameters\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n        % swap\n        h = M(:,i);\n "
+      "       M(:,i) = -M(:,1);\n        M(:,1) = h;\n    else\n        % determine Givens rotation parameters\n       "
+      " rho = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^2);\n        \n        % apply givens rotation using mixed-do"
+      "wndating (more numeric stable)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n        M(:,i) = -rho.*M(:,1) + c.*"
+      "M(:,i);\n    end\nend\nG = M(nz+1:end,1:nz)/M(1:nz,1:nz);\nP = M(nz+1:end,nz+1:end);\nE = y - theta*z;\ntheta = "
+      "theta + E*G';\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend\n\nfunction [theta,P,R] = inverseQR(z,y,the"
+      "ta,P,lambda)\n%INVERSEQR Square-Root Recursive Least Squares update (inverse QR)\n\n[mz,nz] = size(z);\nzp = z'*"
+      "P;\nM = [eye(nz) (zp)./sqrt(lambda); zeros(mz,nz) P./sqrt(lambda)];\nfor i = (size(P,2)+nz):-1:2\n    % determin"
+      "e Givens rotation parameters\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n        % swap\n        h = M(:,i);\n "
+      "       M(:,i) = -M(:,1);\n        M(:,1) = h;\n    else\n        % determine Givens rotation parameters\n       "
+      " rho = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^2);\n        \n        % apply givens rotation using mixed-do"
+      "wndating (more numeric stable)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n        M(:,i) = -rho.*M(:,1) + c.*"
+      "M(:,i);\n    end\nend\nG = M(nz+1:end,1:nz)/M(1:nz,1:nz);\nP = M(nz+1:end,nz+1:end);\nE = y - theta*z;\ntheta = "
+      "theta + E*G';\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend\n\n\nfunction [wn,z] = damp(a,h)\n%DAMP  Na"
+      "tural frequency and damping\n\n% Calculate eigenvalues\nr = eig(a);\n[~,I] = sort(real(r));\nr = r(I);\n\n% Disc"
+      "rete: compute equivalent S-plane poles\nif any(r) == 0\n    z = zeros(size(r));\n    wn = zeros(size(r));\nelse\n"
+      "    s = log(r)/h;\n    f = abs(s);\n    wn = f;\n    z = -real(s)./f;\nend\nend\n\n%% UNCOMMENT THE LATTER FOR O"
+      "LDER MATLAB VERSIONS\n\n% function y = log10(x)\n% %LOG10  Common (base 10) logarithm.\n% y = log(x)/log(10);\n%"
+      " end\n\n% function E = eig(A)\n% % Compute eigenvalues of matrix\n% tol = 1e-4;\n% maxit = 20;\n% n = size(A,1);"
+      "\n% C = complex(A,zeros(n));\n% A1 = C(n,n);\n% E = complex(zeros(n,1),zeros(n,1));\n% I = eye(n);\n% for k2 = n"
+      ":-1:2\n%     k = 1;\n%     brk = 0;\n%     while k <= maxit && brk <= 0.5\n%         mu = qrshift(C(k2+(-1:0),k2"
+      "+(-1:0)));\n%         M = (C - mu(1).*I);\n%         [Q,R] = qr(M);\n%         C = (R*Q + mu(1).*I);\n%         "
+      "if abs(abs(A1)-abs(C(k2,k2))) < tol\n%             brk = 1;\n%             A1 = C(k2-1,k2-1);\n%         else\n%"
+      "             A1 = C(k2,k2);\n%         end\n%         k = k+1;\n%     end\n%     E(k2) = C(k2,k2);\n%     C(k2,1"
+      ":n) = 0;\n%     C(1:n,k2) = 0;\n%     I(k2,k2) = 0;\n% end\n% E(1) = C(1,1);\n% E = sort(E);\n% end\n\n% functio"
+      "n mu = qrshift(A)\n% % Compute the Wilkinson double shift\n% \n% trA = A(1,1) + A(2,2);\n% detA =  A(1,1)*A(2,2)"
+      " - A(1,2)*A(2,1);\n% \n% mu1 = 0.5*(trA + sqrt(trA^2-4*detA));\n% mu2 = 0.5*(trA - sqrt(trA^2-4*detA));\n% if ab"
+      "s(abs(A(2,2)) - abs(mu1)) < abs(abs(A(2,2)) - abs(mu2))\n%     mu = mu1;\n% else\n%     mu = mu2;\n% end\n% end"
+      editorLayout	      "100 M4x1[25 23 1288 1002]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    4
+    position		    [23.5747 49.5747 7]
+    chart		    2
+    linkNode		    [2 0 0]
+    subviewer		    2
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    5
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      4
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    2
+    linkNode		    [2 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    2
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    6
+    ssIdNumber		    20
+    name		    "ON"
+    linkNode		    [2 0 7]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    7
+    ssIdNumber		    21
+    name		    "RESET"
+    linkNode		    [2 6 8]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    8
+    ssIdNumber		    4
+    name		    "Ws"
+    linkNode		    [2 7 9]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    9
+    ssIdNumber		    5
+    name		    "Fs1"
+    linkNode		    [2 8 10]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    10
+    ssIdNumber		    6
+    name		    "Fs2"
+    linkNode		    [2 9 11]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    11
+    ssIdNumber		    7
+    name		    "U"
+    linkNode		    [2 10 12]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    12
+    ssIdNumber		    8
+    name		    "Y"
+    linkNode		    [2 11 13]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"2"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    13
+    ssIdNumber		    9
+    name		    "Wn"
+    linkNode		    [2 12 14]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    14
+    ssIdNumber		    10
+    name		    "Zn"
+    linkNode		    [2 13 15]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    15
+    ssIdNumber		    13
+    name		    "W"
+    linkNode		    [2 14 16]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 2
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    16
+    ssIdNumber		    18
+    name		    "Du"
+    linkNode		    [2 15 17]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    17
+    ssIdNumber		    19
+    name		    "Dy"
+    linkNode		    [2 16 0]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    18
+    name		    "RPBSID (VARMAX)\nSQUARE-ROOT ARRAY"
+    machine		    1
+    chart		    2
+  }
+  chart {
+    id			    19
+    name		    "RPBSID (VARX)\nSQUARE-ROOT ARRAY"
+    windowPosition	    [386.813 224.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 20 0 0]
+    firstTransition	    22
+    firstJunction	    21
+    viewObj		    19
+    machine		    1
+    ssIdHighWaterMark	    22
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    23
+    chartFileNumber	    2
+    disableImplicitCasting  1
+    eml {
+      name		      "rpbsid"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    20
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    19
+    treeNode		    [19 0 0 0]
+    superState		    SUBCHART
+    subviewer		    19
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [Ws,Fs1,Fs2,Wn,Zn] = rpbsid(ON,RESET,U,Y,W,Du,Dy)\n%RPBSID Closed-loop recursive predict"
+      "or-based subspace identification (VARX)\n\n% Input definitions\n% U input sample\n% Y output sample\n% W weight "
+      "matrix (from workspace)\n% Du input scaling matrix from sigscale (from workspace)\n% Dy output scaling matric fr"
+      "om sigscale (from workspace)\n\n% Common paremeters\nr = 1;         % number if inpuh\nl = 2;         % number o"
+      "f outpuh\nm = l+r;\nn = 7;         % number of states\nTs = 0.05;      % sample time\n\n% Parameters for identif"
+      "ication\np = 50;        % past window\nf = 50;        % future window\nnoD = 0;       % no direct feedtrough\nof"
+      "f = 1;       % remove offset in Markov estimation\nweight = 0;    % apply transformation filter\n\n% Parameters "
+      "for adaptive filters\nlambda1 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nlambda2 = 0.999; % initial"
+      " forgetting factor (~= 1 - 2/window)\nlambda3 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nireg1 = 10"
+      "0;     % initial regularisation\nireg2 = 1e-6;    % initial regularisation\nireg3 = 1e-6;    % initial regularis"
+      "ation\nreg1 = 1;        % initial regularisation\n\n% Initialization\nstartA = 3;\n\n% Initialize if needed\nper"
+      "sistent Plk VARX LK Pcd Pabk ABK CD U1 Y1 X X1 Zp w k start saw\nif isempty(Plk)\n    % Initialisation of Markov"
+      " estimation problem\n    if noD\n        if off\n            Plk = (1/sqrt(ireg1)).*eye(p*m+1);\n            VAR"
+      "X = zeros(l,p*m+1);\n        else\n            Plk = (1/sqrt(ireg1)).*eye(p*m);\n            VARX = zeros(l,p*m)"
+      ";\n        end\n    else\n        if off\n            Plk = (1/sqrt(ireg1)).*eye(p*m+r+1);\n            VARX = z"
+      "eros(l,p*m+r+1);\n        else\n            Plk = (1/sqrt(ireg1)).*eye(p*m+r);\n            VARX = zeros(l,p*m+r"
+      ");\n        end\n    end\n    saw = 0;\n    \n    % Initialisation of the LambdaKappa\n    LK = zeros(f*l,m*p);\n"
+      "    \n    % Initialisation the estimate of ABK\n    Pabk = (1/sqrt(ireg2)).*eye(n+r+l);\n    ABK = [zeros(n) zer"
+      "os(n,r) zeros(n,l)];\n    \n    if noD\n        % Initialisation the estimate of CD\n        Pcd = (1/sqrt(ireg3"
+      ")).*eye(n);\n        CD = zeros(l,n);\n    else\n        % Initialisation the estimate of CD and e\n        Pcd "
+      "= (1/sqrt(ireg3)).*eye(n+r);\n        CD = [zeros(l,n) zeros(l,r)];\n    end\n\n    % Store vectors for next ite"
+      "ration\n    Y1 = zeros(l,1);\n    U1 = zeros(r,1);\n    X1 = zeros(n,1);\n    X = zeros(n,1);\n    Zp = zeros(p*"
+      "m,1); \n    \n    % Frequency grid\n    w = logspace(-1,1,300);\n    k = 1;\n    start = 1;\nend\n\n% Start RPBS"
+      "ID iff ON is set\nif ON > 0.5\n    \n    % Scale input and output\n    U = diag(1./diag(Du))*U;\n    Y = diag(1."
+      "/diag(Dy))*Y;\n    \n    % New signal vector\n    Zp(1:(p-1)*m,1) = Zp(m+1:p*m,1);\n    Zp((p-1)*m+1:p*m,1) = [U"
+      "1; Y1];\n    if noD\n        if off\n            Z = [Zp; 1];\n        else\n            Z = Zp;\n        end\n "
+      "   else\n        if off\n            Z = [Zp; U; 1];\n        else\n            Z = [Zp; U];\n        end\n    e"
+      "nd\n\n    if (start < 0.5) || (k >= p)\n        % Solve Markov estimation problem recursively\n        if reg1 ~"
+      "= 0\n            [VARX,Plk,saw] = inverseQRreg(Z,Y,VARX,Plk,lambda1,reg1,saw);\n        else\n            [VARX,"
+      "Plk] = inverseQR(Z,Y,VARX,Plk,lambda1);\n        end\n    end\n    \n    if (start < 0.5) || (k >= startA*p)\n  "
+      "      % Construction of LambdaKappa\n        LK = zeros(f*l,p*m);\n        if ~weight\n            for i = 0:f-1"
+      "\n                for h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+(1:m));\n       "
+      "         end\n            end\n        else\n            for i = 0:f-1\n                for h = 0:p-i-1\n       "
+      "             LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+(1:m));\n                end\n                if i ~= 0\n "
+      "                   for j = 0:i-1\n                        LK(i*l+(1:l),:) = LK(i*l+(1:l),:) + VARX(:,(p-i+j)*m+r"
+      "+(1:l))*LK(j*l+(1:l),:);\n                    end\n                end\n            end\n        end\n        \n"
+      "        % The estimation of the state vector\n        X = W*LK*Zp;\n    end\n    \n    if (start < 0.5) || (k >="
+      " startA*p+1)\n        % The estimation of the system matrices\n        if noD\n            [CD,Pcd] = inverseQR("
+      "X1,Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*X1;\n        else\n            [CD,Pcd] = inverseQR([X1; U1],Y1,C"
+      "D,Pcd,lambda2);\n            R1 = Y1-CD*[X1; U1];\n        end\n        [ABK,Pabk] = inverseQR([X1; U1; R1],X,AB"
+      "K,Pabk,lambda3);\n    end\n        \n    % Store vectors and matrices for next iteration\n    if (start < 0.5) |"
+      "| (k >= startA*p)\n        X1 = X;\n    end\n    Y1 = Y;\n    U1 = U;\nend\n\n% Store state-space matrices\nA = "
+      "ABK(:,1:n);\nB = ABK(:,n+1:n+r)*diag(1./diag(Du));\nC = Dy*CD(:,1:n);\nif noD\n    D = zeros(l,r);\nelse\n    D "
+      "= Dy*CD(:,n+1:end)*diag(1./diag(Du));\nend\nK = ABK(:,n+r+1:n+r+l);\n\n% Calculate damping and frequencies\n[Wn,"
+      "Zn] = damp(A,Ts);\n\n% Calculate frequency response\nWs = w(k);\nFs = real(abs(C*((exp(sqrt(complex(-1))*Ts*Ws*2"
+      "*pi).*eye(n) - A)\\B)+D));\nWs = log10(Ws);\nif Fs(1) < 1e-5\n    Fs1 = -100;\nelse\n    Fs1 = 20*log10(Fs(1));\n"
+      "end\nif Fs(2) < 1e-5\n    Fs2 = -100;\nelse\n    Fs2 = 20*log10(Fs(2));\nend\n\n% Update counter\nif k >= length"
+      "(w)\n    start = 0;\n    k = 1;\nelse\n    k = k+1;\nend\n\nend % END RPBSID\n\n\nfunction [theta,P,saw,R] = inv"
+      "erseQRreg(z,y,theta,P,lambda,reg,saw)\n%INVERSEQR Square-Root Recursive Least Squares update (inverse QR)\n[mz,n"
+      "z] = size(z);\n\n% Do regularization update first\neta = zeros(mz,nz);\nif saw > (mz-0.5)\n   saw = 1;\nelse\n  "
+      " saw = saw + 1; \nend\neta(saw) = sqrt((1-lambda^mz)*reg);\nM = [eye(nz) eta'*P; zeros(mz,nz) P];\nfor i = (size"
+      "(P,2)+nz):-1:2\n    % determine Givens rotation parameters\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n        "
+      "% swap\n        h = M(:,i);\n        M(:,i) = -M(:,1);\n        M(:,1) = h;\n    else\n        % determine Given"
+      "s rotation parameters\n        rho = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^2);\n        \n        % apply "
+      "givens rotation using mixed-downdating (more numeric stable)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n     "
+      "   M(:,i) = -rho.*M(:,1) + c.*M(:,i);\n    end\nend\nP = M(nz+1:end,nz+1:end);\n\n% Do data update\nzp = z'*P;\n"
+      "M = [eye(nz) (zp)./sqrt(lambda); zeros(mz,nz) P./sqrt(lambda)];\nfor i = (size(P,2)+nz):-1:2\n    % determine Gi"
+      "vens rotation parameters\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n        % swap\n        h = M(:,i);\n     "
+      "   M(:,i) = -M(:,1);\n        M(:,1) = h;\n    else\n        % determine Givens rotation parameters\n        rho"
+      " = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^2);\n        \n        % apply givens rotation using mixed-downda"
+      "ting (more numeric stable)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n        M(:,i) = -rho.*M(:,1) + c.*M(:,"
+      "i);\n    end\nend\nG = M(nz+1:end,1:nz)/M(1:nz,1:nz);\nP = M(nz+1:end,nz+1:end);\nE = y - theta*z;\ntheta = thet"
+      "a + E*G';\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend\n\nfunction [theta,P,R] = inverseQR(z,y,theta,P"
+      ",lambda)\n%INVERSEQR Square-Root Recursive Least Squares update (inverse QR)\n\n[mz,nz] = size(z);\nzp = z'*P;\n"
+      "M = [eye(nz) (zp)./sqrt(lambda); zeros(mz,nz) P./sqrt(lambda)];\nfor i = (size(P,2)+nz):-1:2\n    % determine Gi"
+      "vens rotation parameters\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n        % swap\n        h = M(:,i);\n     "
+      "   M(:,i) = -M(:,1);\n        M(:,1) = h;\n    else\n        % determine Givens rotation parameters\n        rho"
+      " = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^2);\n        \n        % apply givens rotation using mixed-downda"
+      "ting (more numeric stable)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n        M(:,i) = -rho.*M(:,1) + c.*M(:,"
+      "i);\n    end\nend\nG = M(nz+1:end,1:nz)/M(1:nz,1:nz);\nP = M(nz+1:end,nz+1:end);\nE = y - theta*z;\ntheta = thet"
+      "a + E*G';\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend\n\n\nfunction [wn,z] = damp(a,Ts)\n%DAMP  Natur"
+      "al frequency and damping\n\n% Calculate eigenvalues\nr = eig(a);\n[~,I] = sort(real(r));\nr = r(I);\n\n% Discret"
+      "e: compute equivalent S-plane poles\nif any(r) == 0\n    z = zeros(size(r));\n    wn = zeros(size(r));\nelse\n  "
+      "  s = log(r)/Ts;\n    f = abs(s);\n    wn = f;\n    z = -real(s)./f;\nend\nend\n\n%% UNCOMMENT THE LATTER FOR OL"
+      "DER MATLAB VERSIONS\n\n% function y = log10(x)\n% %LOG10  Common (base 10) logarithm.\n% y = log(x)/log(10);\n% "
+      "end\n\n% function E = eig(A)\n% % Compute eigenvalues of matrix\n% tol = 1e-4;\n% maxit = 20;\n% n = size(A,1);\n"
+      "% C = complex(A,zeros(n));\n% A1 = C(n,n);\n% E = complex(zeros(n,1),zeros(n,1));\n% I = eye(n);\n% for k2 = n:-"
+      "1:2\n%     k = 1;\n%     brk = 0;\n%     while k <= maxit && brk <= 0.5\n%         mu = qrshift(C(k2+(-1:0),k2+("
+      "-1:0)));\n%         M = (C - mu(1).*I);\n%         [Q,R] = qr(M);\n%         C = (R*Q + mu(1).*I);\n%         if"
+      " abs(abs(A1)-abs(C(k2,k2))) < tol\n%             brk = 1;\n%             A1 = C(k2-1,k2-1);\n%         else\n%  "
+      "           A1 = C(k2,k2);\n%         end\n%         k = k+1;\n%     end\n%     E(k2) = C(k2,k2);\n%     C(k2,1:n"
+      ") = 0;\n%     C(1:n,k2) = 0;\n%     I(k2,k2) = 0;\n% end\n% E(1) = C(1,1);\n% E = sort(E);\n% end\n\n% function "
+      "mu = qrshift(A)\n% % Compute the Wilkinson double shift\n% \n% trA = A(1,1) + A(2,2);\n% detA =  A(1,1)*A(2,2) -"
+      " A(1,2)*A(2,1);\n% \n% mu1 = 0.5*(trA + sqrt(trA^2-4*detA));\n% mu2 = 0.5*(trA - sqrt(trA^2-4*detA));\n% if abs("
+      "abs(A(2,2)) - abs(mu1)) < abs(abs(A(2,2)) - abs(mu2))\n%     mu = mu1;\n% else\n%     mu = mu2;\n% end\n% end"
+      editorLayout	      "100 M4x1[3 39 1292 1036]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    21
+    position		    [23.5747 49.5747 7]
+    chart		    19
+    linkNode		    [19 0 0]
+    subviewer		    19
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    22
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      21
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    19
+    linkNode		    [19 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    19
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    23
+    ssIdNumber		    20
+    name		    "ON"
+    linkNode		    [19 0 24]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    24
+    ssIdNumber		    22
+    name		    "RESET"
+    linkNode		    [19 23 25]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    25
+    ssIdNumber		    4
+    name		    "Ws"
+    linkNode		    [19 24 26]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    26
+    ssIdNumber		    5
+    name		    "Fs1"
+    linkNode		    [19 25 27]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    27
+    ssIdNumber		    6
+    name		    "Fs2"
+    linkNode		    [19 26 28]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    28
+    ssIdNumber		    7
+    name		    "U"
+    linkNode		    [19 27 29]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    29
+    ssIdNumber		    8
+    name		    "Y"
+    linkNode		    [19 28 30]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"2"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    30
+    ssIdNumber		    9
+    name		    "Wn"
+    linkNode		    [19 29 31]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    31
+    ssIdNumber		    10
+    name		    "Zn"
+    linkNode		    [19 30 32]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    32
+    ssIdNumber		    13
+    name		    "W"
+    linkNode		    [19 31 33]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 2
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    33
+    ssIdNumber		    18
+    name		    "Du"
+    linkNode		    [19 32 34]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    34
+    ssIdNumber		    19
+    name		    "Dy"
+    linkNode		    [19 33 0]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    35
+    name		    "RPBSID (VARX)\nSQUARE-ROOT ARRAY"
+    machine		    1
+    chart		    19
+  }
+  chart {
+    id			    36
+    name		    "RPBSID (VARX)\nTRADITIONAL RLS"
+    windowPosition	    [386.813 224.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 37 0 0]
+    firstTransition	    39
+    firstJunction	    38
+    viewObj		    36
+    machine		    1
+    ssIdHighWaterMark	    22
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    40
+    chartFileNumber	    3
+    disableImplicitCasting  1
+    eml {
+      name		      "rpbsid"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    37
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    36
+    treeNode		    [36 0 0 0]
+    superState		    SUBCHART
+    subviewer		    36
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [Ws,Fs1,Fs2,Wn,Zn] = rpbsid(ON,RESET,U,Y,W,Du,Dy)\n%RPBSID Closed-loop recursive predict"
+      "or-based subspace identification (VARX)\n\n% Input definitions\n% U input sample\n% Y output sample\n% W weight "
+      "matrix (from workspace)\n% Du input scaling matrix from sigscale (from workspace)\n% Dy output scaling matric fr"
+      "om sigscale (from workspace)\n\n% Common paremeters\nr = 1;         % number if inpuh\nl = 2;         % number o"
+      "f outpuh\nm = l+r;\nn = 7;         % number of states\nTs = 0.05;      % sample time\n\n% Parameters for identif"
+      "ication\np = 50;        % past window\nf = 50;        % future window\nnoD = 0;       % no direct feedtrough\nof"
+      "f = 1;       % remove offset in Markov estimation\nweight = 0;    % apply transformation filter\n\n% Parameters "
+      "for adaptive filters\nlambda1 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nlambda2 = 0.999; % initial"
+      " forgetting factor (~= 1 - 2/window)\nlambda3 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nireg1 = 10"
+      "0;     % initial regularisation\nireg2 = 1e-6;    % initial regularisation\nireg3 = 1e-6;    % initial regularis"
+      "ation\nreg1 = 1;        % initial regularisation\n\n% Initialization\nstartA = 3;\n\n% Initialize if needed\nper"
+      "sistent Plk VARX LK Pcd Pabk ABK CD U1 Y1 X X1 Zp w k start saw\nif isempty(Plk)\n    % Initialisation of Markov"
+      " estimation problem\n    if noD\n        if off\n            Plk = (1/ireg1).*eye(p*m+1);\n            VARX = ze"
+      "ros(l,p*m+1);\n        else\n            Plk = (1/ireg1).*eye(p*m);\n            VARX = zeros(l,p*m);\n        e"
+      "nd\n    else\n        if off\n            Plk = (1/ireg1).*eye(p*m+r+1);\n            VARX = zeros(l,p*m+r+1);\n"
+      "        else\n            Plk = (1/ireg1).*eye(p*m+r);\n            VARX = zeros(l,p*m+r);\n        end\n    end"
+      "\n    saw = 0;\n    \n    % Initialisation of the LambdaKappa\n    LK = zeros(f*l,m*p);\n    \n    % Initialisat"
+      "ion the estimate of ABK\n    Pabk = (1/ireg2).*eye(n+r+l);\n    ABK = [zeros(n) zeros(n,r) zeros(n,l)];\n    \n "
+      "   if noD\n        % Initialisation the estimate of CD\n        Pcd = (1/ireg3).*eye(n);\n        CD = zeros(l,n"
+      ");\n    else\n        % Initialisation the estimate of CD and e\n        Pcd = (1/ireg3).*eye(n+r);\n        CD "
+      "= [zeros(l,n) zeros(l,r)];\n    end\n\n    % Store vectors for next iteration\n    Y1 = zeros(l,1);\n    U1 = ze"
+      "ros(r,1);\n    X1 = zeros(n,1);\n    X = zeros(n,1);\n    Zp = zeros(p*m,1); \n    \n    % Frequency grid\n    w"
+      " = logspace(-1,1,300);\n    k = 1;\n    start = 1;\nend\n\n% Start RPBSID iff ON is set\nif ON > 0.5\n    \n    "
+      "% Scale input and output\n    U = diag(1./diag(Du))*U;\n    Y = diag(1./diag(Dy))*Y;\n    \n    % New signal vec"
+      "tor\n    Zp(1:(p-1)*m,1) = Zp(m+1:p*m,1);\n    Zp((p-1)*m+1:p*m,1) = [U1; Y1];\n    if noD\n        if off\n    "
+      "        Z = [Zp; 1];\n        else\n            Z = Zp;\n        end\n    else\n        if off\n            Z = "
+      "[Zp; U; 1];\n        else\n            Z = [Zp; U];\n        end\n    end\n\n    if (start < 0.5) || (k >= p)\n "
+      "       % Solve Markov estimation problem recursively\n        if reg1 ~= 0\n            [VARX,Plk,saw] = rls_ew_"
+      "reg(Z,Y,VARX,Plk,lambda1,reg1,saw);\n        else\n            [VARX,Plk] = rls_ew(Z,Y,VARX,Plk,lambda1);\n     "
+      "   end\n    end\n    \n    if (start < 0.5) || (k >= startA*p)\n        % Construction of LambdaKappa\n        L"
+      "K = zeros(f*l,p*m);\n        if ~weight\n            for i = 0:f-1\n                for h = 0:p-i-1\n           "
+      "         LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+(1:m));\n                end\n            end\n        else\n "
+      "           for i = 0:f-1\n                for h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VAR"
+      "X(:,h*m+(1:m));\n                end\n                if i ~= 0\n                    for j = 0:i-1\n            "
+      "            LK(i*l+(1:l),:) = LK(i*l+(1:l),:) + VARX(:,(p-i+j)*m+r+(1:l))*LK(j*l+(1:l),:);\n                    "
+      "end\n                end\n            end\n        end\n        \n        % The estimation of the state vector\n"
+      "        X = W*LK*Zp;\n    end\n    \n    if (start < 0.5) || (k >= startA*p+1)\n        % The estimation of the "
+      "system matrices\n        if noD\n            [CD,Pcd] = rls_ew(X1,Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*X1"
+      ";\n        else\n            [CD,Pcd] = rls_ew([X1; U1],Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*[X1; U1];\n "
+      "       end\n        [ABK,Pabk] = rls_ew([X1; U1; R1],X,ABK,Pabk,lambda3);\n    end\n        \n    % Store vector"
+      "s and matrices for next iteration\n    if (start < 0.5) || (k >= startA*p)\n        X1 = X;\n    end\n    Y1 = Y"
+      ";\n    U1 = U;\nend\n\n% Store state-space matrices\nA = ABK(:,1:n);\nB = ABK(:,n+1:n+r)*diag(1./diag(Du));\nC ="
+      " Dy*CD(:,1:n);\nif noD\n    D = zeros(l,r);\nelse\n    D = Dy*CD(:,n+1:end)*diag(1./diag(Du));\nend\nK = ABK(:,n"
+      "+r+1:n+r+l);\n\n% Calculate damping and frequencies\n[Wn,Zn] = damp(A,Ts);\n\n% Calculate frequency response\nWs"
+      " = w(k);\nFs = real(abs(C*((exp(sqrt(complex(-1))*Ts*Ws*2*pi).*eye(n) - A)\\B)+D));\nWs = log10(Ws);\nif Fs(1) <"
+      " 1e-5\n    Fs1 = -100;\nelse\n    Fs1 = 20*log10(Fs(1));\nend\nif Fs(2) < 1e-5\n    Fs2 = -100;\nelse\n    Fs2 ="
+      " 20*log10(Fs(2));\nend\n\n% Update counter\nif k >= length(w)\n    start = 0;\n    k = 1;\nelse\n    k = k+1;\ne"
+      "nd\n\nend % END RPBSID\n\n\nfunction [theta,P,saw,R] = rls_ew_reg(z,y,theta,P,lambda,reg,saw)\n%RLS_EW Exponenti"
+      "ally Weighted RLS iteration\n%  [THETA,P,R]=RLS_EW(Z,Y,THETA,P,LAMBDA) applies one iteration of\n%  exponentiall"
+      "y weighted regularized least-squares problem. In recursive\n%  least-squares, we deal with the issue of an incea"
+      "sing amount of date Z\n%  and Y. At each iteration, THETA is the solution. The scalar LAMBDA is\n%  called the f"
+      "orgetting factor since past data are exponentially weighted\n%  less heavily than more recent data.\n\n%  Ivo Ho"
+      "utzager\n%  Delft Center of Systems and Control\n%  The Netherlands, 2010\n\n% Do regularization update first\n["
+      "mz,nz] = size(z);\neta = zeros(mz,nz);\nif saw > (mz-0.5)\n   saw = 1;\nelse\n   saw = saw + 1; \nend\neta(saw) "
+      "= sqrt((1-lambda^mz)*reg);\nP = (P - P*(eta*eta')*P./(1 + eta'*P*eta));\n\n% Exponentially-Weighted, Tracking, R"
+      "egularized, Least-Squares Iteration\nP = (1/lambda).*(P - P*(z*z')*P./(lambda + z'*P*z));\nP = 0.5.*(P+P'); % fo"
+      "rce symmetric\ne = y - theta*z;\ntheta = theta + e*z'*P;\n\nif nargout == 3\n    R = norm(y - theta*z);\nend\nen"
+      "d % end of function RLS_EW\n\nfunction [theta,P,R] = rls_ew(z,y,theta,P,lambda)\n%RLS_EW Exponentially Weighted "
+      "RLS iteration\n%  [THETA,P,R]=RLS_EW(Z,Y,THETA,P,LAMBDA) applies one iteration of\n%  exponentially weighted reg"
+      "ularized least-squares problem. In recursive\n%  least-squares, we deal with the issue of an inceasing amount of"
+      " date Z\n%  and Y. At each iteration, THETA is the solution. The scalar LAMBDA is\n%  called the forgetting fact"
+      "or since past data are exponentially weighted\n%  less heavily than more recent data.\n\n%  Ivo Houtzager\n%  De"
+      "lft Center of Systems and Control\n%  The Netherlands, 2010\n\n% Exponentially-Weighted, Tracking, Regularized, "
+      "Least-Squares Iteration\nP = (1/lambda).*(P - P*(z*z')*P./(lambda + z'*P*z));\nP = 0.5.*(P+P'); % force symmetri"
+      "c\ne = y - theta*z;\ntheta = theta + e*z'*P;\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend % end of fun"
+      "ction RLS_EW\n\n\nfunction [wn,z] = damp(a,Ts)\n%DAMP  Natural frequency and damping\n\n% Calculate eigenvalues\n"
+      "r = eig(a);\n[~,I] = sort(real(r));\nr = r(I);\n\n% Discrete: compute equivalent S-plane poles\nif any(r) == 0\n"
+      "    z = zeros(size(r));\n    wn = zeros(size(r));\nelse\n    s = log(r)/Ts;\n    f = abs(s);\n    wn = f;\n    z"
+      " = -real(s)./f;\nend\nend\n\n%% UNCOMMENT THE LATTER FOR OLDER MATLAB VERSIONS\n\n% function y = log10(x)\n% %LO"
+      "G10  Common (base 10) logarithm.\n% y = log(x)/log(10);\n% end\n\n% function E = eig(A)\n% % Compute eigenvalues"
+      " of matrix\n% tol = 1e-4;\n% maxit = 20;\n% n = size(A,1);\n% C = complex(A,zeros(n));\n% A1 = C(n,n);\n% E = co"
+      "mplex(zeros(n,1),zeros(n,1));\n% I = eye(n);\n% for k2 = n:-1:2\n%     k = 1;\n%     brk = 0;\n%     while k <= "
+      "maxit && brk <= 0.5\n%         mu = qrshift(C(k2+(-1:0),k2+(-1:0)));\n%         M = (C - mu(1).*I);\n%         ["
+      "Q,R] = qr(M);\n%         C = (R*Q + mu(1).*I);\n%         if abs(abs(A1)-abs(C(k2,k2))) < tol\n%             brk"
+      " = 1;\n%             A1 = C(k2-1,k2-1);\n%         else\n%             A1 = C(k2,k2);\n%         end\n%         "
+      "k = k+1;\n%     end\n%     E(k2) = C(k2,k2);\n%     C(k2,1:n) = 0;\n%     C(1:n,k2) = 0;\n%     I(k2,k2) = 0;\n%"
+      " end\n% E(1) = C(1,1);\n% E = sort(E);\n% end\n\n% function mu = qrshift(A)\n% % Compute the Wilkinson double sh"
+      "ift\n% \n% trA = A(1,1) + A(2,2);\n% detA =  A(1,1)*A(2,2) - A(1,2)*A(2,1);\n% \n% mu1 = 0.5*(trA + sqrt(trA^2-4"
+      "*detA));\n% mu2 = 0.5*(trA - sqrt(trA^2-4*detA));\n% if abs(abs(A(2,2)) - abs(mu1)) < abs(abs(A(2,2)) - abs(mu2)"
+      ")\n%     mu = mu1;\n% else\n%     mu = mu2;\n% end\n% end"
+      editorLayout	      "100 M4x1[3 39 1292 1036]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    38
+    position		    [23.5747 49.5747 7]
+    chart		    36
+    linkNode		    [36 0 0]
+    subviewer		    36
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    39
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      38
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    36
+    linkNode		    [36 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    36
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    40
+    ssIdNumber		    20
+    name		    "ON"
+    linkNode		    [36 0 41]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    41
+    ssIdNumber		    22
+    name		    "RESET"
+    linkNode		    [36 40 42]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    42
+    ssIdNumber		    4
+    name		    "Ws"
+    linkNode		    [36 41 43]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    43
+    ssIdNumber		    5
+    name		    "Fs1"
+    linkNode		    [36 42 44]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    44
+    ssIdNumber		    6
+    name		    "Fs2"
+    linkNode		    [36 43 45]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    45
+    ssIdNumber		    7
+    name		    "U"
+    linkNode		    [36 44 46]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    46
+    ssIdNumber		    8
+    name		    "Y"
+    linkNode		    [36 45 47]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"2"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    47
+    ssIdNumber		    9
+    name		    "Wn"
+    linkNode		    [36 46 48]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    48
+    ssIdNumber		    10
+    name		    "Zn"
+    linkNode		    [36 47 49]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    49
+    ssIdNumber		    13
+    name		    "W"
+    linkNode		    [36 48 50]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 2
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    50
+    ssIdNumber		    18
+    name		    "Du"
+    linkNode		    [36 49 51]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    51
+    ssIdNumber		    19
+    name		    "Dy"
+    linkNode		    [36 50 0]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    52
+    name		    "RPBSID (VARX)\nTRADITIONAL RLS"
+    machine		    1
+    chart		    36
+  }
+  chart {
+    id			    53
+    name		    "RPBSID (VARMAX)\nTRADITIONAL RLS"
+    windowPosition	    [431.813 179.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 54 0 0]
+    firstTransition	    56
+    firstJunction	    55
+    viewObj		    53
+    machine		    1
+    ssIdHighWaterMark	    21
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    57
+    chartFileNumber	    4
+    disableImplicitCasting  1
+    eml {
+      name		      "rpbsid"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    54
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    53
+    treeNode		    [53 0 0 0]
+    superState		    SUBCHART
+    subviewer		    53
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [Ws,Fs1,Fs2,Wn,Zn] = rpbsid(ON,RESET,U,Y,W,Du,Dy)\n%RPBSID Closed-loop recursive predict"
+      "or-based subspace identification (VARX)\n\n% Input definitions\n% U input sample\n% Y output sample\n% W weight "
+      "matrix (from workspace)\n% Du input scaling matrix from sigscale (from workspace)\n% Dy output scaling matric fr"
+      "om sigscale (from workspace)\n\n% Common paremeters\nr = 1;         % number if inpuh\nl = 2;         % number o"
+      "f outpuh\nm = 2*l+r;\nn = 7;         % number of states\nTs = 0.05;      % sample time\n\n% Parameters for ident"
+      "ification\np = 50;        % past window\nf = 50;        % future window\nnoD = 0;       % no direct feedtrough\n"
+      "off = 1;       % remove offset in Markov estimation\nweight = 0;    % apply transformation filter\n\n% Parameter"
+      "s for adaptive filters\nlambda1 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nlambda2 = 0.999; % initi"
+      "al forgetting factor (~= 1 - 2/window)\nlambda3 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nireg1 = "
+      "100;     % initial regularisation\nireg2 = 1e-6;    % initial regularisation\nireg3 = 1e-6;    % initial regular"
+      "isation\nreg1 = 1;        % initial regularisation\n\n% Initialization\nstartA = 3;\n\n% Initialize if needed\np"
+      "ersistent Plk VARX LK Pcd Pabk ABK CD U1 Y1 X X1 E1 Zp w k start saw\nif isempty(Plk) || RESET\n    % Initialisa"
+      "tion of Markov estimation problem\n    if noD\n        if off\n            Plk = (1/ireg1).*eye(p*m+1);\n       "
+      "     VARX = zeros(l,p*m+1);\n        else\n            Plk = (1/ireg1).*eye(p*m);\n            VARX = zeros(l,p*"
+      "m);\n        end\n    else\n        if off\n            Plk = (1/ireg1).*eye(p*m+r+1);\n            VARX = zeros"
+      "(l,p*m+r+1);\n        else\n            Plk = (1/ireg1).*eye(p*m+r);\n            VARX = zeros(l,p*m+r);\n      "
+      "  end\n    end\n    saw = 0;\n    \n    % Initialisation of the LambdaKappa\n    LK = zeros(f*l,m*p);\n    \n   "
+      " % Initialisation the estimate of ABK\n    Pabk = (1/ireg2).*eye(n+r+l);\n    ABK = [zeros(n) zeros(n,r) zeros(n"
+      ",l)];\n    \n    if noD\n        % Initialisation the estimate of CD\n        Pcd = (1/ireg3).*eye(n);\n        "
+      "CD = zeros(l,n);\n    else\n        % Initialisation the estimate of CD and e\n        Pcd = (1/ireg3).*eye(n+r)"
+      ";\n        CD = [zeros(l,n) zeros(l,r)];\n    end\n\n    % Store vectors for next iteration\n    Y1 = zeros(l,1)"
+      ";\n    U1 = zeros(r,1);\n    X1 = zeros(n,1);\n    X = zeros(n,1);\n    E1 = zeros(l,1);\n    Zp = zeros(p*m,1);"
+      " \n    \n    % Frequency grid\n    w = logspace(-1,1,300);\n    k = 1;\n    start = 1;\nend\n\n% Start RPBSID if"
+      "f ON is set\nif ON > 0.5\n    \n    % Scale input and output\n    U = diag(1./diag(Du))*U;\n    Y = diag(1./diag"
+      "(Dy))*Y;\n    \n    % New signal vector\n    Zp(1:(p-1)*m,1) = Zp(m+1:p*m,1);\n    Zp((p-1)*m+1:p*m,1) = [U1; Y1"
+      "; E1];\n    if noD\n        if off\n            Z = [Zp; 1];\n        else\n            Z = Zp;\n        end\n  "
+      "  else\n        if off\n            Z = [Zp; U; 1];\n        else\n            Z = [Zp; U];\n        end\n    en"
+      "d\n\n    if (start < 0.5) || (k >= p)\n        % Solve Markov estimation problem recursively\n        if reg1 ~="
+      " 0\n            [VARX,Plk,saw] = rls_ew_reg(Z,Y,VARX,Plk,lambda1,reg1,saw);\n            E1 = Y - VARX*Z;\n     "
+      "   else\n            [VARX,Plk] = rls_ew_reg(Z,Y,VARX,Plk,lambda1);\n            E1 = Y - VARX*Z;\n        end\n"
+      "    end\n    \n    if (start < 0.5) || (k >= startA*p)\n        % Construction of LambdaKappa\n        LK = zero"
+      "s(f*l,p*m);\n        if ~weight\n            for i = 0:f-1\n                for h = 0:p-i-1\n                   "
+      " LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+(1:m));\n                end\n            end\n        else\n         "
+      "   for i = 0:f-1\n                for h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX(:,h*m+"
+      "(1:m));\n                end\n                if i ~= 0\n                    for j = 0:i-1\n                    "
+      "    LK(i*l+(1:l),:) = LK(i*l+(1:l),:) + VARX(:,(p-i+j)*m+r+(1:l))*LK(j*l+(1:l),:);\n                    end\n   "
+      "             end\n            end\n        end\n        \n        % The estimation of the state vector\n        "
+      "X = W*LK*Zp;\n    end\n    \n    if (start < 0.5) || (k >= startA*p+1)\n        % The estimation of the system m"
+      "atrices\n        if noD\n            [CD,Pcd] = rls_ew(X1,Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*X1;\n     "
+      "   else\n            [CD,Pcd] = rls_ew([X1; U1],Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*[X1; U1];\n        e"
+      "nd\n        [ABK,Pabk] = rls_ew([X1; U1; R1],X,ABK,Pabk,lambda3);\n    end\n        \n    % Store vectors and ma"
+      "trices for next iteration\n    if (start < 0.5) || (k >= startA*p)\n        X1 = X;\n    end\n    Y1 = Y;\n    U"
+      "1 = U;\nend\n\n% Store state-space matrices\nA = ABK(:,1:n);\nB = ABK(:,n+1:n+r)*diag(1./diag(Du));\nC = Dy*CD(:"
+      ",1:n);\nif noD\n    D = zeros(l,r);\nelse\n    D = Dy*CD(:,n+1:end)*diag(1./diag(Du));\nend\nK = ABK(:,n+r+1:n+r"
+      "+l);\n\n% Calculate damping and frequencies\n[Wn,Zn] = damp(A,Ts);\n\n% Calculate frequency response\nWs = w(k);"
+      "\nFs = real(abs(C*((exp(sqrt(complex(-1))*Ts*Ws*2*pi).*eye(n) - A)\\B)+D));\nWs = log10(Ws);\nif Fs(1) < 1e-5\n "
+      "   Fs1 = -100;\nelse\n    Fs1 = 20*log10(Fs(1));\nend\nif Fs(2) < 1e-5\n    Fs2 = -100;\nelse\n    Fs2 = 20*log1"
+      "0(Fs(2));\nend\n\n% Update counter\nif k >= length(w)\n    start = 0;\n    k = 1;\nelse\n    k = k+1;\nend\n\nen"
+      "d % END RPBSID\n\n\nfunction [theta,P,saw,R] = rls_ew_reg(z,y,theta,P,lambda,reg,saw)\n%RLS_EW Exponentially Wei"
+      "ghted RLS iteration\n%  [THETA,P,R]=RLS_EW(Z,Y,THETA,P,LAMBDA) applies one iteration of\n%  exponentially weight"
+      "ed regularized least-squares problem. In recursive\n%  least-squares, we deal with the issue of an inceasing amo"
+      "unt of date Z\n%  and Y. At each iteration, THETA is the solution. The scalar LAMBDA is\n%  called the forgettin"
+      "g factor since past data are exponentially weighted\n%  less heavily than more recent data.\n\n%  Ivo Houtzager\n"
+      "%  Delft Center of Systems and Control\n%  The Netherlands, 2010\n\n% Do regularization update first\n[mz,nz] = "
+      "size(z);\neta = zeros(mz,nz);\nif saw > (mz-0.5)\n   saw = 1;\nelse\n   saw = saw + 1; \nend\neta(saw) = sqrt((1"
+      "-lambda^mz)*reg);\nP = (P - P*(eta*eta')*P./(1 + eta'*P*eta));\n\n% Exponentially-Weighted, Tracking, Regularize"
+      "d, Least-Squares Iteration\nP = (1/lambda).*(P - P*(z*z')*P./(lambda + z'*P*z));\nP = 0.5.*(P+P'); % force symme"
+      "tric\ne = y - theta*z;\ntheta = theta + e*z'*P;\n\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend % end o"
+      "f function RLS_EW\n\nfunction [theta,P,R] = rls_ew(z,y,theta,P,lambda)\n%RLS_EW Exponentially Weighted RLS itera"
+      "tion\n%  [THETA,P,R]=RLS_EW(Z,Y,THETA,P,LAMBDA) applies one iteration of\n%  exponentially weighted regularized "
+      "least-squares problem. In recursive\n%  least-squares, we deal with the issue of an inceasing amount of date Z\n"
+      "%  and Y. At each iteration, THETA is the solution. The scalar LAMBDA is\n%  called the forgetting factor since "
+      "past data are exponentially weighted\n%  less heavily than more recent data.\n\n%  Ivo Houtzager\n%  Delft Cente"
+      "r of Systems and Control\n%  The Netherlands, 2010\n\n% Exponentially-Weighted, Tracking, Regularized, Least-Squ"
+      "ares Iteration\nP = (1/lambda).*(P - P*(z*z')*P./(lambda + z'*P*z));\nP = 0.5.*(P+P'); % force symmetric\ne = y "
+      "- theta*z;\ntheta = theta + e*z'*P;\nif nargout == 3\n    R = norm(y - theta*z);\nend\nend % end of function RLS"
+      "_EW\n\n\nfunction [wn,z] = damp(a,h)\n%DAMP  Natural frequency and damping\n\n% Calculate eigenvalues\nr = eig(a"
+      ");\n[~,I] = sort(real(r));\nr = r(I);\n\n% Discrete: compute equivalent S-plane poles\nif any(r) == 0\n    z = z"
+      "eros(size(r));\n    wn = zeros(size(r));\nelse\n    s = log(r)/h;\n    f = abs(s);\n    wn = f;\n    z = -real(s"
+      ")./f;\nend\nend\n\n%% UNCOMMENT THE LATTER FOR OLDER MATLAB VERSIONS\n\n% function y = log10(x)\n% %LOG10  Commo"
+      "n (base 10) logarithm.\n% y = log(x)/log(10);\n% end\n\n% function E = eig(A)\n% % Compute eigenvalues of matrix"
+      "\n% tol = 1e-4;\n% maxit = 20;\n% n = size(A,1);\n% C = complex(A,zeros(n));\n% A1 = C(n,n);\n% E = complex(zero"
+      "s(n,1),zeros(n,1));\n% I = eye(n);\n% for k2 = n:-1:2\n%     k = 1;\n%     brk = 0;\n%     while k <= maxit && b"
+      "rk <= 0.5\n%         mu = qrshift(C(k2+(-1:0),k2+(-1:0)));\n%         M = (C - mu(1).*I);\n%         [Q,R] = qr("
+      "M);\n%         C = (R*Q + mu(1).*I);\n%         if abs(abs(A1)-abs(C(k2,k2))) < tol\n%             brk = 1;\n%  "
+      "           A1 = C(k2-1,k2-1);\n%         else\n%             A1 = C(k2,k2);\n%         end\n%         k = k+1;\n"
+      "%     end\n%     E(k2) = C(k2,k2);\n%     C(k2,1:n) = 0;\n%     C(1:n,k2) = 0;\n%     I(k2,k2) = 0;\n% end\n% E("
+      "1) = C(1,1);\n% E = sort(E);\n% end\n\n% function mu = qrshift(A)\n% % Compute the Wilkinson double shift\n% \n%"
+      " trA = A(1,1) + A(2,2);\n% detA =  A(1,1)*A(2,2) - A(1,2)*A(2,1);\n% \n% mu1 = 0.5*(trA + sqrt(trA^2-4*detA));\n"
+      "% mu2 = 0.5*(trA - sqrt(trA^2-4*detA));\n% if abs(abs(A(2,2)) - abs(mu1)) < abs(abs(A(2,2)) - abs(mu2))\n%     m"
+      "u = mu1;\n% else\n%     mu = mu2;\n% end\n% end"
+      editorLayout	      "100 M4x1[3 39 1288 1002]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    55
+    position		    [23.5747 49.5747 7]
+    chart		    53
+    linkNode		    [53 0 0]
+    subviewer		    53
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    56
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      55
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    53
+    linkNode		    [53 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    53
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    57
+    ssIdNumber		    20
+    name		    "ON"
+    linkNode		    [53 0 58]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    58
+    ssIdNumber		    21
+    name		    "RESET"
+    linkNode		    [53 57 59]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    59
+    ssIdNumber		    4
+    name		    "Ws"
+    linkNode		    [53 58 60]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    60
+    ssIdNumber		    5
+    name		    "Fs1"
+    linkNode		    [53 59 61]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    61
+    ssIdNumber		    6
+    name		    "Fs2"
+    linkNode		    [53 60 62]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    62
+    ssIdNumber		    7
+    name		    "U"
+    linkNode		    [53 61 63]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    63
+    ssIdNumber		    8
+    name		    "Y"
+    linkNode		    [53 62 64]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"2"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    64
+    ssIdNumber		    9
+    name		    "Wn"
+    linkNode		    [53 63 65]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    65
+    ssIdNumber		    10
+    name		    "Zn"
+    linkNode		    [53 64 66]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    66
+    ssIdNumber		    13
+    name		    "W"
+    linkNode		    [53 65 67]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 2
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    67
+    ssIdNumber		    18
+    name		    "Du"
+    linkNode		    [53 66 68]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    68
+    ssIdNumber		    19
+    name		    "Dy"
+    linkNode		    [53 67 0]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    69
+    name		    "RPBSID (VARMAX)\nTRADITIONAL RLS"
+    machine		    1
+    chart		    53
+  }
+  chart {
+    id			    70
+    name		    "RPBSID (VARX)\nFAST-ARRAY"
+    windowPosition	    [431.813 179.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 71 0 0]
+    firstTransition	    73
+    firstJunction	    72
+    viewObj		    70
+    machine		    1
+    ssIdHighWaterMark	    23
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    74
+    chartFileNumber	    5
+    disableImplicitCasting  1
+    eml {
+      name		      "rpbsid"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    71
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    70
+    treeNode		    [70 0 0 0]
+    superState		    SUBCHART
+    subviewer		    70
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [Ws,Fs1,Fs2,Wn,Zn,ERR] = rpbsid(ON,RESET,U,Y,W,Du,Dy)\n%RPBSID Closed-loop recursive pre"
+      "dictor-based subspace identification (VARX)\n\n% Input definitions\n% U input sample\n% Y output sample\n% W wei"
+      "ght matrix (from workspace)\n% Du input scaling matrix from sigscale (from workspace)\n% Dy output scaling matri"
+      "c from sigscale (from workspace)\n\n% Common paremeters\nr = 1;         % number if inpuh\nl = 2;         % numb"
+      "er of outpuh\nm = l+r;\nn = 7;         % number of states\nTs = 0.05;      % sample time\n\n% Parameters for ide"
+      "ntification\np = 50;        % past window\nf = 50;        % future window\nnoD = 0;       % no direct feedtrough"
+      "\nweight = 0;    % apply transformation filter\n\n% Parameters for adaptive filters\nlambda1 = 0.999; % initial "
+      "forgetting factor (~= 1 - 2/window)\nlambda2 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nlambda3 = 0"
+      ".999; % initial forgetting factor (~= 1 - 2/window)\nireg1 = 100;     % initial regularisation\nireg2 = 1e-6;   "
+      " % initial regularisation\nireg3 = 1e-6;    % initial regularisation\nreg1 = 1;        % initial regularisation\n"
+      "tol = 1e-4;      % tolerance setting for resque (fast array)\n\n% Initialization\nstartA = 3;\n\n% Initialize if"
+      " needed\npersistent Plk Glk Ylk VARX VARX1 LK Pcd Pabk ABK CD U1 Y1 X X1 Z eta w k start saw\nif isempty(Plk) ||"
+      " RESET\n    % Initialisation of Markov estimation problem\n    if noD\n        Plk = zeros((p+1)*m+1,2*m+1);\n  "
+      "      Glk = zeros(p*m,m);\n        Ylk = ones(1,m);\n        VARX = zeros(l,p*m);\n        VARX1 = zeros(l,p*m);"
+      "\n        Z = zeros((p+1)*m,1);\n        eta = zeros((p+1)*m,m);\n    else\n        Plk = zeros((p+2)*m+1,2*m+1)"
+      ";\n        Glk = zeros((p+1)*m,m);\n        Ylk = ones(1,m);\n        VARX = zeros(l,(p+1)*m);\n        VARX1 = "
+      "zeros(l,p*m);\n        Z = zeros((p+2)*m,1);\n        eta = zeros((p+2)*m,m);\n    end\n    saw = 0;\n    \n    "
+      "% Initialisation of the LambdaKappa\n    LK = zeros(f*l,m*p);\n    \n    % Initialisation the estimate of ABK\n "
+      "   Pabk = (1/sqrt(ireg2)).*eye(n+r+l);\n    ABK = [zeros(n) zeros(n,r) zeros(n,l)];\n    \n    if noD\n        %"
+      " Initialisation the estimate of CD\n        Pcd = (1/sqrt(ireg3)).*eye(n);\n        CD = zeros(l,n);\n    else\n"
+      "        % Initialisation the estimate of CD and e\n        Pcd = (1/sqrt(ireg3)).*eye(n+r);\n        CD = [zeros"
+      "(l,n) zeros(l,r)];\n    end\n\n    % Store vectors for next iteration\n    Y1 = zeros(l,1);\n    U1 = zeros(r,1)"
+      ";\n    X1 = zeros(n,1);\n    X = zeros(n,1);\n    \n    % Frequency grid\n    w = logspace(-1,1,300);\n    k = 1"
+      ";\n    start = 1;\nend\n\n% Start RPBSID iff ON is set\nif ON > 0.5\n    \n    % Scale input and output\n    U ="
+      " diag(1./diag(Du))*U;\n    Y = diag(1./diag(Dy))*Y;\n    \n    if (start < 0.5) || (k >= p)\n        % Solve Mar"
+      "kov estimation problem recursively\n        if noD\n            [VARX,Z,Plk,eta,Glk,Ylk,saw,ERR] = fastQR(Z,[U1;"
+      " Y1],Y,VARX,Plk,lambda1,tol,eta,ireg1,reg1,Glk,Ylk,saw);\n            VARX1 = VARX;\n        else\n            ["
+      "VARX,Z,Plk,eta,Glk,Ylk,saw,ERR] = fastQR(Z,[Y1; U],Y,VARX,Plk,lambda1,tol,eta,ireg1,reg1,Glk,Ylk,saw);\n        "
+      "    VARX1 = VARX(:,l+1:p*m+l);\n        end\n    else\n        ERR = 0;\n    end\n    \n    if (start < 0.5) || "
+      "(k >= startA*p)\n        % Construction of LambdaKappa\n        LK = zeros(f*l,p*m);\n        if ~weight\n      "
+      "      for i = 0:f-1\n                for h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX1(:,"
+      "h*m+(1:m));\n                end\n            end\n        else\n            for i = 0:f-1\n                for "
+      "h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX1(:,h*m+(1:m));\n                end\n       "
+      "         if i ~= 0\n                    for j = 0:i-1\n                        LK(i*l+(1:l),:) = LK(i*l+(1:l),:)"
+      " + VARX1(:,(p-i+j)*m+r+(1:l))*LK(j*l+(1:l),:);\n                    end\n                end\n            end\n "
+      "       end\n        \n        % The estimation of the state vector\n        if noD\n            X = W*LK*Z(m+1:("
+      "p+1)*m,1);\n        else\n            X = W*LK*Z(m+l+1:(p+1)*m+l,1);\n        end\n    end\n    \n    if (start "
+      "< 0.5) || (k >= startA*p+1)\n        % The estimation of the system matrices\n        if noD\n            [CD,Pc"
+      "d] = inverseQR(X1,Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*X1;\n        else\n            [CD,Pcd] = inverseQ"
+      "R([X1; U1],Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*[X1; U1];\n        end\n        [ABK,Pabk] = inverseQR([X"
+      "1; U1; R1],X,ABK,Pabk,lambda3);\n    end\n        \n    % Store vectors and matrices for next iteration\n    if "
+      "(start < 0.5) || (k >= startA*p)\n        X1 = X;\n    end\n    Y1 = Y;\n    U1 = U;\nelse\n    ERR = 0;\nend\n\n"
+      "% Store state-space matrices\nA = ABK(:,1:n);\nB = ABK(:,n+1:n+r)*diag(1./diag(Du));\nC = Dy*CD(:,1:n);\nif noD\n"
+      "    D = zeros(l,r);\nelse\n    D = Dy*CD(:,n+1:end)*diag(1./diag(Du));\nend\nK = ABK(:,n+r+1:n+r+l);\n\n% Calcul"
+      "ate damping and frequencies\n[Wn,Zn] = damp(A,Ts);\n\n% Calculate frequency response\nWs = w(k);\nFs = real(abs("
+      "C*((exp(sqrt(complex(-1))*Ts*Ws*2*pi).*eye(n) - A)\\B)+D));\nWs = log10(Ws);\nif Fs(1) < 1e-5\n    Fs1 = -100;\n"
+      "else\n    Fs1 = 20*log10(Fs(1));\nend\nif Fs(2) < 1e-5\n    Fs2 = -100;\nelse\n    Fs2 = 20*log10(Fs(2));\nend\n"
+      "\n% Update counter\nif k >= length(w)\n    start = 0;\n    k = 1;\nelse\n    k = k+1;\nend\n\nend % END RPBSID\n"
+      "\n\nfunction [theta,z,M,eta,G,Y,saw,ERR] = fastQR(z,u,y,theta,M,lambda,tol,eta,ireg,reg,G,Y,saw)\n%FASTQR Fast R"
+      "ecursive Least Squares (fast array QR)\n\nn = length(u);\np = (length(z)/n - 1);\nif M(1,1) == 0\n    M(1,1) = 1"
+      ";\n    M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n    M(p*n+2:(p+1)*n+1,n+2:2*n+1) = diag(("
+      "1/sqrt(ireg)).*ones(n,1));\nend\n\n% Do reg update\nif saw > p-0.5;\n    saw = 1;\n    eta = [eta(n+1:end,:); sq"
+      "rt((1-lambda^p)*reg).*eye(n)];\nelse\n    saw = saw + 1;\n    eta = [eta(n+1:end,:); zeros(n)];\nend\n\nG1 = M(2"
+      "+n:end,1);\nY1 = M(1,1);\nfor j = 1:n\n    M(1,1) = Y(1,j);\n    M(2:end,2:end) = M(2:end,2:end);\n    M(1,2:end"
+      ") = eta(:,j)'*M(2:end,2:end);\n    M(2:1+p*n,1) = G(1:end,j);\n    M(2+p*n:end,1) = zeros(n,1);\n    for i = 2:s"
+      "ize(M,2)\n        if i > (size(M,2)-n)\n            % determine Givens rotation parameters\n            if M(1,i"
+      ") ~= 0\n                % determine Givens rotation parameters\n                rho = M(1,i)/M(1,1);\n          "
+      "      c = sqrt(1+abs(rho)^2);\n                \n                % apply givens rotation using mixed-downdating\n"
+      "                M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n                M(:,i) = (-rho).*M(:,1) + c.*M(:,i);\n     "
+      "       end\n        else\n            % determine hyperbolic rotation parameters\n            if abs(M(i,i)) > a"
+      "bs(M(i,1))\n                if M(i,1) ~= 0\n                    % apply hyperbolic rotation using orthogonal-dia"
+      "gonal method\n                    % method (numerically stable)\n                    x1 = M(:,1) - M(:,i);\n    "
+      "                y1 = M(:,1) + M(:,i);\n                    x2 = 0.5.*sqrt(-y1(i)/x1(i)).*x1;\n                  "
+      "  y2 = 0.5.*sqrt(-x1(i)/y1(i)).*y1;\n                    M(:,1) = x2 + y2;\n                    M(:,i) = y2 - x2"
+      ";\n                end\n            else\n                M = zeros((p+1)*n+1,2*n+1);\n                M(1,1) = "
+      "1;\n                M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n                M(p*n+2:(p+1"
+      ")*n+1,n+2:2*n+1) = diag((1/sqrt(ireg)).*ones(n,1));\n                G = zeros(p*n,n);\n                Y = ones"
+      "(1,n);\n                ERR = norm(M(1,2:n+1));\n                z = zeros((p+1)*n,1);\n                return\n"
+      "            end\n        end\n    end\n    Y(1,j) = M(1,1);\n    G(1:end,j) = M(n+2:end,1);\nend\n\n% Do data up"
+      "date\nz = [z(n+1:end); u];\nM(1,1) = Y1;\nM(2:end,2:end) = M(2:end,2:end)./sqrt(lambda);\nM(1,2:end) = z'*M(2:en"
+      "d,2:end);\nM(2:1+p*n,1) = G1;\nM(2+p*n:end,1) = zeros(n,1);\nfor i = 2:size(M,2)\n    if i > (size(M,2)-n)\n    "
+      "    % determine Givens rotation parameters\n        if M(1,i) ~= 0\n            % determine Givens rotation para"
+      "meters\n            rho = M(1,i)/M(1,1);\n            c = sqrt(1+abs(rho)^2);\n            \n            % apply"
+      " givens rotation using mixed-downdating\n            M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n            M(:,i) = ("
+      "-rho).*M(:,1) + c.*M(:,i);\n        end\n    else\n        % determine hyperbolic rotation parameters\n        i"
+      "f abs(M(i,i)) > abs(M(i,1))\n            if M(i,1) ~= 0\n                % apply hyperbolic rotation using ortho"
+      "gonal-diagonal method\n                % method (numerically stable)\n                x1 = M(:,1) - M(:,i);\n   "
+      "             y1 = M(:,1) + M(:,i);\n                x2 = 0.5.*sqrt(-y1(i)/x1(i)).*x1;\n                y2 = 0.5."
+      "*sqrt(-x1(i)/y1(i)).*y1;\n                M(:,1) = x2 + y2;\n                M(:,i) = y2 - x2;\n            end\n"
+      "        else\n            M = zeros((p+1)*n+1,2*n+1);\n            M(1,1) = 1;\n            M(2:n+1,2:n+1) = dia"
+      "g((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n            M(p*n+2:(p+1)*n+1,n+2:2*n+1) = diag((1/sqrt(ireg)).*ones"
+      "(n,1));\n            G = zeros(p*n,n);\n            Y = ones(1,n);\n            ERR = norm(M(1,2:n+1));\n       "
+      "     z = zeros((p+1)*n,1);\n            return\n        end\n    end\nend\n\nERR = norm(M(1,2:n+1));\nif ERR < t"
+      "ol\n    E = y - theta*z(n+1:end);\n    theta = theta + E*(M(n+2:end,1)/M(1,1))';\nelse\n    M = zeros((p+1)*n+1,"
+      "2*n+1);\n    M(1,1) = 1;\n    M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n    M(p*n+2:(p+1)*"
+      "n+1,n+2:2*n+1) = diag((1/sqrt(ireg)).*ones(n,1));\n    G = zeros(p*n,n);\n    Y = ones(1,n);\n    z = zeros((p+1"
+      ")*n,1);\nend\nend\n\nfunction [theta,P,R] = inverseQR(z,y,theta,P,lambda)\n%INVERSEQR Square-Root Recursive Leas"
+      "t Squares update (inverse QR)\n\n[mz,nz] = size(z);\nzp = z'*P;\nM = [eye(nz) (zp)./sqrt(lambda); zeros(mz,nz) P"
+      "./sqrt(lambda)];\nfor i = (size(P,2)+nz):-1:2\n    % determine Givens rotation parameters\n    if M(1,i) == 0\n "
+      "   elseif M(1,1) == 0\n        % swap\n        h = M(:,i);\n        M(:,i) = -M(:,1);\n        M(:,1) = h;\n    "
+      "else\n        % determine Givens rotation parameters\n        rho = M(1,i)/M(1,1);\n        c = sqrt(1+abs(rho)^"
+      "2);\n        \n        % apply givens rotation using mixed-downdating (more numeric stable)\n        M(:,1) = (M"
+      "(:,1) + rho.*M(:,i))./c;\n        M(:,i) = -rho.*M(:,1) + c.*M(:,i);\n    end\nend\nG = M(nz+1:end,1:nz)/M(1:nz,"
+      "1:nz);\nP = M(nz+1:end,nz+1:end);\nE = y - theta*z;\ntheta = theta + E*G';\nif nargout == 3\n    R = norm(y - th"
+      "eta*z);\nend\nend\n\n\nfunction [wn,z] = damp(a,Ts)\n%DAMP  Natural frequency and damping\n\n% Calculate eigenva"
+      "lues\nr = eig(a);\n[~,I] = sort(real(r));\nr = r(I);\n\n% Discrete: compute equivalent S-plane poles\nif any(r) "
+      "== 0\n    z = zeros(size(r));\n    wn = zeros(size(r));\nelse\n    s = log(r)/Ts;\n    f = abs(s);\n    wn = f;\n"
+      "    z = -real(s)./f;\nend\nend\n\n%% UNCOMMENT THE LATTER FOR OLDER MATLAB VERSIONS\n\n% function y = log10(x)\n"
+      "% %LOG10  Common (base 10) logarithm.\n% y = log(x)/log(10);\n% end\n\n% function E = eig(A)\n% % Compute eigenv"
+      "alues of matrix\n% tol = 1e-4;\n% maxit = 20;\n% n = size(A,1);\n% C = complex(A,zeros(n));\n% A1 = C(n,n);\n% E"
+      " = complex(zeros(n,1),zeros(n,1));\n% I = eye(n);\n% for k2 = n:-1:2\n%     k = 1;\n%     brk = 0;\n%     while "
+      "k <= maxit && brk <= 0.5\n%         mu = qrshift(C(k2+(-1:0),k2+(-1:0)));\n%         M = (C - mu(1).*I);\n%     "
+      "    [Q,R] = qr(M);\n%         C = (R*Q + mu(1).*I);\n%         if abs(abs(A1)-abs(C(k2,k2))) < tol\n%           "
+      "  brk = 1;\n%             A1 = C(k2-1,k2-1);\n%         else\n%             A1 = C(k2,k2);\n%         end\n%    "
+      "     k = k+1;\n%     end\n%     E(k2) = C(k2,k2);\n%     C(k2,1:n) = 0;\n%     C(1:n,k2) = 0;\n%     I(k2,k2) = "
+      "0;\n% end\n% E(1) = C(1,1);\n% E = sort(E);\n% end\n\n% function mu = qrshift(A)\n% % Compute the Wilkinson doub"
+      "le shift\n% \n% trA = A(1,1) + A(2,2);\n% detA =  A(1,1)*A(2,2) - A(1,2)*A(2,1);\n% \n% mu1 = 0.5*(trA + sqrt(tr"
+      "A^2-4*detA));\n% mu2 = 0.5*(trA - sqrt(trA^2-4*detA));\n% if abs(abs(A(2,2)) - abs(mu1)) < abs(abs(A(2,2)) - abs"
+      "(mu2))\n%     mu = mu1;\n% else\n%     mu = mu2;\n% end\n% end"
+      editorLayout	      "100 M4x1[3 39 1292 1036]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    72
+    position		    [23.5747 49.5747 7]
+    chart		    70
+    linkNode		    [70 0 0]
+    subviewer		    70
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    73
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      72
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    70
+    linkNode		    [70 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    70
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    74
+    ssIdNumber		    20
+    name		    "ON"
+    linkNode		    [70 0 75]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    75
+    ssIdNumber		    23
+    name		    "RESET"
+    linkNode		    [70 74 76]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    76
+    ssIdNumber		    4
+    name		    "Ws"
+    linkNode		    [70 75 77]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    77
+    ssIdNumber		    5
+    name		    "Fs1"
+    linkNode		    [70 76 78]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    78
+    ssIdNumber		    6
+    name		    "Fs2"
+    linkNode		    [70 77 79]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    79
+    ssIdNumber		    7
+    name		    "U"
+    linkNode		    [70 78 80]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    80
+    ssIdNumber		    8
+    name		    "Y"
+    linkNode		    [70 79 81]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"2"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    81
+    ssIdNumber		    9
+    name		    "Wn"
+    linkNode		    [70 80 82]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    82
+    ssIdNumber		    10
+    name		    "Zn"
+    linkNode		    [70 81 83]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    83
+    ssIdNumber		    13
+    name		    "W"
+    linkNode		    [70 82 84]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 2
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    84
+    ssIdNumber		    18
+    name		    "Du"
+    linkNode		    [70 83 85]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    85
+    ssIdNumber		    19
+    name		    "Dy"
+    linkNode		    [70 84 86]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    86
+    ssIdNumber		    21
+    name		    "ERR"
+    linkNode		    [70 85 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    87
+    name		    "RPBSID (VARX)\nFAST-ARRAY"
+    machine		    1
+    chart		    70
+  }
+  chart {
+    id			    88
+    name		    "RPBSID (VARMAX)\nFAST-ARRAY"
+    windowPosition	    [446.813 164.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 89 0 0]
+    firstTransition	    91
+    firstJunction	    90
+    viewObj		    88
+    machine		    1
+    ssIdHighWaterMark	    23
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    92
+    chartFileNumber	    6
+    disableImplicitCasting  1
+    eml {
+      name		      "rpbsid"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    89
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    88
+    treeNode		    [88 0 0 0]
+    superState		    SUBCHART
+    subviewer		    88
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function [Ws,Fs1,Fs2,Wn,Zn,ERR] = rpbsid(ON,RESET,U,Y,W,Du,Dy)\n%RPBSID Closed-loop recursive pre"
+      "dictor-based subspace identification (VARX)\n\n% Input definitions\n% U input sample\n% Y output sample\n% W wei"
+      "ght matrix (from workspace)\n% Du input scaling matrix from sigscale (from workspace)\n% Dy output scaling matri"
+      "c from sigscale (from workspace)\n\n% Common paremeters\nr = 1;         % number if inpuh\nl = 2;         % numb"
+      "er of outpuh\nm = 2*l+r;\nn = 7;         % number of states\nTs = 0.05;      % sample time\n\n% Parameters for i"
+      "dentification\np = 50;        % past window\nf = 50;        % future window\nnoD = 0;       % no direct feedtrou"
+      "gh\nweight = 0;    % apply transformation filter\n\n% Parameters for adaptive filters\nlambda1 = 0.999; % initia"
+      "l forgetting factor (~= 1 - 2/window)\nlambda2 = 0.999; % initial forgetting factor (~= 1 - 2/window)\nlambda3 ="
+      " 0.999; % initial forgetting factor (~= 1 - 2/window)\nireg1 = 100;     % initial regularisation\nireg2 = 1e-6; "
+      "   % initial regularisation\nireg3 = 1e-6;    % initial regularisation\nreg1 = 1;        % initial regularisatio"
+      "n\ntol = 1e-4;      % tolerance setting for resque (fast array)\n\n% Initialization\nstartA = 3;\n\n% Initialize"
+      " if needed\npersistent Plk Glk Ylk VARX VARX1 LK Pcd Pabk ABK CD U1 Y1 E1 X X1 Z eta w k start saw\nif isempty(P"
+      "lk) || RESET\n    % Initialisation of Markov estimation problem\n    if noD\n        Plk = zeros((p+1)*m+1,2*m+1"
+      ");\n        Glk = zeros(p*m,m);\n        Ylk = ones(1,m);\n        VARX = zeros(l,p*m);\n        VARX1 = zeros(l"
+      ",p*m);\n        Z = zeros((p+1)*m,1);\n        eta = zeros((p+1)*m,m);\n    else\n        Plk = zeros((p+2)*m+1,"
+      "2*m+1);\n        Glk = zeros((p+1)*m,m);\n        Ylk = ones(1,m);\n        VARX = zeros(l,(p+1)*m);\n        VA"
+      "RX1 = zeros(l,p*m+r);\n        Z = zeros((p+2)*m,1);\n        eta = zeros((p+2)*m,m);\n    end\n    saw = 0;\n  "
+      "  \n    % Initialisation of the LambdaKappa\n    LK = zeros(f*l,m*p);\n    \n    % Initialisation the estimate o"
+      "f ABK\n    Pabk = (1/sqrt(ireg2)).*eye(n+r+l);\n    ABK = [zeros(n) zeros(n,r) zeros(n,l)];\n    \n    if noD\n "
+      "       % Initialisation the estimate of CD\n        Pcd = (1/sqrt(ireg3)).*eye(n);\n        CD = zeros(l,n);\n  "
+      "  else\n        % Initialisation the estimate of CD and e\n        Pcd = (1/sqrt(ireg3)).*eye(n+r);\n        CD "
+      "= [zeros(l,n) zeros(l,r)];\n    end\n\n    % Store vectors for next iteration\n    Y1 = zeros(l,1);\n    U1 = ze"
+      "ros(r,1);\n    X1 = zeros(n,1);\n    X = zeros(n,1);\n    E1 = zeros(l,1);\n    \n    % Frequency grid\n    w = "
+      "logspace(-1,1,300);\n    k = 1;\n    start = 1;\nend\n\n% Start RPBSID iff ON is set\nif ON > 0.5\n    \n    % S"
+      "cale input and output\n    U = diag(1./diag(Du))*U;\n    Y = diag(1./diag(Dy))*Y;\n    \n    if (start < 0.5) ||"
+      " (k >= p)\n        % Solve Markov estimation problem recursively\n        if noD\n            [VARX,Z,Plk,eta,Gl"
+      "k,Ylk,saw,ERR] = fastQR(Z,[U1; Y1; E1],Y,VARX,Plk,lambda1,tol,eta,ireg1,reg1,Glk,Ylk,saw);\n            VARX1 = "
+      "VARX;\n            E1 = Y - VARX1*Z(m+1:(p+1)*m,1);\n        else\n            [VARX,Z,Plk,eta,Glk,Ylk,saw,ERR] "
+      "= fastQR(Z,[Y1; E1; U],Y,VARX,Plk,lambda1,tol,eta,ireg1,reg1,Glk,Ylk,saw);\n            VARX1 = VARX(:,2*l+1:(p+"
+      "1)*m);\n            E1 = Y - VARX1*Z(m+2*l+1:(p+2)*m,1);\n        end\n    else\n        ERR = 0;\n    end\n    "
+      "\n    if (start < 0.5) || (k >= startA*p)\n        % Construction of LambdaKappa\n        LK = zeros(f*l,p*m);\n"
+      "        if ~weight\n            for i = 0:f-1\n                for h = 0:p-i-1\n                    LK(i*l+(1:l)"
+      ",(i+h)*m+(1:m)) = VARX1(:,h*m+(1:m));\n                end\n            end\n        else\n            for i = 0"
+      ":f-1\n                for h = 0:p-i-1\n                    LK(i*l+(1:l),(i+h)*m+(1:m)) = VARX1(:,h*m+(1:m));\n  "
+      "              end\n                if i ~= 0\n                    for j = 0:i-1\n                        LK(i*l+"
+      "(1:l),:) = LK(i*l+(1:l),:) + VARX1(:,(p-i+j)*m+r+(1:l))*LK(j*l+(1:l),:);\n                    end\n             "
+      "   end\n            end\n        end\n        \n        % The estimation of the state vector\n        if noD\n  "
+      "          X = W*LK*Z(m+1:(p+1)*m,1);\n        else\n            X = W*LK*Z(m+l+1:(p+1)*m+l,1);\n        end\n   "
+      " end\n    \n    if (start < 0.5) || (k >= startA*p+1)\n        % The estimation of the system matrices\n        "
+      "if noD\n            [CD,Pcd] = inverseQR(X1,Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*X1;\n        else\n     "
+      "       [CD,Pcd] = inverseQR([X1; U1],Y1,CD,Pcd,lambda2);\n            R1 = Y1-CD*[X1; U1];\n        end\n       "
+      " [ABK,Pabk] = inverseQR([X1; U1; R1],X,ABK,Pabk,lambda3);\n    end\n        \n    % Store vectors and matrices f"
+      "or next iteration\n    if (start < 0.5) || (k >= startA*p)\n        X1 = X;\n    end\n    Y1 = Y;\n    U1 = U;\n"
+      "else\n    ERR = 0;\nend\n\n% Store state-space matrices\nA = ABK(:,1:n);\nB = ABK(:,n+1:n+r)*diag(1./diag(Du));\n"
+      "C = Dy*CD(:,1:n);\nif noD\n    D = zeros(l,r);\nelse\n    D = Dy*CD(:,n+1:end)*diag(1./diag(Du));\nend\nK = ABK("
+      ":,n+r+1:n+r+l);\n\n% Calculate damping and frequencies\n[Wn,Zn] = damp(A,Ts);\n\n% Calculate frequency response\n"
+      "Ws = w(k);\nFs = real(abs(C*((exp(sqrt(complex(-1))*Ts*Ws*2*pi).*eye(n) - A)\\B)+D));\nWs = log10(Ws);\nif Fs(1)"
+      " < 1e-5\n    Fs1 = -100;\nelse\n    Fs1 = 20*log10(Fs(1));\nend\nif Fs(2) < 1e-5\n    Fs2 = -100;\nelse\n    Fs2"
+      " = 20*log10(Fs(2));\nend\n\n% Update counter\nif k >= length(w)\n    start = 0;\n    k = 1;\nelse\n    k = k+1;\n"
+      "end\n\nend % END RPBSID\n\n\nfunction [theta,z,M,eta,G,Y,saw,ERR] = fastQR(z,u,y,theta,M,lambda,tol,eta,ireg,reg"
+      ",G,Y,saw)\n%FASTQR Fast Recursive Least Squares (fast array QR)\n\nn = length(u);\np = (length(z)/n - 1);\nif M("
+      "1,1) == 0\n    M(1,1) = 1;\n    M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n    M(p*n+2:(p+1"
+      ")*n+1,n+2:2*n+1) = diag((1/sqrt(ireg)).*ones(n,1));\nend\n\n% Do reg update\nif saw > p-0.5;\n    saw = 1;\n    "
+      "eta = [eta(n+1:end,:); sqrt((1-lambda^p)*reg).*eye(n)];\nelse\n    saw = saw + 1;\n    eta = [eta(n+1:end,:); ze"
+      "ros(n)];\nend\n\nG1 = M(2+n:end,1);\nY1 = M(1,1);\nfor j = 1:n\n    M(1,1) = Y(1,j);\n    M(2:end,2:end) = M(2:e"
+      "nd,2:end);\n    M(1,2:end) = eta(:,j)'*M(2:end,2:end);\n    M(2:1+p*n,1) = G(1:end,j);\n    M(2+p*n:end,1) = zer"
+      "os(n,1);\n    for i = 2:size(M,2)\n        if i > (size(M,2)-n)\n            % determine Givens rotation paramet"
+      "ers\n            if M(1,i) ~= 0\n                % determine Givens rotation parameters\n                rho = M"
+      "(1,i)/M(1,1);\n                c = sqrt(1+abs(rho)^2);\n                \n                % apply givens rotatio"
+      "n using mixed-downdating\n                M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n                M(:,i) = (-rho).*"
+      "M(:,1) + c.*M(:,i);\n            end\n        else\n            % determine hyperbolic rotation parameters\n    "
+      "        if abs(M(i,i)) > abs(M(i,1))\n                if M(i,1) ~= 0\n                    % apply hyperbolic rot"
+      "ation using orthogonal-diagonal method\n                    % method (numerically stable)\n                    x"
+      "1 = M(:,1) - M(:,i);\n                    y1 = M(:,1) + M(:,i);\n                    x2 = 0.5.*sqrt(-y1(i)/x1(i)"
+      ").*x1;\n                    y2 = 0.5.*sqrt(-x1(i)/y1(i)).*y1;\n                    M(:,1) = x2 + y2;\n          "
+      "          M(:,i) = y2 - x2;\n                end\n            else\n                M = zeros((p+1)*n+1,2*n+1);\n"
+      "                M(1,1) = 1;\n                M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n   "
+      "             M(p*n+2:(p+1)*n+1,n+2:2*n+1) = diag((1/sqrt(ireg)).*ones(n,1));\n                G = zeros(p*n,n);\n"
+      "                Y = ones(1,n);\n                ERR = norm(M(1,2:n+1));\n                z = zeros((p+1)*n,1);\n"
+      "                return\n            end\n        end\n    end\n    Y(1,j) = M(1,1);\n    G(1:end,j) = M(n+2:end,"
+      "1);\nend\n\n% Do data update\nz = [z(n+1:end); u];\nM(1,1) = Y1;\nM(2:end,2:end) = M(2:end,2:end)./sqrt(lambda);"
+      "\nM(1,2:end) = z'*M(2:end,2:end);\nM(2:1+p*n,1) = G1;\nM(2+p*n:end,1) = zeros(n,1);\nfor i = 2:size(M,2)\n    if"
+      " i > (size(M,2)-n)\n        % determine Givens rotation parameters\n        if M(1,i) ~= 0\n            % determ"
+      "ine Givens rotation parameters\n            rho = M(1,i)/M(1,1);\n            c = sqrt(1+abs(rho)^2);\n         "
+      "   \n            % apply givens rotation using mixed-downdating\n            M(:,1) = (M(:,1) + rho.*M(:,i))./c;"
+      "\n            M(:,i) = (-rho).*M(:,1) + c.*M(:,i);\n        end\n    else\n        % determine hyperbolic rotati"
+      "on parameters\n        if abs(M(i,i)) > abs(M(i,1))\n            if M(i,1) ~= 0\n                % apply hyperbo"
+      "lic rotation using orthogonal-diagonal method\n                % method (numerically stable)\n                x1"
+      " = M(:,1) - M(:,i);\n                y1 = M(:,1) + M(:,i);\n                x2 = 0.5.*sqrt(-y1(i)/x1(i)).*x1;\n "
+      "               y2 = 0.5.*sqrt(-x1(i)/y1(i)).*y1;\n                M(:,1) = x2 + y2;\n                M(:,i) = y2"
+      " - x2;\n            end\n        else\n            M = zeros((p+1)*n+1,2*n+1);\n            M(1,1) = 1;\n       "
+      "     M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,1));\n            M(p*n+2:(p+1)*n+1,n+2:2*n+1) = "
+      "diag((1/sqrt(ireg)).*ones(n,1));\n            G = zeros(p*n,n);\n            Y = ones(1,n);\n            ERR = n"
+      "orm(M(1,2:n+1));\n            z = zeros((p+1)*n,1);\n            return\n        end\n    end\nend\n\nERR = norm"
+      "(M(1,2:n+1));\nif ERR < tol\n    E = y - theta*z(n+1:end);\n    theta = theta + E*(M(n+2:end,1)/M(1,1))';\nelse\n"
+      "    M = zeros((p+1)*n+1,2*n+1);\n    M(1,1) = 1;\n    M(2:n+1,2:n+1) = diag((sqrt(lambda^p)/sqrt(ireg)).*ones(n,"
+      "1));\n    M(p*n+2:(p+1)*n+1,n+2:2*n+1) = diag((1/sqrt(ireg)).*ones(n,1));\n    G = zeros(p*n,n);\n    Y = ones(1"
+      ",n);\n    z = zeros((p+1)*n,1);\nend\nend\n\nfunction [theta,P,R] = inverseQR(z,y,theta,P,lambda)\n%INVERSEQR Sq"
+      "uare-Root Recursive Least Squares update (inverse QR)\n\n[mz,nz] = size(z);\nzp = z'*P;\nM = [eye(nz) (zp)./sqrt"
+      "(lambda); zeros(mz,nz) P./sqrt(lambda)];\nfor i = (size(P,2)+nz):-1:2\n    % determine Givens rotation parameter"
+      "s\n    if M(1,i) == 0\n    elseif M(1,1) == 0\n        % swap\n        h = M(:,i);\n        M(:,i) = -M(:,1);\n "
+      "       M(:,1) = h;\n    else\n        % determine Givens rotation parameters\n        rho = M(1,i)/M(1,1);\n    "
+      "    c = sqrt(1+abs(rho)^2);\n        \n        % apply givens rotation using mixed-downdating (more numeric stab"
+      "le)\n        M(:,1) = (M(:,1) + rho.*M(:,i))./c;\n        M(:,i) = -rho.*M(:,1) + c.*M(:,i);\n    end\nend\nG = "
+      "M(nz+1:end,1:nz)/M(1:nz,1:nz);\nP = M(nz+1:end,nz+1:end);\nE = y - theta*z;\ntheta = theta + E*G';\nif nargout ="
+      "= 3\n    R = norm(y - theta*z);\nend\nend\n\n\nfunction [wn,z] = damp(a,h)\n%DAMP  Natural frequency and damping"
+      "\n\n% Calculate eigenvalues\nr = eig(a);\n[~,I] = sort(real(r));\nr = r(I);\n\n% Discrete: compute equivalent S-"
+      "plane poles\nif any(r) == 0\n    z = zeros(size(r));\n    wn = zeros(size(r));\nelse\n    s = log(r)/h;\n    f ="
+      " abs(s);\n    wn = f;\n    z = -real(s)./f;\nend\nend\n\n%% UNCOMMENT THE LATTER FOR OLDER MATLAB VERSIONS\n\n% "
+      "function y = log10(x)\n% %LOG10  Common (base 10) logarithm.\n% y = log(x)/log(10);\n% end\n\n% function E = eig"
+      "(A)\n% % Compute eigenvalues of matrix\n% tol = 1e-4;\n% maxit = 20;\n% n = size(A,1);\n% C = complex(A,zeros(n)"
+      ");\n% A1 = C(n,n);\n% E = complex(zeros(n,1),zeros(n,1));\n% I = eye(n);\n% for k2 = n:-1:2\n%     k = 1;\n%    "
+      " brk = 0;\n%     while k <= maxit && brk <= 0.5\n%         mu = qrshift(C(k2+(-1:0),k2+(-1:0)));\n%         M = "
+      "(C - mu(1).*I);\n%         [Q,R] = qr(M);\n%         C = (R*Q + mu(1).*I);\n%         if abs(abs(A1)-abs(C(k2,k2"
+      "))) < tol\n%             brk = 1;\n%             A1 = C(k2-1,k2-1);\n%         else\n%             A1 = C(k2,k2)"
+      ";\n%         end\n%         k = k+1;\n%     end\n%     E(k2) = C(k2,k2);\n%     C(k2,1:n) = 0;\n%     C(1:n,k2) "
+      "= 0;\n%     I(k2,k2) = 0;\n% end\n% E(1) = C(1,1);\n% E = sort(E);\n% end\n\n% function mu = qrshift(A)\n% % Com"
+      "pute the Wilkinson double shift\n% \n% trA = A(1,1) + A(2,2);\n% detA =  A(1,1)*A(2,2) - A(1,2)*A(2,1);\n% \n% m"
+      "u1 = 0.5*(trA + sqrt(trA^2-4*detA));\n% mu2 = 0.5*(trA - sqrt(trA^2-4*detA));\n% if abs(abs(A(2,2)) - abs(mu1)) "
+      "< abs(abs(A(2,2)) - abs(mu2))\n%     mu = mu1;\n% else\n%     mu = mu2;\n% end\n% end"
+      editorLayout	      "100 M4x1[289 362 800 357]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    90
+    position		    [23.5747 49.5747 7]
+    chart		    88
+    linkNode		    [88 0 0]
+    subviewer		    88
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    91
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      90
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    88
+    linkNode		    [88 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    88
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    92
+    ssIdNumber		    20
+    name		    "ON"
+    linkNode		    [88 0 93]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    93
+    ssIdNumber		    23
+    name		    "RESET"
+    linkNode		    [88 92 94]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    94
+    ssIdNumber		    4
+    name		    "Ws"
+    linkNode		    [88 93 95]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    95
+    ssIdNumber		    5
+    name		    "Fs1"
+    linkNode		    [88 94 96]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    96
+    ssIdNumber		    6
+    name		    "Fs2"
+    linkNode		    [88 95 97]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    97
+    ssIdNumber		    7
+    name		    "U"
+    linkNode		    [88 96 98]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    98
+    ssIdNumber		    8
+    name		    "Y"
+    linkNode		    [88 97 99]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"2"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    99
+    ssIdNumber		    9
+    name		    "Wn"
+    linkNode		    [88 98 100]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    100
+    ssIdNumber		    10
+    name		    "Zn"
+    linkNode		    [88 99 101]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    101
+    ssIdNumber		    13
+    name		    "W"
+    linkNode		    [88 100 102]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 2
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    102
+    ssIdNumber		    18
+    name		    "Du"
+    linkNode		    [88 101 103]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    103
+    ssIdNumber		    19
+    name		    "Dy"
+    linkNode		    [88 102 104]
+    scope		    PARAMETER_DATA
+    initFromWorkspace	    1
+    paramIndexForInitFromWorkspace 1
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    104
+    ssIdNumber		    21
+    name		    "ERR"
+    linkNode		    [88 103 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    105
+    name		    "RPBSID (VARMAX)\nFAST-ARRAY"
+    machine		    1
+    chart		    88
+  }
+  chart {
+    id			    106
+    name		    "Pulse Counter"
+    windowPosition	    [356.813 254.45 200.25 189.75]
+    viewLimits		    [0 156.75 0 153.75]
+    screen		    [1 1 1280 1024 1.333333333333333]
+    treeNode		    [0 107 0 0]
+    firstTransition	    109
+    firstJunction	    108
+    viewObj		    106
+    machine		    1
+    ssIdHighWaterMark	    5
+    decomposition	    CLUSTER_CHART
+    type		    EML_CHART
+    firstData		    110
+    chartFileNumber	    15
+    disableImplicitCasting  1
+    eml {
+      name		      "pulse"
+    }
+    noDebugging		    1
+    supportVariableSizing   0
+  }
+  state {
+    id			    107
+    labelString		    "eML_blk_kernel()"
+    position		    [18 64.5 118 66]
+    fontSize		    12
+    chart		    106
+    treeNode		    [106 0 0 0]
+    superState		    SUBCHART
+    subviewer		    106
+    ssIdNumber		    1
+    type		    FUNC_STATE
+    decomposition	    CLUSTER_STATE
+    eml {
+      isEML		      1
+      script		      "function freq = pulse(Y)\n%PULSE COUNTER\n\n% Sample time\nTs = 0.001;\ninit = 100/Ts;\n\n% Initi"
+      "alize if needed\npersistent T P k\nif isempty(T)\n    k = 1;\n    P = 0;\n    T = init;\nend\n\nif Y < 5\n    if"
+      " P > 0.5\n        T = k;\n        P = 0;\n        k = 1;\n    end\nelse\n    if P < 0.5\n        P = 1;\n    end"
+      "    \nend\nif k*Ts < 100\n    k = k + 1;\nend\nfreq = 1/(T*Ts); % frequency in Hertz\n% freq = 0.159155*freq; % "
+      "convert to rad/sec"
+      editorLayout	      "100 M4x1[24 41 1288 1002]"
+      fimathString	      "fimath(...\n'RoundMode', 'floor',...\n'OverflowMode', 'wrap',...\n'ProductMode', 'KeepLSB', "
+      "'ProductWordLength', 32,...\n'SumMode', 'KeepLSB', 'SumWordLength', 32,...\n'CastBeforeSum', true)"
+      fimathForFiConstructors FimathMatlabFactoryDefault
+      emlDefaultFimath	      FimathUserSpecified
+    }
+  }
+  junction {
+    id			    108
+    position		    [23.5747 49.5747 7]
+    chart		    106
+    linkNode		    [106 0 0]
+    subviewer		    106
+    ssIdNumber		    3
+    type		    CONNECTIVE_JUNCTION
+  }
+  transition {
+    id			    109
+    labelString		    "{eML_blk_kernel();}"
+    labelPosition	    [32.125 19.875 102.544 14.964]
+    fontSize		    12
+    src {
+      intersection	      [0 0 1 0 23.5747 14.625 0 0]
+    }
+    dst {
+      id		      108
+      intersection	      [7 0 -1 -1 23.5747 42.5747 0 0]
+    }
+    midPoint		    [23.5747 24.9468]
+    chart		    106
+    linkNode		    [106 0 0]
+    dataLimits		    [23.575 23.575 14.625 34.575]
+    subviewer		    106
+    drawStyle		    SMART
+    executionOrder	    1
+    ssIdNumber		    2
+  }
+  data {
+    id			    110
+    ssIdNumber		    4
+    name		    "Y"
+    linkNode		    [106 0 111]
+    scope		    INPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+      }
+      complexity	      SF_COMPLEX_INHERITED
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  data {
+    id			    111
+    ssIdNumber		    5
+    name		    "freq"
+    linkNode		    [106 110 0]
+    scope		    OUTPUT_DATA
+    machine		    1
+    props {
+      array {
+	size			"-1"
+      }
+      type {
+	method			SF_INHERITED_TYPE
+	primitive		SF_DOUBLE_TYPE
+	isSigned		1
+	wordLength		"16"
+      }
+      complexity	      SF_COMPLEX_INHERITED
+      frame		      SF_FRAME_NO
+    }
+    dataType		    "Inherit: Same as Simulink"
+  }
+  instance {
+    id			    112
+    name		    "Pulse Counter"
+    machine		    1
+    chart		    106
+  }
+  target {
+    id			    113
+    name		    "sfun"
+    codeFlags		    ""
+    machine		    1
+    linkNode		    [1 0 0]
+  }
+}

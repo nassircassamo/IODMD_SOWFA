@@ -1,0 +1,116 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      --><title>lti_releasenotes</title><meta name="generator" content="MATLAB 7.9"><meta name="date" content="2010-07-30"><meta name="m-file" content="lti_releasenotes"><style type="text/css">
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head><body><div class="content"><h1></h1><!--introduction--><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Release Notes</a></li><li><a href="#2">LTI System Identification Toolbox</a></li><li><a href="#3">State space Model Identification (SMI) Toolbox.</a></li></ul></div><h2>Release Notes<a name="1"></a></h2><h2>LTI System Identification Toolbox<a name="2"></a></h2><p>V2.2 (July 2010)</p><div><ul><li>automated mex file generation using <tt>ltisetup</tt></li><li>add option to estimate stable A matrix in <tt>dmodpo</tt> and <tt>dmodpi</tt></li><li>add <tt>dmodpi4</tt> and <tt>dmodpo4</tt> where A and C are found via MOESP, B and D via N4SID</li></ul></div><p>V2.1 (July 2009)</p><div><ul><li>add the work of C.T. Chou, R. Hallouzi, and K. Hinnen</li><li>new mex-binaries for windows (compiled on Vista/Matlab2008b)</li></ul></div><p>V2.02 (April 2008)</p><div><ul><li>fixed handling of empty inputs in <tt>dordpo</tt> and <tt>dmodpo</tt></li></ul></div><p>V2.01 (January 2008)</p><div><ul><li>fixed bug in <tt>fac2bd</tt></li><li>fixed bug calling <tt>dac2bdc</tt></li><li>new mex-binaries for windows (compiled on XP/Matlab2007b)</li></ul></div><p>V2.0 (August 2007)</p><div><ul><li>new help interface</li><li>removed depreciated SMI v1.0 functions (see below)</li><li>removed LPV functions (becomes a seperate LPV Toolbox)</li><li>changed <tt>lpvitr</tt> to <tt>ltiitr</tt> (removed LPV functionality)</li><li>renamed <tt>example</tt> to <tt>ltidemo</tt></li><li>new function <tt>gbn</tt> (based on <tt>prbn</tt>)</li><li>add check arguments to MEX-files and M-files</li><li>corrected a lot of M-Lint messages</li><li>new mex-binaries for windows (compiled on XP/Matlab2006b)</li><li>new mex-binaries for linux (compiled on FEDORACORE6/Matlab2006b)</li></ul></div><p>Previous versions of the LTI System Identification Toolbox are v1.5, v1.0 and v0.9 (April 2002). Release notes of these previous versions are not available.</p><h2>State space Model Identification (SMI) Toolbox.<a name="3"></a></h2><p>The toolbox software is based partly on the SMI Toolbox v1.0e (August 1999), and forms a superset of most of its functionality, see the companion (software manual).</p><p class="footer"><br>
+      Published with MATLAB&reg; 7.9<br></p></div><!--
+##### SOURCE BEGIN #####
+
+%% Release Notes
+%
+%% LTI System Identification Toolbox
+%
+% V2.2 (July 2010)
+%
+% * automated mex file generation using |ltisetup|
+% * add option to estimate stable A matrix in |dmodpo| and |dmodpi|
+% * add |dmodpi4| and |dmodpo4| where A and C are found via MOESP, B and D via N4SID
+%
+% V2.1 (July 2009)
+%
+% * add the work of C.T. Chou, R. Hallouzi, and K. Hinnen
+% * new mex-binaries for windows (compiled on Vista/Matlab2008b)
+%
+% V2.02 (April 2008)
+%
+% * fixed handling of empty inputs in |dordpo| and |dmodpo|
+%
+% V2.01 (January 2008)
+%
+% * fixed bug in |fac2bd|
+% * fixed bug calling |dac2bdc|
+% * new mex-binaries for windows (compiled on XP/Matlab2007b)
+%
+% V2.0 (August 2007)
+%
+% * new help interface
+% * removed depreciated SMI v1.0 functions (see below)
+% * removed LPV functions (becomes a seperate LPV Toolbox)
+% * changed |lpvitr| to |ltiitr| (removed LPV functionality)
+% * renamed |example| to |ltidemo|
+% * new function |gbn| (based on |prbn|)
+% * add check arguments to MEX-files and M-files
+% * corrected a lot of M-Lint messages
+% * new mex-binaries for windows (compiled on XP/Matlab2006b)
+% * new mex-binaries for linux (compiled on FEDORACORE6/Matlab2006b)
+%
+% Previous versions of the LTI System Identification Toolbox are v1.5, v1.0
+% and v0.9 (April 2002). Release notes of these previous versions are not available. 
+%
+%
+%% State space Model Identification (SMI) Toolbox.
+% The toolbox software is based partly on the SMI Toolbox v1.0e 
+% (August 1999), and forms a superset of most of its functionality, see the
+% companion (software manual).
+##### SOURCE END #####
+--></body></html>

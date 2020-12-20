@@ -1,0 +1,255 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN">
+<html xmlns:mwsh="http://www.mathworks.com/namespace/mcode/v1/syntaxhighlight.dtd">
+   <head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   
+      <!--
+This HTML is auto-generated from an M-file.
+To make changes, update the M-file and republish this document.
+      -->
+      <title>LTIFRF</title>
+      <meta name="generator" content="MATLAB 7.3">
+      <meta name="date" content="2007-08-01">
+      <meta name="m-file" content="ltifrf"><style>
+
+body {
+  background-color: white;
+  margin:10px;
+}
+
+h1 {
+  color: #990000; 
+  font-size: x-large;
+}
+
+h2 {
+  color: #990000;
+  font-size: medium;
+}
+
+/* Make the text shrink to fit narrow windows, but not stretch too far in 
+wide windows. */ 
+p,h1,h2,div.content div {
+  max-width: 600px;
+  /* Hack for IE6 */
+  width: auto !important; width: 600px;
+}
+
+pre.codeinput {
+  background: #EEEEEE;
+  padding: 10px;
+}
+@media print {
+  pre.codeinput {word-wrap:break-word; width:100%;}
+} 
+
+span.keyword {color: #0000FF}
+span.comment {color: #228B22}
+span.string {color: #A020F0}
+span.untermstring {color: #B20000}
+span.syscmd {color: #B28C00}
+
+pre.codeoutput {
+  color: #666666;
+  padding: 10px;
+}
+
+pre.error {
+  color: red;
+}
+
+p.footer {
+  text-align: right;
+  font-size: xx-small;
+  font-weight: lighter;
+  font-style: italic;
+  color: gray;
+}
+
+  </style></head>
+   <body>
+      <div class="content">
+         <h1>LTIFRF</h1>
+         <introduction>
+            <p>Calculates an LTI Frequency Response Function</p>
+         </introduction>
+         <h2>Contents</h2>
+         <div>
+            <ul>
+               <li><a href="#1">Syntax</a></li>
+               <li><a href="#5">Description</a></li>
+               <li><a href="#6">Inputs</a></li>
+               <li><a href="#13">Outputs</a></li>
+               <li><a href="#14">Algorithm</a></li>
+               <li><a href="#15">Used By</a></li>
+               <li><a href="#16">Uses Functions</a></li>
+               <li><a href="#19">See Also</a></li>
+               <li><a href="#20">References</a></li>
+            </ul>
+         </div>
+         <h2>Syntax<a name="1"></a></h2>
+         <p><tt>H = ltifrf(A,B,C,[],[],w,outopt)</tt></p>
+         <p><tt>H = ltifrf(A,B,C,D,[],w,outopt)</tt></p>
+         <p><tt>H = ltifrf([],[],[],D,[],w,outopt)</tt></p>
+         <p><tt>H = ltifrf(A,B,C,[],dA,w,outopt)</tt></p>
+         <h2>Description<a name="5"></a></h2>
+         <p><a href="ltifrf.html"><tt>ltifrf</tt></a> will return the Frequency Response Function (FRF) of a linear time-invariant state-space model, evaluated at the complex
+            frequencies provided in <i>w</i>:
+         </p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq31459.png"> </p>
+         <p>This function is used internally by <a href="ffunlti.html"><tt>ffunlti</tt></a>, <a href="fac2b.html"><tt>fac2b</tt></a> and <a href="fac2bd.html"><tt>fac2bd</tt></a>. It is not meant for stand-alone use.
+         </p>
+         <h2>Inputs<a name="6"></a></h2>
+         <p><tt>A</tt> is the state-space model matrix <i>A</i>.
+         </p>
+         <p><tt>B</tt>	is the state-space model matrix <i>B</i>.
+         </p>
+         <p><tt>C</tt>	is the state-space model matrix <i>C</i>.
+         </p>
+         <p><tt>D</tt>	is the (optional) state-space model matrix <i>D</i>.
+         </p>
+         <p><tt>dA</tt> (optional) calculates the change in FRF given the deviation <i>dA</i> in <i>A</i>. <i>D</i> and <i>dA</i> are mutually exclusive.
+         </p>
+         <p><tt>w</tt> is the vector of complex frequencies. For discrete-time systems:
+         </p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq2666.png"> </p>
+         <p>and for continuous-time systems.</p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq1837.png"> </p>
+         <p><tt>outopt</tt> controls how <i>H</i> will be returned (see below).
+         </p>
+         <h2>Outputs<a name="13"></a></h2>
+         <p><tt>H</tt> is the FRF. Usually a 3D-array of size <i>l</i> x <i>m</i> x <i>N</i>. However, if <tt>outopt</tt> is non-empty and <i>1</i>, <i>H</i> will be a vector of size <i>lmN</i> x 1. If <tt>outopt</tt> is non-empty and <i>2</i>, <i>H</i> will be a matrix of size <i>l</i> x <i>mN</i>.
+         </p>
+         <h2>Algorithm<a name="14"></a></h2>
+         <p>The state-space model is first transformed such that its state-transistion matrix <i>A</i> is in upper-Hessenberg form. The matrix
+         </p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq15698.png"> </p>
+         <p>is subsequently solved by an efficient upper-Hessenberg solver in SLICOT, after which premultiplication by <i>C</i> and addition of <i>D</i> yields the FRF. This approach follows [1].
+         </p>
+         <p>If a deviation <i>deltaA</i> in <i>A</i> is given, the FRF deviation is given by:
+         </p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq218745.png"> </p>
+         <p>Again, the model is transformed so that <i>A</i> has upper-Hessenberg form, after which the SLICOT Hessenberg solver is used to obtain
+         </p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq11094.png"> </p>
+         <p>and</p>
+         <p><img vspace="5" hspace="5" src="ltifrf_eq19621.png"> </p>
+         <p>Multiplication then yeilds the FRF deviation.</p>
+         <h2>Used By<a name="15"></a></h2>
+         <p><a href="ffunlti.html"><tt>ffunlti</tt></a>, <a href="fac2b.html"><tt>dac2b</tt></a>, <a href="fac2bd.html"><tt>dac2bd</tt></a></p>
+         <h2>Uses Functions<a name="16"></a></h2>
+         <p>SLICOT-functions <tt>MB02RZ</tt>, <tt>MB02SZ</tt>, <tt>TB05AD</tt></p>
+         <p>LAPACK-functions <tt>DGEHRD</tt> and <tt>DORMHR</tt></p>
+         <p>(All built into the executable)</p>
+         <h2>See Also<a name="19"></a></h2>
+         <p><a href="ffunlti.html"><tt>ffunlti</tt></a>, <a href="fac2b.html"><tt>fac2b</tt></a>, <a href="fac2bd.html"><tt>fac2bd</tt></a></p>
+         <h2>References<a name="20"></a></h2>
+         <p>[1] A.J. Laub, "Efficient multivariable frequency response calculations", <i>IEEE Transactions on Automatic Control</i>, vol. 26, pp. 407-408, Apr. 1981.
+         </p>
+         <p class="footer"><br>
+            Published with MATLAB&reg; 7.3<br></p>
+      </div>
+      <!--
+##### SOURCE BEGIN #####
+
+%% LTIFRF
+% Calculates an LTI Frequency Response Function
+
+%% Syntax
+% |H = ltifrf(A,B,C,[],[],w,outopt)|
+%%
+% |H = ltifrf(A,B,C,D,[],w,outopt)|
+%%
+% |H = ltifrf([],[],[],D,[],w,outopt)|
+%%
+% |H = ltifrf(A,B,C,[],dA,w,outopt)|
+
+%% Description
+% <ltifrf.html |ltifrf|> will return the Frequency Response Function (FRF)
+% of a linear time-invariant state-space model, evaluated at the complex
+% frequencies provided in _w_:
+% 
+% $$H = C {(\mathtt{w} I_n - A)}^{-1} B + D$$
+% 
+% This function is used internally by <ffunlti.html |ffunlti|>, <fac2b.html
+% |fac2b|> and <fac2bd.html |fac2bd|>. It is not meant for stand-alone use.
+
+%% Inputs
+% |A| is the state-space model matrix _A_.
+%% 
+% |B|	is the state-space model matrix _B_.
+%% 
+% |C|	is the state-space model matrix _C_.
+%% 
+% |D|	is the (optional) state-space model matrix _D_.
+%% 
+% |dA| (optional) calculates the change in FRF given the deviation _dA_ in
+% _A_. _D_ and _dA_ are mutually exclusive.
+%% 
+% |w| is the vector of complex frequencies. For discrete-time systems:
+% 
+% $$e^{j\omega}$$
+% 
+% and for continuous-time systems.
+% 
+% $$ j\omega $$
+%% 
+% |outopt| controls how _H_ will be returned (see below).
+    
+%% Outputs
+% |H| is the FRF. Usually a 3D-array of size _l_ x _m_ x _N_. However, if
+% |outopt| is non-empty and _1_, _H_ will be a vector of size _lmN_ x 1. If
+% |outopt| is non-empty and _2_, _H_ will be a matrix of size _l_ x _mN_.
+
+%% Algorithm
+% The state-space model is first transformed such that its
+% state-transistion matrix _A_ is in upper-Hessenberg form. The matrix
+% 
+% $${(\mathtt{w} I_n - A)}^{-1} B$$
+% 
+% is subsequently solved by an efficient upper-Hessenberg solver in SLICOT,
+% after which premultiplication by _C_ and addition of _D_ yields the FRF.
+% This approach follows [1].
+% 
+% If a deviation _deltaA_ in _A_ is given, the FRF deviation is given by:
+% 
+% $$ \delta H = C {(\mathtt{w} I_n - A)}^{-1} \delta A {(\mathtt{w} I_n -
+% A)}^{-1} B $$
+% 
+% Again, the model is transformed so that _A_ has upper-Hessenberg form,
+% after which the SLICOT Hessenberg solver is used to obtain
+% 
+% $${(\omega I_n - A)}^{-1} B$$
+% 
+% and
+% 
+% $${(\omega I_n - A)}^{-1} \delta A$$
+% 
+% Multiplication then yeilds the FRF deviation.
+
+%% Used By
+% <ffunlti.html |ffunlti|>, <fac2b.html |dac2b|>, <fac2bd.html |dac2bd|>
+
+%% Uses Functions
+% SLICOT-functions |MB02RZ|, |MB02SZ|, |TB05AD|
+%%
+% LAPACK-functions |DGEHRD| and |DORMHR|
+%%
+% (All built into the executable)
+
+%% See Also
+% <ffunlti.html |ffunlti|>, <fac2b.html |fac2b|>, <fac2bd.html |fac2bd|>
+
+%% References
+% [1] A.J. Laub, "Efficient multivariable frequency response calculations",
+% _IEEE Transactions on Automatic Control_, vol. 26, pp. 407-408, Apr.
+% 1981.
+
+
+
+##### SOURCE END #####
+-->
+   </body>
+</html>
