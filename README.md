@@ -8,7 +8,7 @@ This repository contains all the work developed in the context of the above ment
 * **Thesis_presentation.pdf**: a presentation of the *Thesis.pdf* contents.
 * **ExtendedAbstract.pdf**: a 10 page summary, in two column format, of the *Thesis.pdf*.
 * **poster_thesis.pdf**: a poster format summary of the objectives and results in the *Thesis.pdf*.
-* **KOPMAN_IODMD_1.0**: the source code, developed in Matlab and making use of existing functions developed by the National Renewable Energy laboratory (NREL), used to obtain the results in the *Thesis.pdf*.
+* **KOPMAN_IODMD_1.0**: the source code, developed in Matlab and making use of existing functions developed by the National Renewable Energy Laboratory (NREL), used to obtain the results in the *Thesis.pdf*.
 * **animations**: animations where the datasets can be visualised.
 * **articles**: articles published based on the work developed within the Thesis.
 * **data**: contains the datasets used to test the proposed algorithms in *Thesis.pdf*.
@@ -27,7 +27,7 @@ Two different data sets are contained in the drive mentioned in *data*, concerni
 ## Application 
 The Matlab script *Main.m* contained in *KOPMAN_IODMD_1.0* sets the relevant parameters and calls the appropriate functions. 
 
-The script functionalities are further described in *KOPMAN_IODMD_1.0* folder.
+The script functionalities are further described in the *KOPMAN_IODMD_1.0* folder.
 
 #### Author: Nassir Rodrigues Cassamo: nassir.cassamo@tecnico.ulisboa.pt
 #### October 2020
