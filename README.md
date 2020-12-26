@@ -5,12 +5,12 @@
 ## Repository
 This repository contains all the work developed in the context of the above mentioned Master Thesis dissertation. The main outcomes of this work have been segmented as follows:
 * **Thesis.pdf**: corresponds to the final dissertation, with an introduction to wind turbine control, wind farm control, data driven modelling within fluid dynamics and dynamic mode decomposition (and variant algorithms suited for control). All results are also contained in this document.
-* **ExtendedAbstract.pdf**: a 10 page summary, in two column format, of the **Thesis.pdf**.
-* **poster_thesis.pdf**: a poster format summary of the objectives and results in the **Thesis.pdf**.
-* **KOPMAN_IODMD_1.0**: the source code, developed in Matlab and making use of existing functions developed by others, used to obtain the results in the **Thesis.pdf**.
-* **animations**: animations where the wind farm control strategies 
-* **articles**:
-* **data**:
+* **ExtendedAbstract.pdf**: a 10 page summary, in two column format, of the *Thesis.pdf*.
+* **poster_thesis.pdf**: a poster format summary of the objectives and results in the *Thesis.pdf*.
+* **KOPMAN_IODMD_1.0**: the source code, developed in Matlab and making use of existing functions developed by others, used to obtain the results in the *Thesis.pdf*.
+* **animations**: animations where the datasets can be visualised.
+* **articles**: articles published based on the work developed within the Thesis.
+* **data**: contains the datasets used 
 
 
 ## Thesis Abstract
