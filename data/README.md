@@ -17,6 +17,8 @@ Two different folders exist in the link, corresponding to two different datasets
 * 1.2. ***steps_yaw_20deg_10offset_val***: folder containing all turbine relevant information saved during simulation to generate validation data set.
 * 1.3. ***U_data_complete_vec_yaw_off.mat***: MATLAB structure containing flow field information of identification data set.
 * 1.4. ***U_data_complete_vec_yaw_off_val.mat***: MATLAB structure containing flow field information of validation data set.
+ 
+### General structures
 
 The MATLAB structures containing flow field information have the following variables:
 * ***Decimate***: Number of spacing used to resample original grid information
