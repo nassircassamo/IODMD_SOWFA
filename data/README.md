@@ -16,8 +16,8 @@ Two different folders exist in the link, corresponding to two different datasets
 
 The MATLAB structures containing flow field information have the following variables:
 * ***Decimate***: Number of spacing used to resample original grid information
-* *** Nbegin***: Time sample from which to start saving simulation information
-* *** Nend***: Time sample to end simulation information
+* ***Nbegin***: Time sample from which to start saving simulation information
+* ***Nend***: Time sample to end simulation information
 * ***QQ_u***: Reasampled (in space) and resized streamwise velocity, for all time instants
 * ***QQ_v***: Reasampled (in space) and resized spanwise velocity, for all time instants
 * ***QQ_w***: Reasampled (in space) and resized vertical velocity, for all time instants
