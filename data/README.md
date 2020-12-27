@@ -2,7 +2,7 @@
 
 Two different folders exist in the link, corresponding to two different datasets where two distinct wind farm control strategies are tested:
 
-1.  ** *pitch_control* **: axial induction control is used as a wind farm control strategy. Wind turbine blades are collectively pitched. In this directory, two additional folders and two additional files are present:
+1.  ***pitch_control***: axial induction control is used as a wind farm control strategy. Wind turbine blades are collectively pitched. In this directory, two additional folders and two additional files are present:
 * 1.1. ** *steps_theta_col_new* **: folder containing all turbine relevant information saved during simulation to generate identification data set.
 * 1.2. ** *steps_theta_col_new_val* **: folder containing all turbine relevant information saved during simulation to generate validation data set.
 * 1.3. ** *U_data_complete_vec_pulse.mat* **: MATLAB structure containing flow field information of identification data set.
