@@ -26,11 +26,22 @@ It goes through the following steps:
 * **5. Use Dynamic Mode Decomposition to compute models**
 
 ## 3. Validation
+* **1. Validate Reduced Order Models**
+* **2. Present results**
+* **3. Save results**
 
 ## 4. Dynamical Analysis
+* **1. Select best performing model to analyse**
+* **2. Compute dynamical properties**
+* **3. Visualise dynamical modes**
 
 ## 5. Rebuild
+* **1. Compute high order representation of state space trajectory**
+* **2. Compare linear simulation results with validation data**
+* **3. Evaluate deviations**
 
 ## 6. Model Predictive Control
+* **1. Model actuator dynamics**
+* **2. Build Model Predictive Control framework**
 
 ## Functions
