@@ -33,14 +33,14 @@ All computed Reduced Order Models are validated. Each one is simulated and using
 * **3. Save results**
 
 ## 4. Dynamical Analysis
-The dynamical characteristics of each model can then be analysed by evaluating the natural frequencies of each mode (given a certain Reduced Order Model), the location of the system's poles within the complex plane, the relative importante of each mode, etc. Other functions which attempt to compute a state space representation of each mode have been developed (based on the modal state space representation approach), although their applications and results have not been fully exploited and are not present in the existing documentation. The functions developed also allow for the 2d and 3D representation of the modes.
+The dynamical characteristics of each model can then be analysed by evaluating the natural frequencies of each mode (given a certain Reduced Order Model), the location of the system's poles within the complex plane, the relative importante of each mode, etc. Other functions which attempt to compute a state space representation of each mode have been developed (based on the modal state space representation approach), although their applications and results have not been fully exploited and are not present in the existing documentation. The functions developed also allow for the 2D and 3D representation of the modes.
 
 * **1. Select best performing model to analyse**
 * **2. Compute dynamical properties**
 * **3. Visualise dynamical modes**
 
 ## 5. Rebuild
-The capabilities of the Reduced Order Models in terms of reconstruction the full wake are then assessed. The state space trajectory can be represented in the high dimensional space  and the function here present allow to compare the modes reconstruction to the identification and validation data retrieved in SOWFA, as well as to quantify devotions between the two.
+The capabilities of the Reduced Order Models in terms of reconstruction the full wake are then assessed. The state space trajectory can be represented in the high dimensional space  and the functions here present allow to compare the modes reconstruction to the identification and validation data retrieved in SOWFA, as well as to quantify deviations between the two.
 
 * **1. Compute high order representation of state space trajectory**
 * **2. Compare linear simulation results with validation data**
@@ -55,6 +55,6 @@ The actuator dynamics are modelled as a low pass filter and joined in series to 
 ## Functions
 These include several functions needed by the program, such as:
 * **1. Export Figure**: figures are continuously exported automatically to pre specified directories
-* **2. cbrewer*: specified colours for wake snapshots
-* **3. LTIToolbox*: functions from the Delft Center for Systems and Control (DCSC) regarding Linear Times Invariant systems
-* **4. postProcessingTools*: function developed by the National Renewable Energy Laboratory (NREL) to read turbine information computed when using SOWFA.
+* **2. cbrewer**: specified colours for wake snapshots
+* **3. LTIToolbox**: functions from the Delft Center for Systems and Control (DCSC) regarding Linear Times Invariant systems
+* **4. postProcessingTools**: function developed by the National Renewable Energy Laboratory (NREL) to read turbine information computed when using SOWFA.
