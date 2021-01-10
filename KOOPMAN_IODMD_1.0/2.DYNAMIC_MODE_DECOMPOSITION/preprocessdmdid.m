@@ -6,8 +6,8 @@ function [Inputs, Outputs, Deterministic,scalingfactors]=preprocessdmdid(beg, ro
  %X2=detrend(rotSpeed(end-beg*10:1:end,2)');
  %X3=detrend(rotSpeed(end-beg*10:1:end,1).^2');
  %X4=detrend(rotSpeed(end-beg*10:1:end,2).^2');
- meanX1=7.14; %pitch 0
- %meanX1=7.14; %yaw -10
+ %meanX1=7.14; %pitch 0
+ meanX1=7.14; %yaw -10
  X1=(rotSpeed(end-beg*10:1:end,1)-meanX1).^2;
  
  %meanX1=7.14; %pitch 0
@@ -22,7 +22,7 @@ function [Inputs, Outputs, Deterministic,scalingfactors]=preprocessdmdid(beg, ro
 
  [X1] = resampleedgeeffect(X1,10); 
  [X2] = resampleedgeeffect(X2,10);
-% [X3] = resampleedgeeffect(X3,10);
+ %[X3] = resampleedgeeffect(X3,10);
  %[X4] = resampleedgeeffect(X4,10);
  
 %s4=var(X1);
@@ -46,17 +46,17 @@ function [Inputs, Outputs, Deterministic,scalingfactors]=preprocessdmdid(beg, ro
 %% INPUTS: 
 if pitchmode==0
     
-    steadyyaw=260;
+    steadyyaw=260; %yaw angle steady state (offset)
     %U1=detrend(nacelleYaw(end-beg*10:1:end,1)');
     U1=nacelleYaw(end-beg*10:1:end,1)';
     U1=U1-steadyyaw;
     [U1] = resampleedgeeffect(U1,10);
     %s3=var(U1);
-    %U1=U1./var(U1);
+    %U1=U1./var(U1); %scaling
     
     Inputs= U1;
     
-    % transformation to make input more linear
+   % transformation to make input more linear
    % Inputs=(1-cosd(Inputs))*6;
   
     %scalingfactors=[s1;s2;s3;s4;s5;s6;s7];
@@ -65,7 +65,7 @@ if pitchmode==0
     
 elseif pitchmode==1
     
-    %% MBC: Multi-Blade Coordinate transformation
+%% MBC: Multi-Blade Coordinate transformation
 %A directional thrust force  can be accomplished by implementinf MBC
 %transformation, and decoupling/proejcting the blade loads in a non
 %-rotating reference frame
@@ -138,7 +138,7 @@ end
    % meanY2=0.7728*10^6; %pitch 0
     meanY2=0.9512*10^6; %yaw -10
     Y2=powerGenerator(end-beg*10:1:end,2)/rho-meanY2;
-% 
+ 
   [Y1] = resampleedgeeffect(Y1*10^-6,10); %rotor speed of turbine 1 as first output
   [Y2] = resampleedgeeffect(Y2*10^-6,10);
   
