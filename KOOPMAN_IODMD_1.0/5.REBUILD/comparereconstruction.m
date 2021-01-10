@@ -12,12 +12,12 @@ function []=comparereconstruction(states, statesrebuild,D,dirdmd,x,y,z,Decimate,
     yawanglers(:,:)     =resample(yawangle(end-750*10:1:end,1:end),1,10);
 
     Uups=9; %[m/s]
-    [xx,yy,zz,X,Y,Z]=retakepoints([],x,y,z,Decimate);
-   % [xx,yy,zz]=resamplegrid(x,y,z, Decimate);
+    %[xx,yy,zz,X,Y,Z]=retakepoints([],x,y,z,Decimate);
+    [xx,yy,zz]=resamplegrid(x,y,z, Decimate);
     [Xm_sh,Ym_sh,Zm_sh] = meshgrid(xx-500,(yy-500),zz);
-   % X = length(xx);
-   % Y = length(yy);
-   % Z = length(zz);
+    X = length(xx);
+    Y = length(yy);
+    Z = length(zz);
     
     %% First figure
     fig500= figure('Units', 'pixels', 'pos', [75 75 1155 650],'color','white','Visible', 'off');
