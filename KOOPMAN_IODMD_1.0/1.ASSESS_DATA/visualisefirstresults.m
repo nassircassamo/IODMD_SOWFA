@@ -7,7 +7,7 @@ if option == 1
     for j=1:1:length(dirName)
 
         cd(dirName{j})  
-        cd ..
+        cd ./1000
 
         [nTurbine,time1,dt,nVal,powerRotor] = readTurbineOutputGlobal(dirName{j},'rotorPower');
         [time2,pitch] = readPitchData(strcat(dirName{j},'/1000/bladePitch')); %pitch=pitch{:};
