@@ -29,21 +29,23 @@ pval.LineStyle='- -';
 pval.Color=[0.7 0.7 1];
 %sval=plot(x,yexp);
 warning off
-lgd=legend([sid sval],'VAF: Identification Models','VAF: Validation Models',...
-    'VAF: Validation Models','VAF: Validation Models','Location',...
-    'best','Orientation','horizontal');
-warning on
-lgd.FontSize=14;
-legend('boxoff')
-xlabel('Number of modes in model');
-ylb=ylabel('Variance Accounted For (VAF) [%]');
-title('VAF for tubine 1 by different models for idenitfication and validation');
-set(gca, 'FontSize', 14);
 ax=gca;
+set(gca, 'FontSize', 14);
+lgd=legend([sid sval],'Identification data set','Validation data set',...
+    'VAF: Validation Models','VAF: Validation Models','Location',...
+    'best','Orientation','vertical');
+lgd.FontSize=18;
+warning on
+%legend('boxoff')
+xlabel('Number of modes in model','FontSize',18,'FontName','Times');
+ylb=ylabel('Variance Accounted For (VAF) [%]','FontSize',18,'FontName','Times');
+title('Model validation: first output', 'FontSize',22,'FontName','Times','Fontweight','Normal');
 ax.YAxis.TickValues=[0 10 20 30 40 50 60 70 80 90 100];
 ax.XAxis.TickValues=0:10:200;
 grid on
 hold off
+get(gca,'fontname')  % shows you what you are using.
+set(gca,'fontname','times')  % Set it to times
 
 %% TURBINE 2
 subplot(2,1,2)
@@ -73,21 +75,23 @@ pval.LineStyle='- -';
 pval.Color=[0.7 0.7 1];
 %sval=plot(x,yexp);
 warning off
-lgd2=legend([sid sval],'VAF: Identification Models','VAF: Validation Models',...
-    'VAF: Validation Models','VAF: Validation Models','Location',...
-    'bestoutside','Orientation','horizontal');
-warning on
-lgd2.FontSize=14;
-legend('boxoff')
-xlabel('Number of modes in model');
-ylb=ylabel('Variance Accounted For (VAF) [%]');
-title('VAF for tubine 2 by different models for idenitfication and validation');
-set(gca, 'FontSize', 14);
 ax=gca;
+set(gca, 'FontSize', 14);
+lgd2=legend([sid sval],'Identification data set','Validation data set',...
+    'VAF: Validation Models','VAF: Validation Models','Location',...
+    'best','Orientation','vertical');
+warning on
+lgd2.FontSize=18;
+%legend('boxoff')
+xlabel('Number of modes in model','FontSize',18,'FontName','Times');
+ylb=ylabel('Variance Accounted For (VAF) [%]','FontSize',18,'FontName','Times');
+title('Model validation: second output','FontSize',22,'FontName','Times','Fontweight','Normal');
 ax.YAxis.TickValues=[0 10 20 30 40 50 60 70 80 90 100];
 ax.XAxis.TickValues=0:10:200;
 grid on
 hold off
+get(gca,'fontname')  % shows you what you are using.
+set(gca,'fontname','times')  % Set it to times
 
 %% overall results, giving a weighted average VAF for a model 
 % subplot(3,1,3)
@@ -139,3 +143,4 @@ hold off
 hold off
 set(gcf,'color','w','Position', get(0, 'Screensize'));
 export_fig(figure350,strcat(dirdmd,'/image',name),'-nocrop','-m2');
+print2eps(strcat(dirdmd,'/image',name),figure350)
