@@ -1,5 +1,20 @@
 function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
 
+%Def: function that allows to visualise the wake evolving through time for
+%specific time instants. The wake is represented qualitatively, where the
+%isosurafce of the vorticity value (for a specified value) is defined and
+%ploted in a three dimensional grid
+
+%Input arguments:
+    %dirName: directory of post processed data from SOWFA
+    %filename: directory where mat file with velocity field is saved
+    %D: rotor diameter
+    %DCAT: initial time instant to consider for ploting
+    
+%log:
+    %0. first commit October 2020
+    %1. function revised and comments added on March 2022
+
 %% WAKE PROPAGATION DURING FIRST YAW
 
     warning off
@@ -32,7 +47,7 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     omega=2*pi*2;
     filter=c2d(omega^2/(s^2+2*0.7*omega*s+omega^2),0.1); 
     [a,b]=tfdata(filter);
-    [b,a] = butter(12,0.08,'low');          
+    [b,a] = butter(16,0.08,'low');          
 
     thrustVec{n}=[thrustrs,thrusthrs,thrustvrs]./(sqrt(thrustrs(1)^2+thrustvrs(1)^2+thrusthrs(1)^2));
     thrustVec{n}=filtfilt(b,a,thrustVec{n});
@@ -108,19 +123,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     
     
@@ -171,19 +186,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     %% 3
@@ -233,19 +248,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     %% 4
@@ -296,19 +311,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
    titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     %% 5
@@ -358,19 +373,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     
     set(gcf, 'Position', get(0, 'Screensize'));
@@ -428,19 +443,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     %% 7
@@ -490,19 +505,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     %% 8
@@ -552,19 +567,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     %% 9
@@ -615,19 +630,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
      %% 10
@@ -678,19 +693,19 @@ function []=wake_vorticity_deflection_yaw(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,3.6,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,3.6,1.5,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,3.6,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,3.6,1.5,STring2,'Fontsize',16,'FontName','Times')
     STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,3.25,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-   STring4={sprintf('Yaw angle: -%2.0f °',round(270-yawanglers(i,1)))};
-    text(2.65,3.65,1.5,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(16.0,3.25,1.5,STring3,'Fontsize',16,'FontName','Times')
+   STring4={sprintf('Yaw angle: -%2.0f Â°',round(270-yawanglers(i,1)))};
+    text(2.65,3.65,1.5,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)  titlee.Position(2)+titlee.Position(2)*0.4  titlee.Position(3)];
     set(gca,'Ydir','reverse')
     shg
