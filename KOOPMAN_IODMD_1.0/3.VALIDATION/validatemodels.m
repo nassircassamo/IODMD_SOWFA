@@ -13,7 +13,8 @@
         part=3; subpart=1; [f]= MPC_progress(part,subpart,f,si,r);
         warning off 
         [FITje_val,OMEGA,DAMPING,fig1,x_val]=evaluatemodel(sys_red,si,Inputs_val,Outputs_val,FITje_val,OMEGA_val,DAMPING_val,'validation',x_val,states,U,Deterministic_val,method);
-        export_fig(fig1,strcat(dirdmd_val,'/image',num2str(20000+si)),'-nocrop','-m2')
+        %export_fig(fig1,strcat(dirdmd_val,'/image',num2str(20000+si)),'-nocrop','-m2')
+        print2eps(strcat(dirdmd_val,'/image',num2str(20000+si)),fig1)
         warning on
         close all
     end
