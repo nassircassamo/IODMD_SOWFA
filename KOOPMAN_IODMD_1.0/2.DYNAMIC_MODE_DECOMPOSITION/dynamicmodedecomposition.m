@@ -1,26 +1,37 @@
 function [sys_red,FITje,U,S,V,method,X,X_p,Xd,dirdmd,x]=dynamicmodedecomposition(states, Inputs, Outputs, Deterministic ,method,r,maindir,f,dt)
 
-% This function aims to build a reduced order model from the states,
+%Def: This function aims to build a reduced order model from the states,
 % input/output information and deterministic states gathered in the
 % simulation and resampled
 
-%% INPUT ARGUMENTS
-%states: states to build DMD matrices
-%inputs: [U1 U2 U3 ... Un];
-%outputs: [Y1 Y3 .... Yn];
-%deterministic: [Xd1 Xd2 Xd3 Xd4 ... Xdn];
-%method: which method to use for DMD 
-%r: truncation level (number of singular values to retain)
+%Input arguments:
+    %states: full snapshot matrix to be further splitted into its snapshot
+    %time shifted version
+    %Inputs: Input data matrix [U1 U2 U3 ... Un];
+    %Outputs: Output data matrix [Y1 Y3 .... Yn];
+    %Deterministic states, if any [Xd1 Xd2 Xd3 Xd4 ... Xdn];
+    %method: algortihm to be used to build ROM
+        %0: original Dynamic Mode Decomposition algortihm, where the A
+        %state space matrix is computed (there is no contorl action)
+        %1: Dyanmic Mode Decomposition with Control 
+        %2. Input Output Dynamic Mode Decomposition
+        %3. Extended Input Output Dynamic Mode DECOMPOSITION
+        %4. Initial approach with systems identification
+    %r: (maximum) truncation level (number of singular values to retain)
+    
+%Output arguments:
+    % sys_red: the state space systems, according to the number of singular
+    % values used
+    % FITje: the Fit of the model for the given data
+    % U, S, V: the matrices resulting from SVD to be used for DMD states reconstruction
+    %method: method is later used, as reconstruction depends on the method
+    %used, even though methodology is similar
+    % X, X_p: DMD matrices to be used later for reconstruction 
 
-
-%% OUTPUTS ARGUMENTS
-% sys_red: the state space systems, according to the number of singular
-% values used
-% FITje: the Fit of the model for the given data
-% U, S, V: the matrices resulting from SVD to be used for DMD states reconstruction
-%method: method is later used, as reconstruction depends on the method
-%used, even though methodology is similar
-% X, X_p: DMD matrices to be used later for reconstruction 
+%log:
+    %0. first commit October 2020
+    %1. function revised and comments added
+    
 
 %% DMD - Dynamic Mode Decomposition
 
@@ -75,10 +86,10 @@ if method==0 %dmd algortihm
        
         FITje=0;
     end
-    
- 
-elseif method==1 %dmdc algortihm
+
 %%  (1) DMD - there is a extrnal forcing term
+elseif method==1 %dmdc algortihm
+
      
      dirdmd='DMDresults_DMDc';
      dirdmd=strcat(maindir,dirdmd);
@@ -118,10 +129,10 @@ elseif method==1 %dmdc algortihm
     %since it is defined for the input space which now includes both the state
     %measurments and the exogeneous inputs
 
-    %SVD(X')=ÛS^V*
+    %SVD(X')=ï¿½S^V*
 
-    % Ã  = Û*AÛ = Û*X'VS^(-1)U*1 Û
-    % B~ = Û*B  = Û*X'VS^(-1)U*2
+    % ï¿½  = ï¿½*Aï¿½ = ï¿½*X'VS^(-1)U*1 ï¿½
+    % B~ = ï¿½*B  = ï¿½*X'VS^(-1)U*2
     
     Omega = [X;inp];
     
@@ -229,7 +240,8 @@ elseif method==2 %ioDMD
 
         [FITje,OMEGA,DAMPING,fig1,x]=evaluatemodel(sys_red,si,Inputs,Outputs,FITje,OMEGA,DAMPING,'identification',x,states,U,Deterministic,method);
         warning off
-        export_fig(fig1,strcat(dirdmdident,'/image',num2str(10000+si)),'-nocrop','-m2')
+        %export_fig(fig1,strcat(dirdmdident,'/image',num2str(10000+si)),'-nocrop','-m2')
+        print2eps(strcat(dirdmdident,'/image',num2str(10000+si)),fig1)
         warning on
         close all
     end
@@ -331,17 +343,17 @@ elseif method==4
     % Y  ~ C(USV*) + DU
 
     %A new state X^= U*X=U*USV*=SV*
-    % Â  = U*A*U
+    % ï¿½  = U*A*U
     % B^ = U*B
 
-    % U*X' ~ ÂSV* + B^U 
+    % U*X' ~ ï¿½SV* + B^U 
 
-    % Matrixes Â and B^can now be found via least squares 
+    % Matrixes ï¿½ and B^can now be found via least squares 
 
-    % || U*X' - [ Â B^][ SV* ] ||
+    % || U*X' - [ ï¿½ B^][ SV* ] ||
     %                  [  U  ]
 
-    % [ Â B^ ] = U*X [ SV* ]* x  [ SV*VS    SV*U_*  ] ^-1
+    % [ ï¿½ B^ ] = U*X [ SV* ]* x  [ SV*VS    SV*U_*  ] ^-1
     %                [ U_   ]    [ U_SV     U_U_*   ]
   
     %%%---%%%---%%%
@@ -354,13 +366,13 @@ elseif method==4
     
     % with 
     %
-    % Â = [ I 0  ] A
+    % ï¿½ = [ I 0  ] A
     %     [ 0 U* ]
     
-    % || [ I 0  ] [ Xd ]  -  Â[ Xd   ] - B^ U    || 
+    % || [ I 0  ] [ Xd ]  -  ï¿½[ Xd   ] - B^ U    || 
     % || [ 0 U* ] [ X' ]      [ USV* ]           || 
     
-    % [ Â B^ ]
+    % [ ï¿½ B^ ]
     
     %truncation/number of singular values for SVD decomposition
     
