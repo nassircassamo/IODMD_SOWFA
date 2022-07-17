@@ -1,9 +1,23 @@
 function []=visualisefirstresults(dirName,rho,option,maindir,dir)
 
-if option == 1
+%Def: function that allows to quickly visualise the relevant control
+%related information from the simulation (a kind of Exploratory Data
+%Analysis, but automated)
+
+%Input arguments:
+    %dirName: directory of post processed data from SOWFA
+    %rho: air density considered in simulations
+    %option: to visualise or not the data
+    %maindir: main directory to save results
+    %name of folder to be created to save all the data
+    
+%log:
+    %0. first commit October 2020
+    %1. function revised and comments added
+
+if option == 1 %plot the data
     
     %% READ DATA
-
     for j=1:1:length(dirName)
 
         cd(dirName{j})  
@@ -59,23 +73,26 @@ if option == 1
         %make scale move from 0.5 minutes throuhg 0.5 minutes
         set(gca,'XTick',(0:24*5:(max(time3)-time(1))))
         ax.XTickLabel = {' ','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32','34'};
-        title('Generator power of turbine 1 - data retrieved from SOWFA','FontName', 'Helvetica')
-        xlabel('Time [ min ]','FontName', 'Helvetica');
-        ylabel('Power [MW]','FontName', 'Helvetica')
-        set(gca,'fontsize', 12)
+        title('Generator power of turbine 1','FontName', 'Times','FontWeight','Normal')
+        xlabel('Time [ min ]','FontSize',18,'FontName','Times');
+        ylabel('Power [MW]','FontSize',18,'FontName','Times')
+        get(gca,'fontname')  % shows you what you are using.
+        set(gca,'fontname','times','fontsize',18) 
+        
         i=2;
         subplot(3,1,i);
         p=plot(time3(beginplotindex:end)-time(1),powerGenerator(beginplotindex:end,i)./1e6/rho,'LineWidth',1.8); 
         p.Color=[0.1 0.1 0.8];
         hold on
         ax=gca;
-         set(gca,'XTick',(0:24*5:(max(time3)-time(1))))
+        set(gca,'XTick',(0:24*5:(max(time3)-time(1))))
         ax.XTickLabel = {' ','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32','34'};
-        title('Generator power of turbine 2 - data retrieved from SOWFA','FontName', 'Helvetica')
+        title('Generator power of turbine 2','FontName', 'Times','FontWeight','Normal')
         grid on
-        xlabel('Time [ min ]','FontName', 'Helvetica')
-        ylabel('Power [MW]','FontName', 'Helvetica')
-        set(gca,'fontsize', 12)
+        xlabel('Time [ min ]','FontSize',18,'FontName','Times')
+        ylabel('Power [MW]','FontSize',18,'FontName','Times')
+        get(gca,'fontname')  % shows you what you are using.
+        set(gca,'fontname','times','fontsize',18)  % Set it to times
         
         i=3;
         subplot(3,1,i);
@@ -90,10 +107,11 @@ if option == 1
         %make scale move from 0.5 minutes throuhg 0.5 minutes
         set(gca,'XTick',(0:24*5:(max(time3)-time(1))))
         ax.XTickLabel = {' ','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32','34'};
-        title('Wind farm total power output','FontName', 'Helvetica')
-        xlabel('Time [ min ]','FontName', 'Helvetica')
-        ylabel('Power [MW]','FontName', 'Helvetica')
-        set(gca,'fontsize', 12)
+        title('Wind farm total power output','FontName', 'Times','FontWeight','Normal')
+        xlabel('Time [ min ]','FontName', 'Helvetica','FontSize',18,'FontName','Times')
+        ylabel('Power [MW]','FontName', 'Helvetica','FontSize',18,'FontName','Times')
+        get(gca,'fontname')  % shows you what you are using.
+        set(gca,'fontname','times','fontsize',18)  % Set it to times
         export_fig(fig1,strcat(dir,'/power'),'-nocrop','-m2'); 
         
 
@@ -123,7 +141,8 @@ if option == 1
         ylabel('Torque [kNm]')
         set(gca,'fontsize', 12)
         export_fig(fig3,strcat(dir,'/Torque'),'-nocrop','-m2'); 
-     %% ROTATIONAL SPEED
+        
+     %% ROTOR SPEED
         fig4=figure;
         fig4.Visible='off';
         set(gcf,'color','w','Position', get(0, 'Screensize'));  
@@ -150,7 +169,8 @@ if option == 1
         xlabel('Time instant [ ]')
         ylabel('\Omega [rad/s]')
         set(gca,'fontsize', 12)
-        export_fig(fig4,strcat(dir,'/RotSpeed'),'-nocrop','-m2'); 
+        export_fig(fig4,strcat(dir,'/RotSpeed'),'-nocrop','-m2');
+        
      %% THRUST
         fig5=figure;
         fig5.Visible='off';
@@ -219,6 +239,7 @@ if option == 1
         ylabel('Yaw angle [deg]')
         set(gca,'fontsize', 12)
         export_fig(fig6,strcat(dir,'/Yaw'),'-nocrop','-m2'); 
+        
         %% CONTROL LAW
         fig7=figure;
         fig7.Visible='off';
@@ -275,7 +296,7 @@ if option == 1
         
         subplot(3,2,3)
         p=plot(timeyaw(1:QQ1)-time(1),pitch{1}(1:QQ1,2),'LineWidth',1.8);
-         p.Color=[0.8 0.2 0.2];
+        p.Color=[0.8 0.2 0.2];
         ax=gca;
         ax.XTickLabel = {' ','2','4','6','8','10','12','14','16','18','20','22','24','26','28','30','32','34'};
         set(gca,'XTick',(0:24*5:(max(time3)-time(1))))
@@ -336,7 +357,7 @@ if option == 1
         export_fig(fig8,strcat(dir,'/Pitch_Blades'),'-nocrop','-m2'); 
         
         
-        %% PITCH CONTROL MOMENTS (INPUTS)
+   %% PITCH CONTROL MOMENTS (INPUTS)
 
 %%%   MBC: Multi-Blade Coordinate transformation
 %     %A directional thrust force  can be accomplished by implementinf MBC
@@ -349,9 +370,7 @@ if option == 1
 % 
         Nturb=2;
 % 
-%         %QUESITON: how is this offsetp obtained? Probably given by the initial
-%         %condtitions of the experiemnt. Please check 
-          Offset=-8.4*2; %;-16;
+         Offset=-8.4*2; %;-16;
          for index=1:1:length(time1)
 %             %for each time instant INDEX get (for each turbine ij below) the 3
 %             %out-of-plane blade root bending moments, corresponding to the
@@ -370,17 +389,19 @@ if option == 1
 % 
 %                 %3 Matrixes containing the different bending moments where each
 %                 %line has the turbine number and each column the time instant
-%                 %INDEX
+%                 %index
                  PPitch1(ij,index)=PITCH(1);
                  PPitch2(ij,index)=PITCH(2);
                  PPitch3(ij,index)=PITCH(3);
              end
          end
+         
 %     %% Graphical visualisation of pitchig moments 
  
          fig9=figure;
          fig9.Visible='off';
          set(gcf,'color','w','Position', get(0, 'Screensize'));
+         
 %         %plot the non rotating reference moments for FIRST turbine (i=1)
          i=1;jj=1; %first moment
          subplot(3,2,i+2*(jj-1))
