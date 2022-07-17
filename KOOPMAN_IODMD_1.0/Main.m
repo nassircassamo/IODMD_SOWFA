@@ -2,24 +2,25 @@
 %Decomposition Approach
 %Master Thesis Dissertation
 %Author: Nassir Rodrigues Cassamo
-%Supervisors: Professor Jan-Willem Van Wingerden and Professor João Sousa
+%Supervisors: Professor Jan-Willem Van Wingerden and Professor Joao Sousa
 %First official commit (1.0): December 2020
 
 %% RELEVAT INFORMATION
 %This script has the following goals:
 % (1) Assess Simulation data, both qualitatively (animations) and
 % quantitatively (graphics)
-% (2) Derives a low dimensional model using Dynamica Mode Decomposition
+% (2) Derives a low dimensional model using Dynamic Mode Decomposition
 % (variations included to take into account input-output data and other
 % known states - deterministic states)
 % (3) Validates the models with a set of validaiton data
 % (4) Analyses the models, mainly the intrinsic dynamics  modes,
-% damping, frequencies, energy) 
-% (5) Reconstructs flow based on models an computes deviations from real 
-% (6) Designs a Model Predictive Control 
+% damping, frequencies, energy
+% (5) Reconstructs flow based on models and computes deviations from real
+% measurements from simulation
+% (6) Designs a Model Predictive Controller
 
 %This script requires the following functions to be added to MATLAB's path
-% (1) Functions (LTI toolbox from DCSC, post processing tools from NRL
+% (1) Functions (LTI toolbox from DCSC, post processing tools from NREL)
 % (2) cbrewer: color scaling
 % (3) altmany-export_fig: to export figures directly to specified directories
 % (4) subfolders comprising all parts sub functions
@@ -27,7 +28,7 @@
 %This script requires data in the following fashion
 % (1) 2 folders of name (2.1) steps_yaw and (2.2) steps_yaw_val, that
 % contain the data non processed directly from CFD simulation from SOWFA
-% (2) Data vectors with post processed information: the post processing is
+% (2) Data vectors regarding flow field with post processed information: the post processing is
 % performed in the cluster and these vectors contain the resampled
 % flowfield and resampled grid points. The grid points were resampled every
 % Decimate (variable should be in these data vectors)
@@ -35,38 +36,36 @@
     % (2.2) U_data_complete_vec_val
 
 %% (0) INITIALISE
-    %define type of simulation
     addpath('./1.ASSESS_DATA','./2.DYNAMIC_MODE_DECOMPOSITION','./3.VALIDATION','./4.DYNAMICAL_ANALYSIS','./5.REBUILD','./6.MODEL_PC','OTHER');
-    part=0; subpart=1; [f]= MPC_progress(part,subpart,{},{},{});
+    part=0; subpart=1; [f]= MPC_progress(part,subpart,{},{},{}); %progress bar, specially useful for models computations and validation progress
 
-    clc
-    close all
-    p=genpath('Functions');
-    addpath(p)
+    clc; close all
+    p=genpath('Functions'); addpath(p)
     
-    maindir='/Users/nassircassamo/Desktop/TESTE/'; %DEFINE MAIN DIRECTORY IN USERS COMPUTER TO STORE ALL RESULTS
+    maindir=[pwd,'/matlab_code_tests/']; %directory to save results
     subpart=2; [f]= MPC_progress(part,subpart,f,{},{});
-    pitchmode=0; %0 for yaw control and 1 for pith control
+    pitchmode=1; %0 for wake redirection control (yaw) and 1 for axial induction control (pitch)
     
     if pitchmode==0
-        dirName={'/Users/nassircassamo/Documents/MATLAB/Master_Thesis/steps_yaw_20deg_10offset'}; %directory for identification data, wake redirection control
-        dirName_val={'/Users/nassircassamo/Documents/MATLAB/Master_Thesis/steps_yaw_20deg_10offset_val'}; %directory for validation data, wake redirection control
+        dirName={[pwd,'/yaw_control/steps_yaw_20deg_10offset']}; %directory for identification data, wake redirection control
+        dirName_val={[pwd,'/yaw_control/steps_yaw_20deg_10offset_val']}; %directory for validation data, wake redirection control
     elseif pitchmode==1
-        dirName={'steps_theta_col_new';}; %directory for identification data, collective pitch control
-        dirName_val={'steps_theta_col_new_val'}; %directory for validation data, collective pitch control
+        dirName={[pwd,'/pitch_control/steps_theta_col_new']}; %directory for identification data, collective pitch control
+        dirName_val={[pwd,'/pitch_control/steps_theta_col_new_val']}; %directory for validation data, collective pitch control
     end
     
     detrendingstates=0; %1 to take mean flow and consider turbulent fluctuations
-    method=2; %0: DMD ; 1:DMDc; 2:IODMD; 3:EXTIODMD
+    method=2; %0: DMD ; 1:DMDc; 2:IODMD; 3:EIODMD
     koopman=0; %to add deterministic states to flow field data
     videos=0; %generate videos
     snapshots=0; %generate snapshots from simulation data
     
     subpart=3; [f]= MPC_progress(part,subpart,f,{},{});
+    
     % Turbine and flow characteristics to be used 
     rho=1.225; %air density in [kg m^-3]
-    D=178; %Rotor Diameter used in simulations= 178 [m]
-    % Simulation characterisitc (resampling)
+    D=178; %Rotor Diameter used in simulations: 178 [m]
+
     dt=2; %time sampling
     
 
@@ -76,15 +75,15 @@
     subpart=2; [f]= MPC_progress(part,subpart,f,{},{});
     if pitchmode==0 %wake redirection control using nacelle yaw angle
          analysis='YAW_MPC_offset_test'; %name of directory to be created to automatically store results
-         filename='/Users/nassircassamo/Documents/MATLAB/Master_Thesis/final_folder/U_data_complete_vec_yaw_off.mat'; %directory for matlab file with flow field identification data set
-         filenamevalid='/Users/nassircassamo/Documents/MATLAB/Master_Thesis/final_folder/U_data_complete_vec_yaw_off_val.mat'; %directory for matlab file with flow field validation data set
+         filename='yaw_control/U_data_complete_vec_yaw_off.mat'; %directory for matlab file with flow field identification data set
+         filenamevalid='yaw_control/U_data_complete_vec_yaw_off_val.mat'; %directory for matlab file with flow field validation data set
          load(filename) ;
          valid=load(filenamevalid);
          
          %for not using all grid points and only part of them (example,
          %only between first and second turbine)
-         % [xxx,yyy,zzz,XX,YY,ZZ,QQ_u]=retakepoints(QQ_u,x,y,z,Decimate);
-         % [xxx,yyy,zzz,XX,YY,ZZ,valid.QQ_u]=retakepoints(valid.QQ_u,x,y,z,Decimate);
+         [xxx,yyy,zzz,XX,YY,ZZ,QQ_u]=retakepoints(QQ_u,x,y,z,Decimate);
+         [xxx,yyy,zzz,XX,YY,ZZ,valid.QQ_u]=retakepoints(valid.QQ_u,x,y,z,Decimate);
     
         %easy solution to augment u flow field data matricx with other flow
         %field data
@@ -93,27 +92,31 @@
         
     elseif pitchmode==1 %collective pitch control was used
         analysis='PULSE_MPC/'; %name of directory to be created to automatically store results
-        filename='U_data_complete_vec_pulse.mat'; %directory for matlab file with flow field identification data set
-        filenamevalid='U_data_complete_vec_pulse_val.mat'; %directory for matlab file with flow field validation data set
+        filename='pitch_control/U_data_complete_vec_pulse.mat'; %directory for matlab file with flow field identification data set
+        filenamevalid='pitch_control/U_data_complete_vec_pulse_val.mat'; %directory for matlab file with flow field validation data set
         load(filename) ;
         valid=load(filenamevalid);
         
         %use only some points of the grid 
-        %[xxx,yyy,zzz,XX,YY,ZZ,QQ_u]=retakepoints(QQ_u,x,y,z,Decimate);
-        %[xxx,yyy,zzz,XX,YY,ZZ,valid.QQ_u]=retakepoints(valid.QQ_u,x,y,z,Decimate);
+        [xxx,yyy,zzz,XX,YY,ZZ,QQ_u]=retakepoints(QQ_u,x,y,z,Decimate);
+        [xxx,yyy,zzz,XX,YY,ZZ,valid.QQ_u]=retakepoints(valid.QQ_u,x,y,z,Decimate);
+        
+        [xxx,yyy,zzz,XX,YY,ZZ,QQ_w]=retakepoints(QQ_w,x,y,z,Decimate);
+        [xxx,yyy,zzz,XX,YY,ZZ,valid.QQ_w]=retakepoints(valid.QQ_w,x,y,z,Decimate);
    
         %easy solution to augment u flow field data matricx with other flow
         %field data instead of using koopmanextension function
-        %QQ_u=[double(QQ_u);double(QQ_w)];
-        %valid.QQ_u=[double(valid.QQ_u);double(valid.QQ_w)]; %perform same
+        QQ_u=[double(QQ_u);double(QQ_w)];
+        valid.QQ_u=[double(valid.QQ_u);double(valid.QQ_w)]; %perform same
         %grid resmplaing on validation for comparison purposes later on
          
     end
     
-    maindir=strcat(maindir,analysis);    %define main directory
+    maindir=strcat(maindir,analysis);  %define main directory
     
     % IDENTIFICATION DATA
     visualisefirstresults(dirName,rho,1,maindir,'SOWFA_id') %0: skip this; %1: see graphs
+    
     % VALIDATION DATA
     visualisefirstresults(dirName_val,rho,1,maindir,'SOWFA_val') %0: skip this; %1: see graphs
  
@@ -146,10 +149,12 @@
         if pitchmode==0
             wake_vorticity_deflection_yaw(dirName,filename,D,150) %snapshots of wake delfection (three dimensional, vorticity)
             hubheightcut_yaw(dirName,filename,D,150) %snapshots of wake deflection at hub height (velocity)
-          
+            vefield5D1(dirName,filename,D,440)
+            
         elseif pitchmode==1
             wake_vorticity_pitch(dirName,filename,D,400) %snapshots of wake contraction (three dimensional, vorticity)
-            vefield5D1(dirName,filename,D,400) %snapshots of wake shape taken at several slices downstream
+            hubheightcut_pitch(dirName,filename,D,400) %snapshots of wake deflection at hub height (velocity)
+            vefield5D1(dirName,filename,D,440) %snapshots of wake shape taken at several slices downstream
         end
     else 
     end
@@ -157,7 +162,7 @@
 %% (2) DYNAMIC MODE DECOMPOSITION 
 part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{}); 
    
-    itsf=921; %instant to start from, as certain sample time
+    itsf=921; %instant to start from, as certain sample time. 
     beg=(10001-itsf)/10; %instant to begin defined according to length of data
     %begin=750;
     %beg=750;
@@ -166,6 +171,7 @@ part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{});
     % Read and process identification data
     [rotSpeed, nacelleYaw, time1,rotorAzimuth,pitch,powerGenerator]=readdmdinformation(dirName); %read information from simulation
     [Inputs, Outputs, Deterministic,scalingfactors]=preprocessdmdid(beg, rotSpeed,time1,rotorAzimuth,nacelleYaw, pitchmode,pitch,powerGenerator,rho ); %preprocess information (resample, and maintain only relevant data)
+    
     
     subpart=3; [f]= MPC_progress(part,subpart,f,{},{}); 
     % Read and process validation data
@@ -185,8 +191,7 @@ part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{});
     else
     end
     
-    %include non linear observables - Koopman extensions to better recover
-    %non linear dynamics
+    %include non linear observables - Koopman extensions to better recover non linear dynamics
     if koopman
         [nonlobs]=koopmanstateextension(QQ_u, double(QQ_v), double(QQ_w),rho);
         states=[nonlobs];
@@ -210,7 +215,7 @@ part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{});
      
     subpart=2; [f]= MPC_progress(part,subpart,f,{},{}); 
     [modelVAF_val]=idvaloverview(FITje,FITje_val,dirdmd,'VAFidandval');  %overview of models results (identification and validation)
-    [a,b]=max(FITje_val(2,1:50)) %best performing model, only analysing first 50
+    [a,b]=max(FITje_val(2,1:50)); %best performing model, only analysing first 50
     FITje_val(1,b)
    
     if detrendingstates
@@ -239,7 +244,10 @@ part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{});
     [freq,LambdaDiag, P, phi,damping,b]=dynamicalanalysis(sys_red, U, S,V, dt,X_p,X, method,modeltouse,0,D,9,Deterministic,r,dirdmd,n,Xd,modeltouse); %dynamical analysis as proposed by DMD methodology
     
     subpart=2; [f]= MPC_progress(part,subpart,f,{},{});
-    visualisepodmodes(phi,freq, P,x,y,z,Decimate,D,LambdaDiag,damping,method,Xd,dirdmd) %two dimensional POD modes 
+    
+    %deprecated
+    %visualisepodmodes(phi,freq, P,x,y,z,Decimate,D,LambdaDiag,damping,method,Xd,dirdmd) %two dimensional POD modes 
+    
     podmodes3dim(x,y,z,Xd, P,phi,freq,damping,Decimate,D,dirdmd) %three dimensional POD modes (high dimensional state space eigenvectors)
     %modeanimation([4],x,y,z,P,phi,freq,damping,LambdaDiag, b, Decimate,D,dirdmd,f,1,scalingfactor,meansteadystate,Xd,X) %animation for three dimensional POD mode
 %% (5) REBUILD FLOW FIELD AND ASSESS DEVIATIONS
@@ -273,13 +281,23 @@ part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{});
     subpart=2; [f]= MPC_progress(part,subpart,f,{},{}); 
     
     %visual comparison on dmd predictions and true flow field. field should
-    %be chaneged according to data ste used
+    %be chaneged according to data set used
     if pitchmode==0
-        comparereconstruction(states(1:size(QQ_u,1),:), statesrebuild(1:size(QQ_u,1),:),D,dirdmd,x,y,z,Decimate,dirName,'reconsversusSOWFA_id',405,Inputs) %comparison at hub height plane
-        comparereconstruction(statesvalid(1:size(QQ_u,1),:), statesrebuildvalid(1:size(QQ_u,1),:),D,dirdmd,x,y,z,Decimate,dirName_val,'reconsversusSOWFA_valid',450,Inputs_val)
+        %comparereconstruction(states(1:size(QQ_u,1),:), statesrebuild(1:size(QQ_u,1),:),D,dirdmd,x,y,z,Decimate,dirName,'reconsversusSOWFA_id',405,Inputs) %comparison at hub height plane
+        
+        %compare reconstruction at hub height for different time instants
+        comparereconstruction(statesvalid(1:size(QQ_u,1),:), statesrebuildvalid(1:size(QQ_u,1),:),D,dirdmd,x,y,z,Decimate,dirName_val,'reconsversusSOWFA_valid',405,Inputs_val,pitchmode)
+        
+        %compare recontruction at downstream rotor plane for different time
+        %instants
+        comparereconstruction_pitch(statesvalid(1:size(QQ_u,1),:), statesrebuildvalid(1:size(QQ_u,1),:),D,dirdmd,x,y,z,Decimate,dirName_val,'reconsversusSOWFA_valid',425,Inputs_val) %comparison at dosntream rotor plane
+        
         %comparisonyaw(statesvalid,statesrebuildvalid,Inputs_val,Outputs_val,x,y,z,Decimate,dirdmd,D,ysim_val)
+        
     elseif pitchmode==1  
-        comparereconstruction_pitch(statesvalid(1:size(QQ_u,1),:), statesrebuildvalid(1:size(QQ_u,1),:),D,dirdmd,x,y,z,Decimate,dirName_val,'reconsversusSOWFA_valid',450,Inputs_val) %comparison at dosntream rotor plane
+        %compare reconstruction at hub height for different time instants
+        comparereconstruction(statesvalid(1:size(QQ_u,1)/2,:), statesrebuildvalid(1:size(QQ_u,1)/2,:),D,dirdmd,x,y,z,Decimate,dirName_val,'reconsversusSOWFA_valid',450,Inputs_val,pitchmode)
+        comparereconstruction_pitch(statesvalid(1:size(QQ_u,1)/2,:), statesrebuildvalid(1:size(QQ_u,1)/2,:),D,dirdmd,x,y,z,Decimate,dirName_val,'reconsversusSOWFA_valid',515,Inputs_val,pitchmode) %comparison at dosntream rotor plane
         %threeDcomparison(sys_red, modeltouse, Inputs, Outputs, x, y, z, Decimate, D, QQu, flowdmd,dir)
         %comparisonrotorplanes(sys_red, modeltouse, Inputs, Outputs, x, y, z, Decimate, D, QQ_u, flowdmd,dirdmd)
     end
@@ -289,7 +307,7 @@ part=2; subpart=1; [f]= MPC_progress(part,subpart,f,{},{});
     
     %evaluate time varying error in simualtions according to normalised
     %root mean squared error at each grid lcoation
-    [nrmse, nrmsevalid]=evaluatetimevaryingerror(states(1:size(QQ_u,1),:),statesrebuild(1:size(QQ_u,1),:),statesvalid(1:size(QQ_u,1),:), statesrebuildvalid(1:size(QQ_u,1),:),dirdmd,'statestimeerror');
+    [nrmse, nrmsevalid]=evaluatetimevaryingerror(states(1:size(QQ_u,1)/2,:),statesrebuild(1:size(QQ_u,1)/2,:),statesvalid(1:size(QQ_u,1)/2,:), statesrebuildvalid(1:size(QQ_u,1)/2,:),dirdmd,'statestimeerror');
     save(strcat(dirdmd,'/RECONSTRUCTION.mat'),'nrmse','nrmsevalid');
     meannrmse=mean(nrmse)
     meannrmsevalid=mean(nrmsevalid)
