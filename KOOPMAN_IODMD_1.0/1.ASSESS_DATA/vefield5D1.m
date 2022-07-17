@@ -98,11 +98,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 2
     subplot(3,4,2)
@@ -142,11 +141,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 3
     subplot(3,4,3)
@@ -186,11 +184,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 4
     subplot(3,4,4)
@@ -230,11 +227,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 5
     subplot(3,4,5)
@@ -274,11 +270,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 6
     subplot(3,4,6)
@@ -318,11 +313,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 7
     subplot(3,4,7)
@@ -362,11 +356,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 8
     subplot(3,4,8)
@@ -406,11 +399,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 9
     subplot(3,4,9)
@@ -450,11 +442,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 10
     subplot(3,4,10)
@@ -494,11 +485,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 11
     subplot(3,4,11)
@@ -538,11 +528,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% 12
     hp4 = get(subplot(3,4,12),'Position');
@@ -583,11 +572,10 @@
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title([' Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds.',' Power ', ...
-    num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
-    titlee.FontSize=12;
+    titlee=title([num2str(minutos),' min. and ',num2str(segundos),' sec.',' Power ', num2str(round(rotorPowerrs{1}(i,2)/1e6,2)),' MW' ]);
+    titlee.FontSize=16;
     titlee.FontWeight='normal';
+    set(gca,'fontname','times','fontsize',16)  % Set it to times
     
     %% color bar
     
