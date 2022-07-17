@@ -1,14 +1,23 @@
-function []=plotsnapshothh(states,xx,yy,yawanglers, D, i,X,Y,Z,Uups,Xm_sh,Ym_sh)
+function []=plotsnapshothh(states,xx,yy,yawanglers, D, i,X,Y,Z,Uups,Xm_sh,Ym_sh,pitchmode)
 
     UmeanAbs_sh_u = reshape(double(real(states(:,i))),Y,X,Z);
     [Xm_shs,Ym_shs] = meshgrid(xx-500,(yy-500));
     k=9; 
     Usecu=UmeanAbs_sh_u(:,:,k);
     Usq=squeeze(Usecu);
-    plotturbinefromabove(-yawanglers(i,1)+90, 0, 0, D);%yaw
-    %plotturbinefromabove(270+90, 0, 0, D);%pitch
-    hold on
-    plotturbinefromabove(yawanglers(i,2)+90, D*5, 0, D); %yaw
+    
+    if pitchmode==0
+        plotturbinefromabove(-yawanglers(i,1)+90, 0, 0, D);%yaw
+        %plotturbinefromabove(270+90, 0, 0, D);%pitch
+        hold on
+        plotturbinefromabove(yawanglers(i,2)+90, D*5, 0, D); %yaw
+    elseif pitchmode==1
+        plotturbinefromabove(0, 0, 0, D);%no need to represent yaw misalignment
+        %plotturbinefromabove(270+90, 0, 0, D);%pitch
+        hold on
+        plotturbinefromabove(0, D*5, 0, D); %no need to represent yaw misalignment
+    end
+        
     %plotturbinefromabove(270+90, D*5, 0, D);%pitch
     a=pcolor(Xm_shs,Ym_shs,Usq/Uups);
     a.FaceAlpha=0.8;
@@ -28,18 +37,26 @@ function []=plotsnapshothh(states,xx,yy,yawanglers, D, i,X,Y,Z,Uups,Xm_sh,Ym_sh)
     fract=number-integ;
     minutos=integ;
     segundos=60*fract;
-    titlee=title(['\theta : ', ...
-    num2str(round(abs(270-yawanglers(i,1)))), ' degrees. Time: ',num2str(minutos)...
-        ,' minutes and ',num2str(segundos),' seconds']); %PITCH
-    %titlee=title(['\delta\gamma : -', ...
-    %num2str(round(abs(270-yawanglers(i,1)))), ' degrees. Time: ',num2str(minutos)...
-    %    ,' minutes and ',num2str(segundos),' seconds']);
+    
+    
+    if pitchmode==0
+        titlee=title(['|\delta\gamma| : ', ...
+        num2str(round(abs(270-yawanglers(i,1)))), ' degrees. Time: ',num2str(minutos)...
+            ,' minutes and ',num2str(segundos),' seconds']);
+    elseif pitchmode==1
+        titlee=title(['\beta: ', ...
+        num2str(round(abs(270-yawanglers(i,1)))), ' degrees. Time: ',num2str(minutos)...
+           ,' minutes and ',num2str(segundos),' seconds']); %PITCH
+    end
+   
+    
     titlee.FontSize=14;
     titlee.FontWeight='normal';
     c = colorbar;
     c.Label.String = 'u / U_\infty';
-    set(gca,'fontsize', 14) 
+    set(gca,'fontsize', 18) 
     caxis([0 1.25])
     set(gca,'Ydir','reverse')
+    set(gca,'fontname','times')  % Set it to times
     hold off 
     
