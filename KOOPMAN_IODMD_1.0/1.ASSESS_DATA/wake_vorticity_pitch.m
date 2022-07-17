@@ -108,19 +108,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-    STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+    STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     
@@ -171,19 +171,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     %% 3
@@ -233,19 +233,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     %% 4
@@ -296,20 +296,20 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+    STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
-   titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
+    titlee.FontName='Times';
+    titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     %% 5
     subplot(5,1,5)
@@ -358,19 +358,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     set(gcf, 'Position', get(0, 'Screensize'));
@@ -428,19 +428,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     %% 7
     subplot(5,1,2)
@@ -489,19 +489,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     %% 8
@@ -551,19 +551,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     %% 9
     
@@ -613,19 +613,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
      %% 10
@@ -676,19 +676,19 @@ function []=wake_vorticity_pitch(dirName,filename,D,DCAT)
     minutos=integ;
     segundos=60*fract;
     STring1=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,2)/1e6));
-    text(7.85,1.75,1.5,STring1,'Fontsize',12,'FontName','Tahoma')
+    text(7.85,1.75,1.4,STring1,'Fontsize',16,'FontName','Times')
     STring2=sprintf('%2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6));
-    text(3.0,1.75,1.5,STring2,'Fontsize',12,'FontName','Tahoma')
-    STring3={sprintf('Total Mean Power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
-    text(12.0,2.5,1.5,STring3,'Fontsize',12,'FontName','Tahoma')
-     STring4={sprintf('Collective pitch angle: %2.0f °',round(abs(pitch(1,i))))};
-    text(3.0,1.75,1.7,STring4,'Fontsize',12,'FontName','Tahoma')
+    text(3.0,1.75,1.4,STring2,'Fontsize',16,'FontName','Times')
+    STring3={sprintf('Total mean power: %2.1f MW',mean(rotorPowerrs{n}(i,1)/1e6)+mean(rotorPowerrs{n}(i,2)/1e6))};
+    text(12.0,2.5,1.4,STring3,'Fontsize',16,'FontName','Times')
+     STring4={sprintf('Collective pitch angle: %2.0f Â°',round(abs(pitch(1,i))))};
+    text(3.0,1.75,1.7,STring4,'Fontsize',16,'FontName','Times')
     titlee=title({
         [' Time: ',num2str(minutos)...
         ,' minutes and ',num2str(segundos),' seconds']});
-    titlee.FontSize=14;
+    titlee.FontSize=17;
     titlee.FontWeight='normal';
-    titlee.FontName='Tahoma';
+    titlee.FontName='Times';
     titlee.Position=[ titlee.Position(1)*1.1  titlee.Position(2)-titlee.Position(2)*0.4  titlee.Position(3)];
     
     shg
